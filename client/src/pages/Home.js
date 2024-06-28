@@ -8,10 +8,15 @@ import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
+import { useWebAppUser } from "../hooks/telegram";
 
 function FirstPage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [droped, setDroped] = useState(false);
+  
+  const user = useWebAppUser();
+  console.log(user);
+
   let retrieveDrop;
   let temp, retrieveHold;
   const static_vases = [
@@ -60,7 +65,7 @@ function FirstPage(props) {
       <div className="info">
         <div className="info-avatar">
           <div className="info-avatar-imgbox"></div>
-          <div className="info-avatar-text">Vasili</div>
+          <div className="info-avatar-text">{user.firstname || "unknow"}</div>
         </div>
         <div className="info-quest">
           
