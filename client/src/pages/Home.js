@@ -8,7 +8,7 @@ import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
-import profile from "../assets/images/coin.png"
+import profile from "../assets/images/profile.png"
 
 function FirstPage(props) {
   const [holdClick, setHoldClick] = useState(false);
