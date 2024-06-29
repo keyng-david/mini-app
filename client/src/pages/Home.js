@@ -17,11 +17,14 @@ function FirstPage(props) {
   const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
   // const [scores, setScores] = useState(0);
-  // const [status, setStatus] = useState({owner:0,hide:false});
+  const [status, setStatus] = useState({owner:0,holdClick:false});
   // let owner = 0;
   // let score = parseInt(localStorage.getItem('score'))||0;
   // let result = false;
   const choosed = (e) => {
+    // setHoldClick(false)
+    setStatus({...status,holdClick:false})
+
      setChoose(true);
      setDroped(false)
     console.log(e.target.id, owner);
@@ -84,7 +87,7 @@ function FirstPage(props) {
     if (droped) {
       clearTimeout(retrieveDrop);
       temp = move();
-      retrieveHold = setTimeout(() => setHoldClick(false), 1000);
+      retrieveHold = setTimeout(() => setStatus({...status,holdClick:false}), 1000);
       retrieveDrop = setTimeout(() => setDroped(false), 1000);
     } else {
       clearTimeout(retrieveHold);
@@ -94,21 +97,32 @@ function FirstPage(props) {
     return temp;
   };
  
-  // const animation = () => {
-  //   if(status.owner) return "coin_down 2s backwards"
-  //   else if(result&&choose) return "coin_catch 2s backwards"
-  //   else if(!result&&choose) return "coin_lost 2s backwards"
-  //   else return ""
-  // }
+  const animation = () => {
+    if(status.holdClick) {
+      console.log('animation')
+      return "coin_down 2s backwards"
+    }
+    // else if(result&&choose) return "coin_catch 2s backwards"
+    // else if(!result&&choose) return "coin_lost 2s backwards"
+    else return ""
+  }
+
+  // useEffect(() => {
+  //   console.log("input params:->", props);
+  //   setChoose(false);
+  //   if (holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
+  // }, [holdClick]);
 
   useEffect(() => {
-    console.log("input params:->", props);
-    setChoose(false);
-    if (holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
-  }, [holdClick]);
+      console.log("input params:->", props);
+      setChoose(false);
+      if (status.holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
+    }, [status]);
+
   useEffect(() => {
     if (droped) {
-      retrieveHold = setTimeout(() => setHoldClick(false), 1000);
+      // retrieveHold = setTimeout(() => setHoldClick(false), 1000);
+      retrieveHold = setTimeout(() => setStatus({...status,holdClick:false}), 1000);
       // retrieveDrop = setTimeout(() => setDroped(false), 1000);
     }
   }, [droped]);
@@ -130,6 +144,7 @@ function FirstPage(props) {
         <div className="info-avatar">
           <div className="info-avatar-imgbox">
             <img style={{width:'90%', height:'90%'}} src={profile} />
+            {console.log('status holdClick',status.holdClick)}
           </div>
           <div className="info-avatar-text">Vasili</div>
         </div>
@@ -155,16 +170,17 @@ function FirstPage(props) {
           <img
             className="hide-img"
             src={Hide}
-            onClick={!holdClick ? setHoldClick(true) : null}
+            onClick={()=>setStatus({...status, holdClick:true}) }
+            // style={status.holdClick?{}}
           />
         </div>
         <div className="vase-coin">
           <div
             className="coin"
             style={{
-              animation:
-              // animation()
-                (holdClick ? "coin_down 2s backwards" : "") 
+              animation: 
+              animation()
+                // (status.holdClick ? "coin_down 2s backwards" : "") 
                 // ||
                 // (result
                 //   ? "coin_catch 2s backwards"
