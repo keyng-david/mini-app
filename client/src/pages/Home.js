@@ -9,6 +9,7 @@ import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import { useWebAppUser } from "../hooks/telegram";
+import { SDKProvider } from "@tma.js/sdk-react";
 
 function FirstPage(props) {
   const [holdClick, setHoldClick] = useState(false);
@@ -60,46 +61,48 @@ function FirstPage(props) {
     }
   }, [droped]);
   return (
-    <div className="home">
-      
-      <div className="info">
-        <div className="info-avatar">
-          <div className="info-avatar-imgbox"></div>
-          <div className="info-avatar-text">{user.firstname || "unknow"}</div>
+    <SDKProvider acceptCustomStyles debug>
+      <div className="home">
+        
+        <div className="info">
+          <div className="info-avatar">
+            <div className="info-avatar-imgbox"></div>
+            <div className="info-avatar-text">{user?.firstname || "unknow"}</div>
+          </div>
+          <div className="info-quest">
+            
+            <div className="info-quest-text" style={{position:'relative'}}><img className="info-quest-img" src={scroll} />Quest:Find the hidden $AMAR token</div>
+          </div>
         </div>
-        <div className="info-quest">
+        <div className="mask">
+          <div className="panel">
+            <Btn title="Earn" url="/earn" />
+            <div className="panel-score">
+              <img src={amar_token} className="panel-score-img" />
+              <div className="panel-score-text">4.999.999</div>
+            </div>
+            <Btn title="Wallet" url="/wallet"/>
+          </div>
+          <div className="hide">
+            <img className="hide-img" src={Hide} onClick={!holdClick ? () => setHoldClick(true) : null} />
+          </div>
+          <div className="vase-coin">
+            <div className="coin" style={{ animation: holdClick ? "coin_down 2s backwards" : "" }}>
+              <div id="coin"></div>
+            </div>
+            <div className="vase">
+            {droped ? handle() : init()}
+            </div>
+          </div>
           
-          <div className="info-quest-text" style={{position:'relative'}}><img className="info-quest-img" src={scroll} />Quest:Find the hidden $AMAR token</div>
         </div>
-      </div>
-      <div className="mask">
-        <div className="panel">
-          <Btn title="Earn" url="/earn" />
-          <div className="panel-score">
-            <img src={amar_token} className="panel-score-img" />
-            <div className="panel-score-text">4.999.999</div>
-          </div>
-          <Btn title="Wallet" url="/wallet"/>
-        </div>
-        <div className="hide">
-          <img className="hide-img" src={Hide} onClick={!holdClick ? () => setHoldClick(true) : null} />
-        </div>
-        <div className="vase-coin">
-          <div className="coin" style={{ animation: holdClick ? "coin_down 2s backwards" : "" }}>
-            <div id="coin"></div>
-          </div>
-          <div className="vase">
-          {droped ? handle() : init()}
-          </div>
+        <div className="background">
+          {/* <img className="human" src={human}/>
+          <img className='dog' src={dog}/> */}
         </div>
         
       </div>
-      <div className="background">
-        {/* <img className="human" src={human}/>
-        <img className='dog' src={dog}/> */}
-      </div>
-      
-    </div>
+    </SDKProvider>
   );
 }
 
