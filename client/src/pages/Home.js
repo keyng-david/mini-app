@@ -60,7 +60,7 @@ function FirstPage(props) {
       <div className="info">
         <div className="info-avatar">
           <div className="info-avatar-imgbox"></div>
-          <div className="info-avatar-text">Vasili</div>
+          <div className="info-avatar-text">unknow</div>
         </div>
         <div className="info-quest">
           
