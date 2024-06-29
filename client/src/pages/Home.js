@@ -19,30 +19,22 @@ function FirstPage(props) {
   // const [scores, setScores] = useState(0);
   const [status, setStatus] = useState({owner:0,holdClick:false});
   // let owner = 0;
-  // let score = parseInt(localStorage.getItem('score'))||0;
+  let score = parseInt(localStorage.getItem('score'))||0;
   // let result = false;
   const choosed = (e) => {
     // setHoldClick(false)
-    setStatus({...status,holdClick:false})
+    // setStatus({...status,holdClick:false})
 
-     setChoose(true);
-     setDroped(false)
+     
     console.log(e.target.id, owner);
     if (parseInt(e.target.id) === owner) {
-      // score = score + 1;
-      // localStorage.setItem('score',score.toString());
+      score = score + 1;
+      localStorage.setItem('score',score.toString());
       setResult(true)
-      // result = true;
     } else {
       setResult(false)
-      // result = false;
     }
-    handleChoose()
   };
-  const handleChoose = () =>{
-    // console.log(score,result)
-    setChoose(true);
-  }
   const static_vases = [
     <div
       className="vase-img-small"
@@ -87,7 +79,9 @@ function FirstPage(props) {
     if (droped) {
       clearTimeout(retrieveDrop);
       temp = move();
-      retrieveHold = setTimeout(() => setStatus({...status,holdClick:false}), 1000);
+      // retrieveHold = setTimeout(() => setStatus({...status,holdClick:false}), 1000);
+      retrieveHold = setTimeout(() => setHoldClick(false), 1000);
+
       retrieveDrop = setTimeout(() => setDroped(false), 1000);
     } else {
       clearTimeout(retrieveHold);
@@ -98,41 +92,35 @@ function FirstPage(props) {
   };
  
   const animation = () => {
-    if(status.holdClick) {
-      console.log('animation')
-      return "coin_down 2s backwards"
-    }
+    if(holdClick) {return "coin_down 2s backwards"}
     // else if(result&&choose) return "coin_catch 2s backwards"
     // else if(!result&&choose) return "coin_lost 2s backwards"
     else return ""
   }
-
-  // useEffect(() => {
-  //   console.log("input params:->", props);
-  //   setChoose(false);
-  //   if (holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
-  // }, [holdClick]);
-
   useEffect(() => {
       console.log("input params:->", props);
       setChoose(false);
-      if (status.holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
-    }, [status]);
+      if (holdClick)retrieveDrop = setTimeout(() => setDroped(true), 2500);
+      else setDroped(false)
+
+    }, [holdClick]);
+
+  
 
   useEffect(() => {
-    if (droped) {
-      // retrieveHold = setTimeout(() => setHoldClick(false), 1000);
-      retrieveHold = setTimeout(() => setStatus({...status,holdClick:false}), 1000);
-      // retrieveDrop = setTimeout(() => setDroped(false), 1000);
-    }
-  }, [droped]);
-
-  useEffect(() => {
-    retOwner = setTimeout(()=>setOwner(0),1000);
+    setChoose(true);
+     
+    // retOwner = setTimeout(()=>setOwner(0),1000);
   }, [result]);
   useEffect(() => {
     if (owner == 0) setResult(false);
   }, [owner]);
+  useEffect(()=>{if(choose)setDroped(false);},[choose])
+  useEffect(() => {
+      if (choose&&!droped) {
+        setHoldClick(false);
+      }
+  }, [droped]);
 
   // useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
   useEffect(() => {
@@ -144,7 +132,7 @@ function FirstPage(props) {
         <div className="info-avatar">
           <div className="info-avatar-imgbox">
             <img style={{width:'90%', height:'90%'}} src={profile} />
-            {console.log('status holdClick',status.holdClick)}
+            {console.log({holdClick})}
           </div>
           <div className="info-avatar-text">Vasili</div>
         </div>
@@ -170,23 +158,14 @@ function FirstPage(props) {
           <img
             className="hide-img"
             src={Hide}
-            onClick={()=>setStatus({...status, holdClick:true}) }
-            // style={status.holdClick?{}}
+            onClick={()=>setHoldClick(true) }
           />
         </div>
         <div className="vase-coin">
           <div
             className="coin"
             style={{
-              animation: 
-              animation()
-                // (status.holdClick ? "coin_down 2s backwards" : "") 
-                // ||
-                // (result
-                //   ? "coin_catch 2s backwards"
-                //   : choose
-                //   ? "coin_lost 2s backwards"
-                //   : ""),
+              animation: animation()
             }}
           >
             <div id="coin"></div>

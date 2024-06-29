@@ -166,6 +166,19 @@
     bottom:0;
     margin-bottom:-66px;
 } */
+ .vase-img-big:hover,
+ .vase-img-small:hover{
+    border-radius: 30px;
+    /* border: rgb(255,0,255); */
+    /* border-style: solid; */
+    /* opacity: 0.8; */
+    /* background-color: #464646; */
+    filter: brightness(150%);
+ }
+ /* .vase-img-big:active,
+ .vase-img-small:active{
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+ } */
 
 .vase-img-big{
     /* position: absolute; */
