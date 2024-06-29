@@ -65,7 +65,7 @@ function FirstPage(props) {
         <div className="info-avatar">
           <div className="info-avatar-imgbox"></div>
           <div className="info-avatar-text">
-            {user && user.firstname ? user.firstname : "unknow"}
+            {user && user.firstname ? user.firstname : "unknown"}
           </div>
         </div>
         <div className="info-quest">
