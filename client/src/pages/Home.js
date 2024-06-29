@@ -18,21 +18,20 @@ function FirstPage(props) {
   const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
   // const [scores, setScores] = useState(0);
-  // const [status, setStatus] = useState({owner:0,holdClick:false});
-  // let owner = 0;
   let score = parseInt(localStorage.getItem('score'))||0;
-  // let result = false;
+
   const choosed = (e) => {
      setChoose(true)
     console.log(e.target.id, owner);
     if (parseInt(e.target.id) === owner) {
-      score = score + 1;
-      localStorage.setItem('score',score.toString());
+      // score = score + 1;
+      localStorage.setItem('score',(score+1).toString());
       setResult(true)
     } else {
       setResult(false)
     }
   };
+
   const static_vases = [
     <div
       className="vase-img-small"
@@ -58,8 +57,10 @@ function FirstPage(props) {
     <div className="vase-img-big" style={{ left: "175px" }} id="cup_2"></div>,
     <div className="vase-img-small" style={{ left: "270px" }} id="cup_3"></div>,
   ];
+
   let retrieveShuffle,retOwner,retrieveDrop;
   let temp, retrieveHold;
+
   const init = () => {
     return static_vases.map((vase) => vase);
   };
@@ -138,7 +139,7 @@ function FirstPage(props) {
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" alt="no img"/>
             <div className="panel-score-text">
-              444{/* {score} */}
+              {score}
               </div>
           </div>
           <Btn title="Wallet" url="/wallet" />
