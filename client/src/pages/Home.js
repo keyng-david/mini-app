@@ -16,6 +16,7 @@ function FirstPage(props) {
   const [result, setResult] = useState(false);
   const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
+  const [shuffling, setShuffling] = useState(false);
   // const [scores, setScores] = useState(0);
   // const [status, setStatus] = useState({owner:0,holdClick:false});
   // let owner = 0;
@@ -57,7 +58,7 @@ function FirstPage(props) {
     <div className="vase-img-big" style={{ left: "175px" }} id="cup_2"></div>,
     <div className="vase-img-small" style={{ left: "270px" }} id="cup_3"></div>,
   ];
-  let retrieveDrop,retOwner;
+  let retrieveShuffle,retOwner,retrieveDrop;
   let temp, retrieveHold;
   const init = () => {
     return static_vases.map((vase) => vase);
@@ -66,14 +67,14 @@ function FirstPage(props) {
     return dynamic_vases.map((vase) => vase);
   };
   const handle = () => {
-    if (droped) {
-      clearTimeout(retrieveDrop);
+    if (shuffling) {
+      clearTimeout(retrieveShuffle);
       temp = move();
 
-      retrieveDrop = setTimeout(() => setDroped(false), 1000);
+      retrieveShuffle = setTimeout(() => setShuffling(false), 1000);
     } else {
       clearTimeout(retrieveHold);
-      clearTimeout(retrieveDrop);
+      clearTimeout(retrieveShuffle);
       temp = init();
     }
     return temp;
@@ -85,22 +86,16 @@ function FirstPage(props) {
     // else if(!result&&choose) return "coin_lost 2s backwards"
     else return ""
   }
+  const clickHide = () => {
+    setHoldClick(true);
+  }
   useEffect(() => {
       console.log("holdclick");
       setChoose(false);
-      if (holdClick)retrieveDrop = setTimeout(() => setDroped(true), 2500);
-      else setDroped(false)
+      if (holdClick)retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
 
     }, [holdClick]);
 
-  
-
-  // useEffect(() => {
-  //   console.log('result')
-    
-     
-  //   // retOwner = setTimeout(()=>setOwner(0),1000);
-  // }, [result]);
   useEffect(() => {
     if (owner == 0) setResult(false);
   }, [owner]);
@@ -115,7 +110,7 @@ function FirstPage(props) {
     if(choose)setDroped(false);
 
   },[choose])
-      
+  useEffect(()=>{if(shuffling)setDroped(true)},[shuffling])
   // useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
@@ -150,9 +145,9 @@ function FirstPage(props) {
         </div>
         <div className="hide">
           <img
-            className="hide-img"
+            className={droped?"disabled-hide-img":"hide-img"}
             src={Hide}
-            onClick={()=>setHoldClick(true) }
+            onClick={clickHide }
             alt="no img"
           />
         </div>
@@ -165,7 +160,7 @@ function FirstPage(props) {
           >
             <div id="coin"></div>
           </div>
-          <div className="vase">{droped ? handle() : init()}</div>
+          <div className="vase">{handle()}</div>
         </div>
       </div>
       {/* <div className="background">
