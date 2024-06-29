@@ -156,7 +156,6 @@ function Homepage(props) {
             alt="no img"
           />
         </div>
-        {/* <div className="vase-coin"> */}
           <div
             className="coin"
             style={{
@@ -174,7 +173,6 @@ function Homepage(props) {
               </div>
             </div>
           </div>
-        {/* </div> */}
       </div>
       {/* <div className="background">
          <img className="human" src={human}/>
