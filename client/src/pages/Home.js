@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import background from "../assets/images/background.png"
 
 import {} from // useNavigation
 "react-router-dom";
@@ -13,29 +14,31 @@ import profile from "../assets/images/coin.png"
 function FirstPage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [droped, setDroped] = useState(false);
-  // const [result, setResult] = useState(false);
-  // const [owner, setOwner] = useState(0);
+  const [result, setResult] = useState(false);
+  const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
-  // const [scores, setScores] = useState(0);
-  const [status, setStatus] = useState({owner:0,hide:false});
-  let owner = 0;
-  let score = parseInt(localStorage.getItem('score'))||0;
-  let result = false;
+  const [scores, setScores] = useState(0);
+  // const [status, setStatus] = useState({owner:0,hide:false});
+  // let owner = 0;
+  // let score = parseInt(localStorage.getItem('score'))||0;
+  // let result = false;
   const choosed = (e) => {
-    //  setChoose(true);
-    //  setDroped(false)
+     setChoose(true);
+     setDroped(false)
     console.log(e.target.id, owner);
     if (parseInt(e.target.id) === owner) {
-      score = score + 1;
-      localStorage.setItem('score',score.toString());
-      result = true;
+      // score = score + 1;
+      // localStorage.setItem('score',score.toString());
+      setResult(true)
+      // result = true;
     } else {
-      result = false;
+      setResult(false)
+      // result = false;
     }
     handleChoose()
   };
   const handleChoose = () =>{
-    console.log(score,result)
+    // console.log(score,result)
     setChoose(true);
   }
   const static_vases = [
@@ -74,10 +77,10 @@ function FirstPage(props) {
     return dynamic_vases.map((vase) => vase);
   };
   
-  const hideClick = () => {
-    owner = Math.floor(Math.random(0, 1) * 3 + 1);
-    setStatus({owner,hide:true});
-  };
+  // const hideClick = () => {
+  //   owner = Math.floor(Math.random(0, 1) * 3 + 1);
+  //   setStatus({owner,hide:true});
+  // };
   const handle = () => {
     if (droped) {
       clearTimeout(retrieveDrop);
@@ -93,35 +96,42 @@ function FirstPage(props) {
   };
  
   const animation = () => {
-    if(status.owner) return "coin_down 2s backwards"
+    if(holdClick) return "coin_down 2s backwards"
     else if(result&&choose) return "coin_catch 2s backwards"
     else if(!result&&choose) return "coin_lost 2s backwards"
     else return ""
   }
 
-  // useEffect(() => {
-  //   console.log("input params:->", props);
-  //   setChoose(false);
-  //   if (holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
-  // }, [holdClick]);
-  // useEffect(() => {
-  //   if (droped) {
-  //     retrieveHold = setTimeout(() => setHoldClick(false), 1000);
-  //     // retrieveDrop = setTimeout(() => setDroped(false), 1000);
-  //   }
-  // }, [droped]);
+  window.addEventListener('resize', function() {
+    var image = document.getElementById('background_image');
+    var section = document.getElementById('vase_coin');
+    var imageHeight = image.clientHeight;
+    section.style.height = imageHeight + 'px';
+  });
 
-  // useEffect(() => {
-  //   retOwner = setTimeout(()=>setOwner(0),1000);
-  // }, [result]);
-  // useEffect(() => {
-  //   if (owner == 0) setResult(false);
-  // }, [owner]);
+  useEffect(() => {
+    console.log("input params:->", props);
+    setChoose(false);
+    if (holdClick) retrieveDrop = setTimeout(() => setDroped(true), 2500);
+  }, [holdClick]);
+  useEffect(() => {
+    if (droped) {
+      retrieveHold = setTimeout(() => setHoldClick(false), 1000);
+      // retrieveDrop = setTimeout(() => setDroped(false), 1000);
+    }
+  }, [droped]);
 
-  // useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
-  // useEffect(() => {
-  //   clearTimeout(retrieveHold, retrieveDrop, retOwner);
-  // }, []);
+  useEffect(() => {
+    retOwner = setTimeout(()=>setOwner(0),1000);
+  }, [result]);
+  useEffect(() => {
+    if (owner == 0) setResult(false);
+  }, [owner]);
+
+  useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
+  useEffect(() => {
+    clearTimeout(retrieveHold, retrieveDrop, retOwner);
+  }, []);
   return (
     <div className="home">
       <div className="info">
@@ -143,7 +153,9 @@ function FirstPage(props) {
           <Btn title="Earn" url="/earn" />
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" />
-            <div className="panel-score-text">{score}</div>
+            <div className="panel-score-text">
+              333{/* 3333{score} */}
+              </div>
           </div>
           <Btn title="Wallet" url="/wallet" />
         </div>
@@ -151,13 +163,19 @@ function FirstPage(props) {
           <img
             className="hide-img"
             src={Hide}
-            onClick={!holdClick ? hideClick : null}
+            onClick={!holdClick ? holdClick : null}
           />
         </div>
-        <div className="vase-coin">
+        <div style={{position: 'relative'}}>
+
+        <img src={background} id="background_image" style={{width: '100%', zIndex: 0, position: 'absolute' }} />
+        
+        <div className="vase-coin" id="vase_coin" >
           <div
             className="coin"
             style={{
+              position:"absolute",
+              inset:'0',
               animation:animation()
                 // (holdClick ? "coin_down 2s backwards" : "") ||
                 // (result
@@ -169,8 +187,9 @@ function FirstPage(props) {
           >
             <div id="coin"></div>
           </div>
-          <div className="vase">{droped ? handle() : init()}</div>
-        </div>
+          <div style={{position:'relative',height:'100%'}}>
+          <div className="vase">{droped ? handle() : init()}</div></div>
+        </div></div>
       </div>
       <div className="background">
         {/* <img className="human" src={human}/>
