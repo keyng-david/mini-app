@@ -156,15 +156,25 @@ function Homepage(props) {
             alt="no img"
           />
         </div>
-        <div style={{ position: "relative", marginTop: "-50px" }}>
-          <img src={background} className="backImg" />
-          <div style={{ position: "absolute", inset: 0 }}>
-            <div className="hhh">
-              {/* <div style={{position: "absolute",height:'44%',width:'28%',bottom:'18%',left:'33%',zIndex:'1'}}> */}
-              <div className="vase">{handle()}</div>
+        {/* <div className="vase-coin"> */}
+          <div
+            className="coin"
+            style={{
+              animation: animation(),
+            }}
+          >
+            <div id="coin"></div>
+          </div>
+          <div style={{ position: "relative", marginTop: "-50px" }}>
+            <img src={background} className="backImg" />
+            <div style={{ position: "absolute", inset: 0 }}>
+              <div className="hhh">
+                {/* <div style={{position: "absolute",height:'44%',width:'28%',bottom:'18%',left:'33%',zIndex:'1'}}> */}
+                <div className="vase">{handle()}</div>
+              </div>
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </div>
       {/* <div className="background">
          <img className="human" src={human}/>
