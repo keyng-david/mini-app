@@ -15,7 +15,7 @@ function FirstPage(props) {
   const [droped, setDroped] = useState(false);
 
   const user = useWebAppUser();
-  console.log(user);
+  console.log("telegram: ", user);
 
   let retrieveDrop;
   let temp, retrieveHold;
