@@ -178,10 +178,10 @@ function FirstPage(props) {
           <div className="vase">{droped ? handle() : init()}</div>
         </div>
       </div>
-      <div className="background">
-         {/* <img className="human" src={human}/>
-        <img className='dog' src={dog}/>  */}
-      </div>
+      {/* <div className="background">
+         <img className="human" src={human}/>
+        <img className='dog' src={dog}/> 
+      </div> */}
       {/* <div style={{position:'relative'}}>
         <img src={background} className="backImg"/>
       </div> */}
