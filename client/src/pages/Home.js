@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import background from "../assets/images/background.png"
-
+import background from '../assets/images/background.png'
 import {} from // useNavigation
 "react-router-dom";
 
@@ -17,7 +16,7 @@ function FirstPage(props) {
   const [result, setResult] = useState(false);
   const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
-  const [scores, setScores] = useState(0);
+  // const [scores, setScores] = useState(0);
   // const [status, setStatus] = useState({owner:0,hide:false});
   // let owner = 0;
   // let score = parseInt(localStorage.getItem('score'))||0;
@@ -95,19 +94,12 @@ function FirstPage(props) {
     return temp;
   };
  
-  const animation = () => {
-    if(holdClick) return "coin_down 2s backwards"
-    else if(result&&choose) return "coin_catch 2s backwards"
-    else if(!result&&choose) return "coin_lost 2s backwards"
-    else return ""
-  }
-
-  window.addEventListener('resize', function() {
-    var image = document.getElementById('background_image');
-    var section = document.getElementById('vase_coin');
-    var imageHeight = image.clientHeight;
-    section.style.height = imageHeight + 'px';
-  });
+  // const animation = () => {
+  //   if(status.owner) return "coin_down 2s backwards"
+  //   else if(result&&choose) return "coin_catch 2s backwards"
+  //   else if(!result&&choose) return "coin_lost 2s backwards"
+  //   else return ""
+  // }
 
   useEffect(() => {
     console.log("input params:->", props);
@@ -128,7 +120,7 @@ function FirstPage(props) {
     if (owner == 0) setResult(false);
   }, [owner]);
 
-  useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
+  // useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   }, []);
@@ -154,7 +146,7 @@ function FirstPage(props) {
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" />
             <div className="panel-score-text">
-              333{/* 3333{score} */}
+              444{/* {score} */}
               </div>
           </div>
           <Btn title="Wallet" url="/wallet" />
@@ -163,21 +155,17 @@ function FirstPage(props) {
           <img
             className="hide-img"
             src={Hide}
-            onClick={!holdClick ? holdClick : null}
+            onClick={!holdClick ? setHoldClick(true) : null}
           />
         </div>
-        <div style={{position: 'relative'}}>
-
-        <img src={background} id="background_image" style={{width: '100%', zIndex: 0, position: 'absolute' }} />
-        
-        <div className="vase-coin" id="vase_coin" >
+        <div className="vase-coin">
           <div
             className="coin"
             style={{
-              position:"absolute",
-              inset:'0',
-              animation:animation()
-                // (holdClick ? "coin_down 2s backwards" : "") ||
+              animation:
+              // animation()
+                (holdClick ? "coin_down 2s backwards" : "") 
+                // ||
                 // (result
                 //   ? "coin_catch 2s backwards"
                 //   : choose
@@ -187,14 +175,16 @@ function FirstPage(props) {
           >
             <div id="coin"></div>
           </div>
-          <div style={{position:'relative',height:'100%'}}>
-          <div className="vase">{droped ? handle() : init()}</div></div>
-        </div></div>
+          <div className="vase">{droped ? handle() : init()}</div>
+        </div>
       </div>
       <div className="background">
-        {/* <img className="human" src={human}/>
-        <img className='dog' src={dog}/> */}
+         {/* <img className="human" src={human}/>
+        <img className='dog' src={dog}/>  */}
       </div>
+      {/* <div style={{position:'relative'}}>
+        <img src={background} className="backImg"/>
+      </div> */}
     </div>
   );
 }
