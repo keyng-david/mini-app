@@ -130,7 +130,7 @@ function Homepage(props) {
             />
             {console.log({ holdClick })}
           </div>
-          <div className="info-avatar-text">Vasili</div>
+          <div className="info-avatar-text">{'Ozhous ( CEO ) '}</div>
         </div>
         <div className="info-quest">
           <div className="info-quest-text" style={{ position: "relative" }}>
