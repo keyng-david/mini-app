@@ -1,4 +1,4 @@
-import BackButton from "../../pages/Topbar/topbar";
+import BackButton from "../../pages/backButton/backButton";
 
 import "./styles.css";
 
