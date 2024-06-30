@@ -8,14 +8,14 @@ import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
-import { useWebAppUser } from "../hooks/telegram";
+// import { useInitData } from "@tma.js/sdk-react";
 
 function FirstPage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [droped, setDroped] = useState(false);
 
-  const user = useWebAppUser();
-  console.log("telegram: ", user);
+  // const initData = useInitData();
+  // console.log("kis_debug: ", initData);
 
   let retrieveDrop;
   let temp, retrieveHold;
@@ -65,7 +65,7 @@ function FirstPage(props) {
         <div className="info-avatar">
           <div className="info-avatar-imgbox"></div>
           <div className="info-avatar-text">
-            {user && user.firstname ? user.firstname : "unknown"}
+            AAA{/* {user && user.firstname ? user.firstname : "unknown"} */}
           </div>
         </div>
         <div className="info-quest">
