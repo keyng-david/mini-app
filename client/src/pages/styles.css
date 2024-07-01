@@ -234,7 +234,7 @@
 }
 
 /* -------------vase responsive---------------------- */
-.hhh {
+.gradient {
   position: relative;
   height: 100%;
   background-image: linear-gradient(
@@ -360,26 +360,13 @@
   font-family: "MyriadPro-Bold";
 }
 
-/* .coin:start
-*/
-
-.coin {
-  height: 10%;
+#coin {
+  width: 5%;
   position: absolute;
   bottom: 40%;
   left: 48%;
-  right: 48%;
   z-index: 1;
   opacity: 0;
-}
-
-#coin {
-  background-image: url(../assets/images/amarIcon.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 20%;
-  height: 20%;
 }
 
 .human {

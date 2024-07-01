@@ -157,27 +157,22 @@ function Homepage(props) {
           />
         </div>
         <div
-          className="coin"
+          id="coin"
           style={{
             animation: animation(),
           }}
         >
-          <div id="coin"></div>
+          <img src={amar_token} alt="no amar_token" style={{ width: "100%" }} />
         </div>
         <div style={{ position: "relative", marginTop: "-50px" }}>
           <img src={background} className="backImg" />
           <div style={{ position: "absolute", inset: -1 }}>
-            <div className="hhh">
-              {/* <div style={{position: "absolute",height:'44%',width:'28%',bottom:'18%',left:'33%',zIndex:'1'}}> */}
+            <div className="gradient">
               <div className="vase">{handle()}</div>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="background">
-         <img className="human" src={human}/>
-        <img className='dog' src={dog}/> 
-      </div> */}
     </div>
   );
 }
