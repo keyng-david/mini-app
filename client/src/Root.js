@@ -28,7 +28,7 @@ function ErrorBoundaryError({ error }) {
 /**
  * @returns {JSX.Element}
  */
-export function Inner() {
+function Inner() {
   const debug = useLaunchParams().startParam === "debug";
   const manifestUrl = useMemo(() => {
     return new URL("tonconnect-manifest.json", window.location.href).toString();
