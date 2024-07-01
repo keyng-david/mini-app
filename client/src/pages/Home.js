@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import background from "../assets/images/background.png";
-import {} from // useNavigation
-"react-router-dom";
 
 import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
@@ -10,7 +8,6 @@ import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import profile from "../assets/images/profile.png";
 
-const log = console.log;
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [droped, setDroped] = useState(false);
@@ -25,7 +22,7 @@ function Homepage(props) {
   const increase = useRef();
   let retrieveShuffle, retOwner, retrieveDrop;
   let temp, retrieveHold;
-
+  const log = console.log;
   const vase_choosed = (e) => {
     setOwner(parseInt(e.target.id));
   };
@@ -235,26 +232,27 @@ function Homepage(props) {
             alt="no img"
           />
         </div>
-        <div
-          id="coin"
-          style={{
-            animation: coinAnimation(owner),
-          }}
-        >
-          {result ? (
-            <div className="coin-score">{increase.current}</div>
-          ) : (
-            <img
-              src={amar_token}
-              alt="no amar_token"
-              style={{ width: "100%" }}
-            />
-          )}
-        </div>
+
         <div style={{ position: "relative", marginTop: "-50px" }}>
           <img src={background} className="backImg" />
           <div style={{ position: "absolute", inset: -1 }}>
             <div className="gradient">
+              <div
+                id="coin"
+                style={{
+                  animation: coinAnimation(owner),
+                }}
+              >
+                {result ? (
+                  <div className="coin-score">{increase.current}</div>
+                ) : (
+                  <img
+                    src={amar_token}
+                    alt="no amar_token"
+                    style={{ width: "100%" }}
+                  />
+                )}
+              </div>
               <div className="vase">{shuffling_process()}</div>
             </div>
           </div>

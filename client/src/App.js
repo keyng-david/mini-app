@@ -15,35 +15,6 @@ import Wallet from "./pages/Wallet/wallet";
 import LoadingPage from "./components/Loading";
 
 const App = () => {
-  
-  // const [gohome, setGohome] = useState(0);
-  // let retrieve1, retrieve2;
-  // if (!gohome) retrieve1 = setTimeout(() => setGohome(1), 3000);
-  // useEffect(() => {
-  //   if (gohome === 1) {
-  //     console.log('gohome 1',gohome)
-  //     clearTimeout(retrieve1);
-  //     retrieve2 = setTimeout(() => setGohome(2), 100);
-  //   }
-  //   if (gohome === 2) {
-  //     console.log('gohome 2',gohome)
-  //     setGohome(3);
-  //     clearTimeout(retrieve2);
-  //   }
-  //   console.log('gohome',gohome)
-  // }, [gohome]);
-  // const handle = () => {
-  //   if (gohome === 0) {
-  //     console.log(gohome);
-  //     return <Navigate to="/splash" />;
-  //   } else if (gohome === 1) {
-  //     return <Navigate to="/" />;
-  //   }
-  // };
-  // useEffect(()=>{
-  //   clearTimeout(retrieve1,retrieve2)
-  // },[])
-  //
   return (
     <LoadingPage>
       <BrowserRouter>
