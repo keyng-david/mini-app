@@ -11,7 +11,6 @@ import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import profile from "../assets/images/profile.png";
-import vaseBroken from "../assets/images/vaseBroken.png";
 
 const log = console.log;
 function Homepage(props) {
@@ -219,8 +218,8 @@ function Homepage(props) {
 
   //
   const initData = useInitData();
-  const username = useMemo(() => {
-    return initData && initData.user ? initData.user.username : "unknown";
+  const user = useMemo(() => {
+    return initData && initData.user ? initData.user : "unknown";
   });
   return (
     <div className="home">
@@ -234,7 +233,7 @@ function Homepage(props) {
             />
             {console.log({ holdClick })}
           </div>
-          <div className="info-avatar-text">{username}</div>
+          <div className="info-avatar-text">{user.first_name}</div>
         </div>
         <div className="info-quest">
           <div className="info-quest-text" style={{ position: "relative" }}>

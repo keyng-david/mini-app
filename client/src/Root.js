@@ -1,6 +1,5 @@
 import { SDKProvider, useLaunchParams } from "@tma.js/sdk-react";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import App from "./App";
 
@@ -30,9 +29,6 @@ function ErrorBoundaryError({ error }) {
  */
 function Inner() {
   const debug = useLaunchParams().startParam === "debug";
-  const manifestUrl = useMemo(() => {
-    return new URL("tonconnect-manifest.json", window.location.href).toString();
-  }, []);
 
   // Enable debug mode to see all the methods sent and events received.
   useEffect(() => {
@@ -42,11 +38,9 @@ function Inner() {
   }, [debug]);
 
   return (
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
-      <SDKProvider acceptCustomStyles debug={debug}>
-        <App />
-      </SDKProvider>
-    </TonConnectUIProvider>
+    <SDKProvider acceptCustomStyles debug={debug}>
+      <App />
+    </SDKProvider>
   );
 }
 
