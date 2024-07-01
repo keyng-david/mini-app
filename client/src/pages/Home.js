@@ -8,6 +8,8 @@ import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import profile from "../assets/images/profile.png";
 
+import { sendDataToBackend } from "../api/loadaxiosFunc";
+
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [droped, setDroped] = useState(false);
@@ -16,12 +18,14 @@ function Homepage(props) {
   const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
   const [reset, setReset] = useState(false);
+  const [loading, setLoading] = useState(false);
   let score = parseInt(localStorage.getItem("score")) || 0;
   const airdrop = useRef(0);
   const retrieveTimeout = useRef();
   const increase = useRef();
   const canbeSelect = useRef(false);
   const retrieveShuffle = useRef();
+  const response = useRef();
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
   // const log = console.log;
@@ -61,18 +65,21 @@ function Homepage(props) {
   const init = () => {
     return static_vases.current.map((vase) => vase);
   };
+
   const move = () => {
     return dynamic_vases.map((vase) => vase);
   };
+
   const shuffling_process = () => {
+    //Once shuffling enabled,
     if (shuffling) {
-      clearTimeout(retrieveShuffle.current);
-      temp = move();
-      canbeSelect.current = true;
-      retrieveShuffle.current = setTimeout(() => setShuffling(false), 1000);
+      clearTimeout(retrieveShuffle.current); //remove the shuffle timeout.
+      temp = move(); //set return value to move animation(dynamic_vases)
+      canbeSelect.current = true; //vase can be selected from now
+      retrieveShuffle.current = setTimeout(() => setShuffling(false), 1000); //After 1s, suffling will be stoped
     } else {
       clearTimeout(retrieveHold);
-      temp = init();
+      temp = init(); //set return value to static status(static_vases)
     }
     return temp;
   };
@@ -124,44 +131,74 @@ function Homepage(props) {
     setReset(!reset);
     clearTimeout(retrieveTimeout);
   };
+  const loadServer = async (sendData) => {
+    setLoading(true);
+    const returnVal = await sendDataToBackend(sendData);
+    setLoading(false);
+    return returnVal;
+  };
 
   //------------Event control part ------------
 
-  //--holdclick event---
+  //--holdclick event---(Game Entry Point)
   useEffect(() => {
     if (holdClick) {
+      //After 2.5s, shuffling animation will execute
       retrieveShuffle.current = setTimeout(() => setShuffling(true), 2500);
+      //Game status initialize
       setChoose(false);
       setResult(false);
       setOwner(0);
-    } else {
     }
   }, [holdClick]);
 
-  //--owner event---
+  //--owner event---(Vase selection event)
   useEffect(() => {
     if (owner && holdClick) {
-      // console.log("selected?");
+      //Until this game finish, vase can't be selected
       canbeSelect.current = false;
+      //vase array remove bright status after vase selecting
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
         "animation",
         ""
       );
-      static_vases.current[(owner - 1).toString()] = {
-        ...static_vases.current[(owner - 1).toString()],
-        props: {
-          ...static_vases.current[(owner - 1).toString()].props,
-          className: "vase-img-broken",
-          style: {
-            ...static_vases.current[(owner - 1).toString()].props.style,
-            backgroundPosition: "bottom",
+      //Then path to dust rising animation or broken animation status following loading status.
+      if (loading) {
+        static_vases.current[(owner - 1).toString()] = {
+          ...static_vases.current[(owner - 1).toString()],
+          props: {
+            ...static_vases.current[(owner - 1).toString()].props,
+            className: "vase-img-dust-rising",
+            style: {
+              ...static_vases.current[(owner - 1).toString()].props.style,
+              backgroundPosition: "bottom",
+            },
           },
-        },
-      };
+        };
+      } else {
+        static_vases.current[(owner - 1).toString()] = {
+          ...static_vases.current[(owner - 1).toString()],
+          props: {
+            ...static_vases.current[(owner - 1).toString()].props,
+            className: "vase-img-broken",
+            style: {
+              ...static_vases.current[(owner - 1).toString()].props.style,
+              backgroundPosition: "bottom",
+            },
+          },
+        };
+      }
+      //After 3s, return vase status to origin status.
       retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 3000);
-
+      //choosing status is set.
       setChoose(true);
+      //send owner info and receive the camparing result.
+      response.current = loadServer({ owner });
+
+      //comparing selected vase number with airdroped vase number.
+      //if true, increase score one more then store it to localstorage.
+      //If false, no increase.
       if (airdrop.current === owner) {
         airdrop.current = 0;
         localStorage.setItem("score", (score + 1).toString());
@@ -191,7 +228,6 @@ function Homepage(props) {
     if (shuffling) {
       setDroped(true);
       airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
-      // log("airdrop", airdrop.current);
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
         "animation",
@@ -207,7 +243,6 @@ function Homepage(props) {
 
   return (
     <div className="home">
-      {console.log(shuffling)}
       <div className="info">
         <div className="info-avatar">
           <div className="info-avatar-imgbox">
