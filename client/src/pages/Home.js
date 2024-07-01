@@ -25,10 +25,9 @@ function Homepage(props) {
 
   const vase_choosed = (e) => {
     setOwner(parseInt(e.target.id));
-    // choosed_process();
   };
 
-  const static_vases = [
+  const static_vases = useRef([
     <div
       className="vase-img-small"
       style={{ left: "90px" }}
@@ -47,7 +46,7 @@ function Homepage(props) {
       id="3"
       onClick={vase_choosed}
     ></div>,
-  ];
+  ]);
   const dynamic_vases = [
     <div className="vase-img-small" style={{ left: "90px" }} id="cup_1"></div>,
     <div className="vase-img-big" style={{ left: "175px" }} id="cup_2"></div>,
@@ -56,12 +55,12 @@ function Homepage(props) {
 
   //------------ handlers ------------
   const init = () => {
-    return static_vases.map((vase) => vase);
+    return static_vases.current.map((vase) => vase);
   };
   const move = () => {
     return dynamic_vases.map((vase) => vase);
   };
-  const handle = () => {
+  const shuffling_process = () => {
     if (shuffling) {
       clearTimeout(retrieveShuffle);
       temp = move();
@@ -96,6 +95,19 @@ function Homepage(props) {
 
   useEffect(() => {
     if (owner) {
+      static_vases.current = static_vases.current.map((vase) => {
+        log(vase.props.style);
+        return {
+          ...vase,
+          props: {
+            ...vase.props,
+            style: {
+              ...vase.props.style,
+              animation: "",
+            },
+          },
+        };
+      });
       setChoose(true);
       log("selected owner: ", owner, "owner vase", airdrop.current);
       if (airdrop.current === owner) {
@@ -125,6 +137,19 @@ function Homepage(props) {
     if (shuffling) {
       setDroped(true);
       airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
+      static_vases.current = static_vases.current.map((vase) => {
+        log(vase.props.style);
+        return {
+          ...vase,
+          props: {
+            ...vase.props,
+            style: {
+              ...vase.props.style,
+              animation: " glow 1s infinite alternate",
+            },
+          },
+        };
+      });
     }
   }, [shuffling]);
 
@@ -183,7 +208,7 @@ function Homepage(props) {
           <img src={background} className="backImg" />
           <div style={{ position: "absolute", inset: -1 }}>
             <div className="gradient">
-              <div className="vase">{handle()}</div>
+              <div className="vase">{shuffling_process()}</div>
             </div>
           </div>
         </div>

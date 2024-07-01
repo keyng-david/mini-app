@@ -281,7 +281,10 @@
   align-items: center;
   z-index: 1;
 }
-
+.vase-img-big,
+.vase-img-small {
+  border-radius: 60px;
+}
 .vase-img-big {
   width: 60%;
   height: 70%;
@@ -381,6 +384,15 @@
   right: 0;
   width: 180px;
   height: 350px;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px 0 rgba(255, 215, 0, 1);
+  }
+  100% {
+    box-shadow: 0 0 20px 0 rgba(255, 215, 0, 0);
+  }
 }
 
 @keyframes coin_down {
