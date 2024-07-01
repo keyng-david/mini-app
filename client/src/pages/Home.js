@@ -3,6 +3,8 @@ import background from "../assets/images/background.png";
 import {} from // useNavigation
 "react-router-dom";
 
+import { useInitData } from "@tma.js/sdk-react";
+
 import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
@@ -214,6 +216,12 @@ function Homepage(props) {
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   }, []);
+
+  //
+  const initData = useInitData();
+  const username = useMemo(() => {
+    return initData && initData.user ? initData.user.username : "unknown";
+  });
   return (
     <div className="home">
       <div className="info">
@@ -226,7 +234,7 @@ function Homepage(props) {
             />
             {console.log({ holdClick })}
           </div>
-          <div className="info-avatar-text">{"Ozhous ( CEO ) "}</div>
+          <div className="info-avatar-text">{username}</div>
         </div>
         <div className="info-quest">
           <div className="info-quest-text" style={{ position: "relative" }}>
