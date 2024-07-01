@@ -20,11 +20,12 @@ function Homepage(props) {
   const airdrop = useRef(0);
   const retrieveTimeout = useRef();
   const increase = useRef();
+  const canbeSelect = useRef(false);
   let retrieveShuffle, retOwner, retrieveDrop;
   let temp, retrieveHold;
   const log = console.log;
   const vase_choosed = (e) => {
-    setOwner(parseInt(e.target.id));
+    if (canbeSelect.current) setOwner(parseInt(e.target.id));
   };
 
   const static_vases = useRef([
@@ -66,7 +67,7 @@ function Homepage(props) {
     if (shuffling) {
       clearTimeout(retrieveShuffle);
       temp = move();
-
+      canbeSelect.current = true;
       retrieveShuffle = setTimeout(() => setShuffling(false), 1000);
     } else {
       clearTimeout(retrieveHold);
@@ -137,6 +138,7 @@ function Homepage(props) {
 
   useEffect(() => {
     if (owner && holdClick) {
+      canbeSelect.current = false;
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
         "animation",
@@ -183,7 +185,7 @@ function Homepage(props) {
     if (shuffling) {
       setDroped(true);
       airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
-      log("airdrop", airdrop.current);
+      // log("airdrop", airdrop.current);
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
         "animation",
