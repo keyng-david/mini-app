@@ -21,9 +21,10 @@ function Homepage(props) {
   const retrieveTimeout = useRef();
   const increase = useRef();
   const canbeSelect = useRef(false);
-  let retrieveShuffle, retOwner, retrieveDrop;
+  const retrieveShuffle = useRef();
+  let retOwner, retrieveDrop;
   let temp, retrieveHold;
-  const log = console.log;
+  // const log = console.log;
   const vase_choosed = (e) => {
     if (canbeSelect.current) setOwner(parseInt(e.target.id));
   };
@@ -65,13 +66,12 @@ function Homepage(props) {
   };
   const shuffling_process = () => {
     if (shuffling) {
-      clearTimeout(retrieveShuffle);
+      clearTimeout(retrieveShuffle.current);
       temp = move();
       canbeSelect.current = true;
-      retrieveShuffle = setTimeout(() => setShuffling(false), 1000);
+      retrieveShuffle.current = setTimeout(() => setShuffling(false), 1000);
     } else {
       clearTimeout(retrieveHold);
-      clearTimeout(retrieveShuffle);
       temp = init();
     }
     return temp;
@@ -126,9 +126,11 @@ function Homepage(props) {
   };
 
   //------------Event control part ------------
+
+  //--holdclick event---
   useEffect(() => {
     if (holdClick) {
-      retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
+      retrieveShuffle.current = setTimeout(() => setShuffling(true), 2500);
       setChoose(false);
       setResult(false);
       setOwner(0);
@@ -136,8 +138,10 @@ function Homepage(props) {
     }
   }, [holdClick]);
 
+  //--owner event---
   useEffect(() => {
     if (owner && holdClick) {
+      // console.log("selected?");
       canbeSelect.current = false;
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
@@ -171,6 +175,7 @@ function Homepage(props) {
     }
   }, [owner]);
 
+  //--droped event---
   useEffect(() => {
     if (!droped && choose) {
       setHoldClick(false);
@@ -181,6 +186,7 @@ function Homepage(props) {
     if (choose) setDroped(false);
   }, [choose]);
 
+  //--shuffling event---
   useEffect(() => {
     if (shuffling) {
       setDroped(true);
@@ -194,11 +200,14 @@ function Homepage(props) {
     }
   }, [shuffling]);
 
+  //--didmount event---
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
-  }, []);
+  });
+
   return (
     <div className="home">
+      {console.log(shuffling)}
       <div className="info">
         <div className="info-avatar">
           <div className="info-avatar-imgbox">
@@ -236,7 +245,7 @@ function Homepage(props) {
         </div>
 
         <div style={{ position: "relative", marginTop: "-50px" }}>
-          <img src={background} className="backImg" />
+          <img src={background} className="backImg" alt="noImg loaded" />
           <div style={{ position: "absolute", inset: -1 }}>
             <div className="gradient">
               <div
