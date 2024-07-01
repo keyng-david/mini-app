@@ -306,6 +306,16 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+.vase-img-broken {
+  width: 50%;
+  height: 60%;
+  z-index: 1;
+
+  background-image: url(../assets/images/vaseBroken.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 /* --------------------------------------------------- */
 
@@ -370,6 +380,7 @@
   left: 48%;
   z-index: 1;
   opacity: 0;
+  display: flex;
 }
 
 .human {
@@ -418,13 +429,11 @@
   0% {
     bottom: 10%;
     opacity: 1;
-    /* transform: rotateX(0); */
   }
 
   100% {
     opacity: 0;
     bottom: 80%;
-    /* transform: rotateX(360deg); */
   }
 }
 
