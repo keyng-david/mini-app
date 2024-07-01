@@ -9,7 +9,6 @@ import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import profile from "../assets/images/profile.png";
-import vaseBroken from "../assets/images/vaseBroken.png";
 
 const log = console.log;
 function Homepage(props) {
@@ -20,7 +19,6 @@ function Homepage(props) {
   const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
   const [reset, setReset] = useState(false);
-  // const [scores, setScores] = useState(0);
   let score = parseInt(localStorage.getItem("score")) || 0;
   const airdrop = useRef(0);
   const retrieveTimeout = useRef();
@@ -30,7 +28,6 @@ function Homepage(props) {
 
   const vase_choosed = (e) => {
     setOwner(parseInt(e.target.id));
-    // setHoldClick(false);
   };
 
   const static_vases = useRef([
@@ -87,22 +84,17 @@ function Homepage(props) {
       increase.current = "";
       return "coin_down 2s backwards";
     }
-    log("in coinAnimation:", result);
     if (result) {
       increase.current = "+1";
       return `coin_catch_${num} 2s backwards`;
     }
-
-    // else if(!result&&choose) return "coin_lost 2s backwards"
     return "";
   };
-  const clickHide = () => {
-    setHoldClick(true);
-  };
+
+  const clickHide = () => setHoldClick(true);
 
   const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
     const retArray = objArray.map((obj) => {
-      log(obj.props.style);
       return {
         ...obj,
         props: {
@@ -119,8 +111,6 @@ function Homepage(props) {
   };
 
   const returnVaseImg = (owner) => {
-    log("------return Img-----------");
-
     static_vases.current = static_vases.current.map((vase, index) => {
       if (index === owner - 1)
         return {
@@ -139,8 +129,6 @@ function Homepage(props) {
 
   //------------Event control part ------------
   useEffect(() => {
-    console.log("holdclick");
-
     if (holdClick) {
       retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
       setChoose(false);
@@ -157,11 +145,6 @@ function Homepage(props) {
         "animation",
         ""
       );
-      log(
-        "selected vase property:",
-        static_vases.current[(owner - 1).toString()]
-      );
-
       static_vases.current[(owner - 1).toString()] = {
         ...static_vases.current[(owner - 1).toString()],
         props: {
@@ -176,25 +159,26 @@ function Homepage(props) {
       retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 3000);
 
       setChoose(true);
-      log("selected owner: ", owner, "owner vase", airdrop.current);
       if (airdrop.current === owner) {
+        airdrop.current = 0;
         localStorage.setItem("score", (score + 1).toString());
         setResult(true);
+      } else {
+        setResult(false);
+        increase.current = "";
       }
-      airdrop.current = 0;
+    } else {
+      setResult(false);
     }
-    // setHoldClick(false);
   }, [owner]);
 
   useEffect(() => {
-    log("droped", { choose, droped });
     if (!droped && choose) {
       setHoldClick(false);
     }
   }, [droped, choose]);
 
   useEffect(() => {
-    log("choose");
     if (choose) setDroped(false);
   }, [choose]);
 
@@ -224,7 +208,6 @@ function Homepage(props) {
               src={profile}
               alt="no profile"
             />
-            {console.log({ holdClick })}
           </div>
           <div className="info-avatar-text">{"Ozhous ( CEO ) "}</div>
         </div>
