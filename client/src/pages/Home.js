@@ -88,6 +88,7 @@ function Homepage(props) {
       increase.current = "";
       return "coin_down 2s backwards";
     }
+    log("in coinAnimation:", result);
     if (result) {
       increase.current = "+1";
       return "coin_catch 2s backwards";
@@ -140,9 +141,13 @@ function Homepage(props) {
   //------------Event control part ------------
   useEffect(() => {
     console.log("holdclick");
-    setChoose(false);
 
-    if (holdClick) retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
+    if (holdClick) {
+      retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
+      setChoose(false);
+      setResult(false);
+    } else {
+    }
   }, [holdClick]);
 
   useEffect(() => {
@@ -175,8 +180,6 @@ function Homepage(props) {
       if (airdrop.current === owner) {
         localStorage.setItem("score", (score + 1).toString());
         setResult(true);
-      } else {
-        setResult(false);
       }
       setOwner(0);
       airdrop.current = 0;
@@ -199,6 +202,7 @@ function Homepage(props) {
     if (shuffling) {
       setDroped(true);
       airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
+      log("airdrop", airdrop.current);
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
         "animation",
@@ -254,8 +258,15 @@ function Homepage(props) {
             animation: coinAnimation(),
           }}
         >
-          <img src={amar_token} alt="no amar_token" style={{ width: "100%" }} />
-          <div>{increase.current}</div>
+          {result ? (
+            <div className="coin-score">{increase.current}</div>
+          ) : (
+            <img
+              src={amar_token}
+              alt="no amar_token"
+              style={{ width: "100%" }}
+            />
+          )}
         </div>
         <div style={{ position: "relative", marginTop: "-50px" }}>
           <img src={background} className="backImg" />
