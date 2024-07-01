@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import background from "../assets/images/background.png";
 import {} from // useNavigation
 "react-router-dom";
@@ -9,6 +9,8 @@ import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import profile from "../assets/images/profile.png";
+import vaseBroken from "../assets/images/vaseBroken.png";
+
 const log = console.log;
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
@@ -17,57 +19,56 @@ function Homepage(props) {
   const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
+  const [reset, setReset] = useState(false);
   // const [scores, setScores] = useState(0);
   let score = parseInt(localStorage.getItem("score")) || 0;
+  const airdrop = useRef(0);
+  const retrieveTimeout = useRef();
+  const increase = useRef();
+  let retrieveShuffle, retOwner, retrieveDrop;
+  let temp, retrieveHold;
 
-  const choosed = (e) => {
-    setChoose(true);
-    console.log(e.target.id, owner);
-    if (parseInt(e.target.id) === owner) {
-      // score = score + 1;
-      localStorage.setItem("score", (score + 1).toString());
-      setResult(true);
-    } else {
-      setResult(false);
-    }
+  const vase_choosed = (e) => {
+    setOwner(parseInt(e.target.id));
+    // setHoldClick(false);
   };
 
-  const static_vases = [
+  const static_vases = useRef([
     <div
       className="vase-img-small"
-      style={{ left: "90px" }}
+      style={{ left: "30%" }}
       id="1"
-      onClick={choosed}
+      onClick={vase_choosed}
     ></div>,
     <div
       className="vase-img-big"
-      style={{ left: "175px" }}
+      style={{ left: "60%" }}
       id="2"
-      onClick={choosed}
+      onClick={vase_choosed}
     ></div>,
     <div
       className="vase-img-small"
-      style={{ left: "270px" }}
+      style={{
+        left: "70%",
+      }}
       id="3"
-      onClick={choosed}
+      onClick={vase_choosed}
     ></div>,
-  ];
+  ]);
   const dynamic_vases = [
     <div className="vase-img-small" style={{ left: "90px" }} id="cup_1"></div>,
     <div className="vase-img-big" style={{ left: "175px" }} id="cup_2"></div>,
     <div className="vase-img-small" style={{ left: "270px" }} id="cup_3"></div>,
   ];
 
-  let retrieveShuffle, retOwner, retrieveDrop;
-  let temp, retrieveHold;
-
+  //------------ handlers ------------
   const init = () => {
-    return static_vases.map((vase) => vase);
+    return static_vases.current.map((vase) => vase);
   };
   const move = () => {
     return dynamic_vases.map((vase) => vase);
   };
-  const handle = () => {
+  const shuffling_process = () => {
     if (shuffling) {
       clearTimeout(retrieveShuffle);
       temp = move();
@@ -81,40 +82,135 @@ function Homepage(props) {
     return temp;
   };
 
-  const animation = () => {
+  const coinAnimation = (num) => {
     if (holdClick) {
+      increase.current = "";
       return "coin_down 2s backwards";
     }
-    // else if(result&&choose) return "coin_catch 2s backwards"
+    log("in coinAnimation:", result);
+    if (result) {
+      increase.current = "+1";
+      return `coin_catch_${num} 2s backwards`;
+    }
+
     // else if(!result&&choose) return "coin_lost 2s backwards"
-    else return "";
+    return "";
   };
   const clickHide = () => {
     setHoldClick(true);
   };
+
+  const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
+    const retArray = objArray.map((obj) => {
+      log(obj.props.style);
+      return {
+        ...obj,
+        props: {
+          ...obj.props,
+          style: {
+            ...obj.props.style,
+            [stylePropsName]: stylePropsValue,
+          },
+        },
+      };
+    });
+
+    return retArray;
+  };
+
+  const returnVaseImg = (owner) => {
+    log("------return Img-----------");
+
+    static_vases.current = static_vases.current.map((vase, index) => {
+      if (index === owner - 1)
+        return {
+          ...vase,
+          props: {
+            ...vase.props,
+            className: owner !== 2 ? "vase-img-small" : "vase-img-big",
+            style: { ...vase.props.style, backgroundPosition: "center" },
+          },
+        };
+      return vase;
+    });
+    setReset(!reset);
+    clearTimeout(retrieveTimeout);
+  };
+
+  //------------Event control part ------------
   useEffect(() => {
     console.log("holdclick");
-    setChoose(false);
-    if (holdClick) retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
+
+    if (holdClick) {
+      retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
+      setChoose(false);
+      setResult(false);
+      setOwner(0);
+    } else {
+    }
   }, [holdClick]);
 
   useEffect(() => {
-    if (owner == 0) setResult(false);
+    if (owner && holdClick) {
+      static_vases.current = elementArrayStyleSet(
+        static_vases.current,
+        "animation",
+        ""
+      );
+      log(
+        "selected vase property:",
+        static_vases.current[(owner - 1).toString()]
+      );
+
+      static_vases.current[(owner - 1).toString()] = {
+        ...static_vases.current[(owner - 1).toString()],
+        props: {
+          ...static_vases.current[(owner - 1).toString()].props,
+          className: "vase-img-broken",
+          style: {
+            ...static_vases.current[(owner - 1).toString()].props.style,
+            backgroundPosition: "bottom",
+          },
+        },
+      };
+      retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 3000);
+
+      setChoose(true);
+      log("selected owner: ", owner, "owner vase", airdrop.current);
+      if (airdrop.current === owner) {
+        localStorage.setItem("score", (score + 1).toString());
+        setResult(true);
+      }
+      airdrop.current = 0;
+    }
+    // setHoldClick(false);
   }, [owner]);
+
   useEffect(() => {
     log("droped", { choose, droped });
     if (!droped && choose) {
       setHoldClick(false);
     }
   }, [droped, choose]);
+
   useEffect(() => {
     log("choose");
     if (choose) setDroped(false);
   }, [choose]);
+
   useEffect(() => {
-    if (shuffling) setDroped(true);
+    if (shuffling) {
+      setDroped(true);
+      airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
+      log("airdrop", airdrop.current);
+      static_vases.current = elementArrayStyleSet(
+        static_vases.current,
+        "animation",
+        " glow 1s infinite alternate"
+      );
+    }
   }, [shuffling]);
-  // useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
+
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   }, []);
@@ -157,27 +253,30 @@ function Homepage(props) {
           />
         </div>
         <div
-          className="coin"
+          id="coin"
           style={{
-            animation: animation(),
+            animation: coinAnimation(owner),
           }}
         >
-          <div id="coin"></div>
+          {result ? (
+            <div className="coin-score">{increase.current}</div>
+          ) : (
+            <img
+              src={amar_token}
+              alt="no amar_token"
+              style={{ width: "100%" }}
+            />
+          )}
         </div>
         <div style={{ position: "relative", marginTop: "-50px" }}>
           <img src={background} className="backImg" />
           <div style={{ position: "absolute", inset: -1 }}>
-            <div className="hhh">
-              {/* <div style={{position: "absolute",height:'44%',width:'28%',bottom:'18%',left:'33%',zIndex:'1'}}> */}
-              <div className="vase">{handle()}</div>
+            <div className="gradient">
+              <div className="vase">{shuffling_process()}</div>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className="background">
-         <img className="human" src={human}/>
-        <img className='dog' src={dog}/> 
-      </div> */}
     </div>
   );
 }

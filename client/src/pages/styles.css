@@ -234,7 +234,7 @@
 }
 
 /* -------------vase responsive---------------------- */
-.hhh {
+.gradient {
   position: relative;
   height: 100%;
   background-image: linear-gradient(
@@ -281,7 +281,10 @@
   align-items: center;
   z-index: 1;
 }
-
+.vase-img-big,
+.vase-img-small {
+  border-radius: 60px;
+}
 .vase-img-big {
   width: 60%;
   height: 70%;
@@ -299,6 +302,16 @@
   z-index: 1;
 
   background-image: url(../assets/images/vase.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.vase-img-broken {
+  width: 50%;
+  height: 60%;
+  z-index: 1;
+
+  background-image: url(../assets/images/vaseBroken.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -360,26 +373,33 @@
   font-family: "MyriadPro-Bold";
 }
 
-/* .coin:start
-*/
-
-.coin {
-  height: 10%;
+#coin {
+  width: 5%;
   position: absolute;
   bottom: 40%;
   left: 48%;
-  right: 48%;
   z-index: 1;
   opacity: 0;
+  display: flex;
 }
 
-#coin {
-  background-image: url(../assets/images/amarIcon.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 20%;
-  height: 20%;
+.coin-score {
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: "MyriadPro-Bold";
+  background: -webkit-linear-gradient(
+    #fff3bf,
+    #fff3bf,
+    #fff3bf,
+    #fff3bf,
+    #ffd93a,
+    #ffd93a,
+    #ffd93a,
+    #dbb417
+  );
+  background-clip: padding-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .human {
@@ -394,6 +414,15 @@
   right: 0;
   width: 180px;
   height: 350px;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px 0 rgba(255, 215, 0, 1);
+  }
+  100% {
+    box-shadow: 0 0 20px 0 rgba(255, 215, 0, 0);
+  }
 }
 
 @keyframes coin_down {
@@ -415,17 +444,51 @@
   }
 }
 
-@keyframes coin_catch {
+@keyframes coin_catch_2 {
   0% {
     bottom: 10%;
     opacity: 1;
-    /* transform: rotateX(0); */
   }
 
   100% {
     opacity: 0;
     bottom: 80%;
-    /* transform: rotateX(360deg); */
+  }
+}
+@keyframes coin_catch_1 {
+  0% {
+    bottom: 10%;
+    left: 30%;
+    opacity: 1;
+  }
+  50% {
+    bottom: 35%;
+    left: 30%;
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    left: 50%;
+    bottom: 80%;
+  }
+}
+@keyframes coin_catch_3 {
+  0% {
+    bottom: 10%;
+    left: 65%;
+    opacity: 1;
+  }
+  50% {
+    bottom: 35%;
+    left: 65%;
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    left: 50%;
+    bottom: 80%;
   }
 }
 
