@@ -458,36 +458,36 @@
 @keyframes coin_catch_1 {
   0% {
     bottom: 10%;
-    left: 90px;
+    left: 30%;
     opacity: 1;
   }
   50% {
     bottom: 35%;
-    left: 90px;
+    left: 30%;
     opacity: 0.5;
   }
 
   100% {
     opacity: 0;
-    left: 180px;
+    left: 50%;
     bottom: 80%;
   }
 }
 @keyframes coin_catch_3 {
   0% {
     bottom: 10%;
-    left: 270px;
+    left: 65%;
     opacity: 1;
   }
   50% {
     bottom: 35%;
-    left: 270px;
+    left: 65%;
     opacity: 0.5;
   }
 
   100% {
     opacity: 0;
-    left: 180px;
+    left: 50%;
     bottom: 80%;
   }
 }

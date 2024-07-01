@@ -28,29 +28,28 @@ function Homepage(props) {
   let retrieveShuffle, retOwner, retrieveDrop;
   let temp, retrieveHold;
 
-  let imageUrl = "../assets/images/vase.png";
-
   const vase_choosed = (e) => {
     setOwner(parseInt(e.target.id));
+    // setHoldClick(false);
   };
 
   const static_vases = useRef([
     <div
       className="vase-img-small"
-      style={{ left: "90px" }}
+      style={{ left: "30%" }}
       id="1"
       onClick={vase_choosed}
     ></div>,
     <div
       className="vase-img-big"
-      style={{ left: "175px" }}
+      style={{ left: "60%" }}
       id="2"
       onClick={vase_choosed}
     ></div>,
     <div
       className="vase-img-small"
       style={{
-        left: "270px",
+        left: "70%",
       }}
       id="3"
       onClick={vase_choosed}
@@ -152,7 +151,7 @@ function Homepage(props) {
   }, [holdClick]);
 
   useEffect(() => {
-    if (owner) {
+    if (owner && holdClick) {
       static_vases.current = elementArrayStyleSet(
         static_vases.current,
         "animation",
@@ -182,9 +181,9 @@ function Homepage(props) {
         localStorage.setItem("score", (score + 1).toString());
         setResult(true);
       }
-      // setOwner(0);
       airdrop.current = 0;
     }
+    // setHoldClick(false);
   }, [owner]);
 
   useEffect(() => {
