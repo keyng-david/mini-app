@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import background from "../assets/images/background.png";
 import {} from // useNavigation
 "react-router-dom";
+
+import { useInitData } from "@tma.js/sdk-react";
 
 import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
@@ -9,7 +11,6 @@ import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn";
 import profile from "../assets/images/profile.png";
-import vaseBroken from "../assets/images/vaseBroken.png";
 
 const log = console.log;
 function Homepage(props) {
@@ -214,6 +215,12 @@ function Homepage(props) {
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   }, []);
+
+  //
+  const initData = useInitData();
+  const user = useMemo(() => {
+    return initData && initData.user ? initData.user : "unknown";
+  });
   return (
     <div className="home">
       <div className="info">
@@ -226,7 +233,7 @@ function Homepage(props) {
             />
             {console.log({ holdClick })}
           </div>
-          <div className="info-avatar-text">{"Ozhous ( CEO ) "}</div>
+          <div className="info-avatar-text">{user.first_name}</div>
         </div>
         <div className="info-quest">
           <div className="info-quest-text" style={{ position: "relative" }}>
