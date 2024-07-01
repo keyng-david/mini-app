@@ -444,7 +444,7 @@
   }
 }
 
-@keyframes coin_catch {
+@keyframes coin_catch_2 {
   0% {
     bottom: 10%;
     opacity: 1;
@@ -452,6 +452,42 @@
 
   100% {
     opacity: 0;
+    bottom: 80%;
+  }
+}
+@keyframes coin_catch_1 {
+  0% {
+    bottom: 10%;
+    left: 90px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 35%;
+    left: 90px;
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    left: 180px;
+    bottom: 80%;
+  }
+}
+@keyframes coin_catch_3 {
+  0% {
+    bottom: 10%;
+    left: 270px;
+    opacity: 1;
+  }
+  50% {
+    bottom: 35%;
+    left: 270px;
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    left: 180px;
     bottom: 80%;
   }
 }

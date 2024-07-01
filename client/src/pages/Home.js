@@ -83,7 +83,7 @@ function Homepage(props) {
     return temp;
   };
 
-  const coinAnimation = () => {
+  const coinAnimation = (num) => {
     if (holdClick) {
       increase.current = "";
       return "coin_down 2s backwards";
@@ -91,7 +91,7 @@ function Homepage(props) {
     log("in coinAnimation:", result);
     if (result) {
       increase.current = "+1";
-      return "coin_catch 2s backwards";
+      return `coin_catch_${num} 2s backwards`;
     }
 
     // else if(!result&&choose) return "coin_lost 2s backwards"
@@ -146,6 +146,7 @@ function Homepage(props) {
       retrieveShuffle = setTimeout(() => setShuffling(true), 2500);
       setChoose(false);
       setResult(false);
+      setOwner(0);
     } else {
     }
   }, [holdClick]);
@@ -181,7 +182,7 @@ function Homepage(props) {
         localStorage.setItem("score", (score + 1).toString());
         setResult(true);
       }
-      setOwner(0);
+      // setOwner(0);
       airdrop.current = 0;
     }
   }, [owner]);
@@ -255,7 +256,7 @@ function Homepage(props) {
         <div
           id="coin"
           style={{
-            animation: coinAnimation(),
+            animation: coinAnimation(owner),
           }}
         >
           {result ? (
