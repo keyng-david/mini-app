@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import background from "../assets/images/background.png";
 import {} from // useNavigation
 "react-router-dom";
@@ -19,17 +19,13 @@ function Homepage(props) {
   const [shuffling, setShuffling] = useState(false);
   // const [scores, setScores] = useState(0);
   let score = parseInt(localStorage.getItem("score")) || 0;
+  const airdrop = useRef(0);
+  let retrieveShuffle, retOwner, retrieveDrop;
+  let temp, retrieveHold;
 
-  const choosed = (e) => {
-    setChoose(true);
-    console.log(e.target.id, owner);
-    if (parseInt(e.target.id) === owner) {
-      // score = score + 1;
-      localStorage.setItem("score", (score + 1).toString());
-      setResult(true);
-    } else {
-      setResult(false);
-    }
+  const vase_choosed = (e) => {
+    setOwner(parseInt(e.target.id));
+    // choosed_process();
   };
 
   const static_vases = [
@@ -37,19 +33,19 @@ function Homepage(props) {
       className="vase-img-small"
       style={{ left: "90px" }}
       id="1"
-      onClick={choosed}
+      onClick={vase_choosed}
     ></div>,
     <div
       className="vase-img-big"
       style={{ left: "175px" }}
       id="2"
-      onClick={choosed}
+      onClick={vase_choosed}
     ></div>,
     <div
       className="vase-img-small"
       style={{ left: "270px" }}
       id="3"
-      onClick={choosed}
+      onClick={vase_choosed}
     ></div>,
   ];
   const dynamic_vases = [
@@ -58,9 +54,7 @@ function Homepage(props) {
     <div className="vase-img-small" style={{ left: "270px" }} id="cup_3"></div>,
   ];
 
-  let retrieveShuffle, retOwner, retrieveDrop;
-  let temp, retrieveHold;
-
+  //------------ handlers ------------
   const init = () => {
     return static_vases.map((vase) => vase);
   };
@@ -92,6 +86,8 @@ function Homepage(props) {
   const clickHide = () => {
     setHoldClick(true);
   };
+
+  //------------Event control part ------------
   useEffect(() => {
     console.log("holdclick");
     setChoose(false);
@@ -99,22 +95,41 @@ function Homepage(props) {
   }, [holdClick]);
 
   useEffect(() => {
-    if (owner == 0) setResult(false);
+    if (owner) {
+      setChoose(true);
+      log("selected owner: ", owner, "owner vase", airdrop.current);
+      if (airdrop.current === owner) {
+        localStorage.setItem("score", (score + 1).toString());
+        setResult(true);
+      } else {
+        setResult(false);
+      }
+      setOwner(0);
+      airdrop.current = 0;
+    }
   }, [owner]);
+
   useEffect(() => {
     log("droped", { choose, droped });
     if (!droped && choose) {
       setHoldClick(false);
     }
   }, [droped, choose]);
+
   useEffect(() => {
     log("choose");
     if (choose) setDroped(false);
   }, [choose]);
+
   useEffect(() => {
-    if (shuffling) setDroped(true);
+    if (shuffling) {
+      setDroped(true);
+      airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
+    }
   }, [shuffling]);
+
   // useEffect(()=>{localStorage.setItem('score',`${scores}`)},[scores])
+
   useEffect(() => {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   }, []);
