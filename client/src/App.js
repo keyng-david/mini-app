@@ -7,12 +7,12 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Earn from "./pages/Earn/Earn";
-import Splash from "./pages/Splash/splash";
+import Earn from "./pages/Earn/Earn.js";
+import Splash from "./pages/Splash/splash.js";
 
-import Homepage from "./pages/Home";
-import Wallet from "./pages/Wallet/wallet";
-import LoadingPage from "./components/Loading";
+import Homepage from "./pages/Home.js";
+import Wallet from "./pages/Wallet/wallet.js";
+import LoadingPage from "./components/Loading.js";
 
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
       <BrowserRouter>
         <Router>
           <Route path="/splash" element={<Splash />} />
-          <Route path="/" element={<Homepage />} key="1" />
+          <Route path="/" element={<Homepage />} />
           <Route path="/earn" element={<Earn />} />
           <Route path="/wallet" element={<Wallet />} />
         </Router>

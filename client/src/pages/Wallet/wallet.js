@@ -1,10 +1,10 @@
 // import BackButton from "pages/Topbar/topbar";
 import logo2 from "../../assets/images/icon1024V3.png";
-import Itemview from "../../components/componentEarn/Itemview";
+import Itemview from "../../components/componentEarn/Itemview.js";
 import binance from "../../assets/svg/binance.svg";
 import check from "../../assets/images/check.png";
-import BlackPage from "../../pages/blackpage/blackpage";
-import Itempack from "../../components/componentEarn/ItemPack";
+import BlackPage from "../../pages/blackpage/blackpage.js";
+import Itempack from "../../components/componentEarn/ItemPack.js";
 
 import "./wallet.css";
 

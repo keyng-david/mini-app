@@ -1,4 +1,4 @@
-import BackButton from "../../pages/backButton/backButton";
+import BackButton from "../../pages/backButton/backButton.js";
 
 import "./styles.css";
 

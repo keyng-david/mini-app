@@ -1,12 +1,12 @@
-import Itempack from "../../components/componentEarn/ItemPack";
-import Itemview from "../../components/componentEarn/Itemview";
+import Itempack from "../../components/componentEarn/ItemPack.js";
+import Itemview from "../../components/componentEarn/Itemview.js";
 import calender from "../../assets/images/calender.png";
 import yutube from "../../assets/images/yutube.png";
 import rightArrow from "../../assets/svg/right-arrow-3094.svg";
 import tokenImg from "../../assets/images/amarIcon.png";
 
 import "./earn.css";
-import BlackPage from "../../pages/blackpage/blackpage";
+import BlackPage from "../../pages/blackpage/blackpage.js";
 
 const Earn = () => {
   return (

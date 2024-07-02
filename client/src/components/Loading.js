@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Splash from "../pages/Splash/splash";
+import React, { useState, useEffect } from "react";
+import Splash from "../pages/Splash/splash.js";
 
 const LoadingPage = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +15,7 @@ const LoadingPage = (props) => {
       {isLoading ? (
         <div>
           {/* <h1>Loading...</h1> */}
-          <Splash/>
+          <Splash />
         </div>
       ) : (
         <div>
