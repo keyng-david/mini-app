@@ -6,7 +6,7 @@ import rightArrow from "../../assets/svg/right-arrow-3094.svg";
 import tokenImg from "../../assets/images/amarIcon.png";
 
 import "./earn.css";
-import BlackPage from "../../pages/blackpage/blackpage.js";
+import BlackPage from "../blackpage/blackpage.js";
 
 const Earn = () => {
   return (

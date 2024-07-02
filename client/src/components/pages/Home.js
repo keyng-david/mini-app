@@ -45,12 +45,14 @@ function Homepage(props) {
       style={{ left: "30%" }}
       id="1"
       onClick={vase_choosed}
+      key="1"
     ></div>,
     <div
       className="vase-img-big"
       style={{ left: "60%" }}
       id="2"
       onClick={vase_choosed}
+      key="2"
     ></div>,
     <div
       className="vase-img-small"
@@ -59,12 +61,28 @@ function Homepage(props) {
       }}
       id="3"
       onClick={vase_choosed}
+      key="3"
     ></div>,
   ]);
   const dynamic_vases = [
-    <div className="vase-img-small" style={{ left: "90px" }} id="cup_1"></div>,
-    <div className="vase-img-big" style={{ left: "175px" }} id="cup_2"></div>,
-    <div className="vase-img-small" style={{ left: "270px" }} id="cup_3"></div>,
+    <div
+      className="vase-img-small"
+      style={{ left: "90px" }}
+      id="cup_1"
+      key="1"
+    ></div>,
+    <div
+      className="vase-img-big"
+      style={{ left: "175px" }}
+      id="cup_2"
+      key="2"
+    ></div>,
+    <div
+      className="vase-img-small"
+      style={{ left: "270px" }}
+      id="cup_3"
+      key="3"
+    ></div>,
   ];
 
   //------------ handlers ------------

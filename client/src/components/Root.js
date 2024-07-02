@@ -1,7 +1,7 @@
 import { SDKProvider, useLaunchParams } from "@tma.js/sdk-react";
 import { useEffect } from "react";
-import { ErrorBoundary } from "./components/ErrorBoundary.js";
-import App from "./App.js";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import App from "./App";
 
 /**
  * @param {unknown} error
