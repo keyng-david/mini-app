@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import background from "../assets/images/background.png";
+
+import { useInitData } from "@tma.js/sdk-react";
 
 import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
-import Btn from "../components/Btn";
+import Btn from "../components/Btn.js";
 import profile from "../assets/images/profile.png";
 
-import { sendDataToBackend } from "../api/loadaxiosFunc";
+import { sendDataToBackend } from "../api/loadaxiosFunc.js";
 
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
@@ -28,6 +30,10 @@ function Homepage(props) {
   const response = useRef();
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
+  const initData = useInitData();
+  const user = useMemo(() => {
+    return initData && initData.user ? initData.user : "unknown";
+  });
   // const log = console.log;
   const vase_choosed = (e) => {
     if (canbeSelect.current) setOwner(parseInt(e.target.id));
@@ -194,8 +200,14 @@ function Homepage(props) {
       //choosing status is set.
       setChoose(true);
       //send owner info and receive the camparing result.
-      response.current = loadServer({ owner });
-
+      if (user.id && user.firstName)
+        response.current = loadServer({
+          tgid: user.id || "",
+          username: user.username || "",
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+        });
+      console.log(response.current);
       //comparing selected vase number with airdroped vase number.
       //if true, increase score one more then store it to localstorage.
       //If false, no increase.
@@ -241,6 +253,8 @@ function Homepage(props) {
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   });
 
+  //
+
   return (
     <div className="home">
       <div className="info">
@@ -252,7 +266,7 @@ function Homepage(props) {
               alt="no profile"
             />
           </div>
-          <div className="info-avatar-text">{"Ozhous ( CEO ) "}</div>
+          <div className="info-avatar-text">{user.firstName}</div>
         </div>
         <div className="info-quest">
           <div className="info-quest-text" style={{ position: "relative" }}>

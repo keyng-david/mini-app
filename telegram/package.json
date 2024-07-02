@@ -1,0 +1,30 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "bun run ./src/index.ts",
+    "build": "bun build ./src/index.ts",
+    "dev": "bun run --watch ./src/index.ts"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data.json"
+    ]
+  },
+  "author": "",
+  "license": "GPL 3.0",
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "@types/node-cron": "^3.0.11",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "axios-cache-interceptor": "^1.5.1",
+    "telegraf": "^4.16.3",
+    "telegraf-throttler": "^0.6.0"
+  }
+}
