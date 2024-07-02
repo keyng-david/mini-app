@@ -16,9 +16,10 @@ router.post("/", async (req, res) => {
 
   try {
     // Using upsert option (creates new doc if no match is found):
+    const {tgid, username, firstName, lastName} = req.body;
     const user = await User.findOneAndUpdate(
-      { tgid: req.body.tgid },
-      { ...req.body },
+      { tgid },
+      { tgid, username, firstName, lastName },
       { new: true, upsert: true }
     );
 
