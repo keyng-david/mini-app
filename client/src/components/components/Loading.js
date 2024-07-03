@@ -3,9 +3,12 @@ import Splash from "../pages/Splash/splash.js";
 
 const LoadingPage = (props) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [main, setMain] = useState({});
 
   useEffect(() => {
     setTimeout(() => {
+      const mainpage = props.children;
+      setMain(mainpage);
       setIsLoading(false);
     }, 5000);
   }, []);
@@ -21,7 +24,7 @@ const LoadingPage = (props) => {
         <div>
           {/* <h1>Welcome to the app!</h1>
           Your main app content goes here */}
-          {props.children}
+          {main}
         </div>
       )}
     </div>
