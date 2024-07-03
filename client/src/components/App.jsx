@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import { useIntegration } from '@tma.js/react-router-integration';
+import {
+  bindMiniAppCSSVars,
+  bindThemeParamsCSSVars,
+  bindViewportCSSVars,
+  initNavigator, useLaunchParams,
+  useMiniApp,
+  useThemeParams,
+  useViewport,
+} from '@tma.js/sdk-react';
+import { AppRoot } from '@telegram-apps/telegram-ui';
 import {
   BrowserRouter,
   Routes as Router,
@@ -15,7 +25,27 @@ import Wallet from "./pages/Wallet/wallet.js";
 import LoadingPage from "./components/Loading.js";
 
 const App = () => {
+  const lp = useLaunchParams();
+  const miniApp = useMiniApp();
+  const themeParams = useThemeParams();
+  const viewport = useViewport();
+
+  useEffect(() => {
+    return bindMiniAppCSSVars(miniApp, themeParams);
+  }, [miniApp, themeParams]);
+
+  useEffect(() => {
+    return bindThemeParamsCSSVars(themeParams);
+  }, [themeParams]);
+
+  useEffect(() => {
+    return viewport && bindViewportCSSVars(viewport);
+  }, [viewport]);
   return (
+    <AppRoot
+      appearance={miniApp.isDark ? 'dark' : 'light'}
+      platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
+    >
     <LoadingPage>
       <BrowserRouter>
         <Router>
@@ -26,6 +56,7 @@ const App = () => {
         </Router>
       </BrowserRouter>
     </LoadingPage>
+    </AppRoot>
   );
 };
 

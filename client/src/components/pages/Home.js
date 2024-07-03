@@ -227,7 +227,7 @@ function Homepage(props) {
         };
       }
       //After 3s, return vase status to origin status.
-      retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 3000);
+      retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 1500);
       //choosing status is set.
       setChoose(true);
       //send owner info and receive the camparing result.

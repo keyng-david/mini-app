@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     const { tgid, selected } = req.body;
 
     // Get user info
-    const user = await User.findOne({ tgid: req.body.tgid });
+    const user = await User.findOne({ tgid: tgid });
 
     // Generate random
     const random = Math.floor(Math.random(0, 1) * 3 + 1);
