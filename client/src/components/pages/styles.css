@@ -335,17 +335,18 @@
 .panel-score {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .panel-score-img {
-  width: 45px;
-  height: 50px;
+  width: 8vw;
+  height: 10vw;
 }
 
 .panel-score-text {
-  height: 50px;
-  margin-left: 20px;
-  font-size: 38px;
+  /* height: 100%; */
+  margin-left: 5vw;
+  font-size: 8vw;
   font-weight: bolder;
   font-family: "MyriadPro-Bold";
   background: -webkit-linear-gradient(

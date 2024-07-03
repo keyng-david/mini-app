@@ -35,7 +35,6 @@ function Homepage(props) {
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
-  // const log = console.log;
   const vase_choosed = (e) => {
     if (canbeSelect.current) setOwner(parseInt(e.target.id));
   };
@@ -181,7 +180,7 @@ function Homepage(props) {
   //--owner event---(Vase selection event)
   useEffect(() => {
     if (owner && holdClick) {
-      //Until this game finish, vase can't be selected
+      //While this game is going, vase can't be selected
       canbeSelect.current = false;
       //vase array remove bright status after vase selecting
       static_vases.current = elementArrayStyleSet(
@@ -258,18 +257,19 @@ function Homepage(props) {
     if (shuffling) {
       setDroped(true);
       airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
-      static_vases.current = elementArrayStyleSet(
-        static_vases.current,
-        "animation",
-        " glow 1s infinite alternate"
-      );
+      //vases path to bright status
+      // static_vases.current = elementArrayStyleSet(
+      //   static_vases.current,
+      //   "animation",
+      //   " glow 1s infinite alternate"
+      // );
     }
   }, [shuffling]);
 
   //--didmount event---
   useEffect(() => {
     if (user.id && user.firstName)
-      users({
+      response.current = users({
         tgid: user.id || "",
         username: user.username || "",
         firstName: user.firstName || "",
@@ -312,7 +312,9 @@ function Homepage(props) {
           <Btn title="Earn" url="/earn" />
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" alt="no img" />
-            <div className="panel-score-text">{score}</div>
+            <div className="panel-score-text">
+              {response.current?.score || "0"}
+            </div>
           </div>
           <Btn title="Wallet" url="/wallet" />
         </div>
