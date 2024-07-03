@@ -21,6 +21,7 @@ function Homepage(props) {
   const [shuffling, setShuffling] = useState(false);
   const [reset, setReset] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [totalScore, setTotalScore] = useState(0);
   let score = parseInt(localStorage.getItem("score")) || 0;
   const airdrop = useRef(0);
   const retrieveTimeout = useRef();
@@ -158,6 +159,7 @@ function Homepage(props) {
   const loadServer = async (sendData) => {
     setLoading(true);
     const returnVal = await play(sendData);
+    console.log({ returnVal });
     setLoading(false);
     return returnVal;
   };
@@ -219,11 +221,11 @@ function Homepage(props) {
       //choosing status is set.
       setChoose(true);
       //send owner info and receive the camparing result.
-      if (choose)
-        response.current = loadServer({
-          tgid: user.id || "",
-        });
-      console.log(response.current);
+      // if (choose)
+      loadServer({
+        tgid: user.id || "",
+        selected: owner,
+      });
       //comparing selected vase number with airdroped vase number.
       //if true, increase score one more then store it to localstorage.
       //If false, no increase.
@@ -268,13 +270,21 @@ function Homepage(props) {
 
   //--didmount event---
   useEffect(() => {
-    if (user.id && user.firstName)
-      response.current = users({
-        tgid: user.id || "",
-        username: user.username || "",
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-      });
+    const fetchedFunc = async () => {
+      if (user.id && user.firstName) {
+        const res = await users({
+          tgid: user.id || "",
+          username: user.username || "",
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+        });
+        setTotalScore(res.totalScore);
+        // return response.current.totalScore;
+        console.log("home-----", totalScore);
+      }
+    };
+    fetchedFunc();
+
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
   }, []);
 
@@ -312,9 +322,7 @@ function Homepage(props) {
           <Btn title="Earn" url="/earn" />
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" alt="no img" />
-            <div className="panel-score-text">
-              {response.current?.score || "0"}
-            </div>
+            <div className="panel-score-text">{totalScore}</div>
           </div>
           <Btn title="Wallet" url="/wallet" />
         </div>

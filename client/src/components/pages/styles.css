@@ -231,7 +231,7 @@
 
 .vase-img-big:hover,
 .vase-img-small:hover {
-  border-radius: 30px;
+  /* border-radius: 30px; */
   /* border: rgb(255,0,255); */
   /* border-style: solid; */
   /* opacity: 0.8; */
@@ -287,10 +287,10 @@
   align-items: center;
   z-index: 1;
 }
-.vase-img-big,
+/* .vase-img-big,
 .vase-img-small {
   border-radius: 60px;
-}
+} */
 .vase-img-big {
   width: 60%;
   height: 70%;
