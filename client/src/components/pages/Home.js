@@ -11,6 +11,7 @@ import Btn from "../components/Btn.js";
 import profile from "../assets/images/profile.png";
 
 import { play, users } from "../api/loadaxiosFunc.js";
+import BtnArrangement from "../components/BtnArrangement";
 
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
@@ -206,7 +207,6 @@ function Homepage(props) {
           ...static_vases.current[(owner - 1).toString()],
           props: {
             ...static_vases.current[(owner - 1).toString()].props,
-            className: "vase-img-dust-rising",
             style: {
               ...static_vases.current[(owner - 1).toString()].props.style,
               backgroundPosition: "bottom",
@@ -364,6 +364,7 @@ function Homepage(props) {
                 )}
               </div>
               <div className="vase">{shuffling_process()}</div>
+              <BtnArrangement />
             </div>
           </div>
         </div>
