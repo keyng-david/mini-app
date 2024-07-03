@@ -10,12 +10,12 @@ import scroll from "../assets/images/quest.png";
 import Btn from "../components/Btn.js";
 import profile from "../assets/images/profile.png";
 
-import { sendDataToBackend } from "../api/loadaxiosFunc.js";
+import { play, users } from "../api/loadaxiosFunc.js";
 
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [droped, setDroped] = useState(false);
-  const [result, setResult] = useState(false);
+  const [gameend, setGameend] = useState(false);
   const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
@@ -28,6 +28,7 @@ function Homepage(props) {
   const canbeSelect = useRef(false);
   const retrieveShuffle = useRef();
   const response = useRef();
+  const result = useRef();
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
   const initData = useInitData();
@@ -113,9 +114,9 @@ function Homepage(props) {
       increase.current = "";
       return "coin_down 2s backwards";
     }
-    if (result) {
+    if (result.current) {
       increase.current = "+1";
-      return `coin_catch_${num} 2s backwards`;
+      return `coin_catch_${num} 4s backwards`;
     }
     return "";
   };
@@ -157,7 +158,7 @@ function Homepage(props) {
   };
   const loadServer = async (sendData) => {
     setLoading(true);
-    const returnVal = await sendDataToBackend(sendData);
+    const returnVal = await play(sendData);
     setLoading(false);
     return returnVal;
   };
@@ -171,8 +172,9 @@ function Homepage(props) {
       retrieveShuffle.current = setTimeout(() => setShuffling(true), 2500);
       //Game status initialize
       setChoose(false);
-      setResult(false);
+      result.current = false;
       setOwner(0);
+      setGameend(false);
     }
   }, [holdClick]);
 
@@ -218,12 +220,9 @@ function Homepage(props) {
       //choosing status is set.
       setChoose(true);
       //send owner info and receive the camparing result.
-      if (user.id && user.firstName)
+      if (choose)
         response.current = loadServer({
           tgid: user.id || "",
-          username: user.username || "",
-          firstName: user.firstName || "",
-          lastName: user.lastName || "",
         });
       console.log(response.current);
       //comparing selected vase number with airdroped vase number.
@@ -232,13 +231,14 @@ function Homepage(props) {
       if (airdrop.current === owner) {
         airdrop.current = 0;
         localStorage.setItem("score", (score + 1).toString());
-        setResult(true);
+        result.current = true;
       } else {
-        setResult(false);
+        result.current = false;
         increase.current = "";
       }
+      setGameend(true);
     } else {
-      setResult(false);
+      result.current = false;
     }
   }, [owner]);
 
@@ -247,7 +247,7 @@ function Homepage(props) {
     if (!droped && choose) {
       setHoldClick(false);
     }
-  }, [droped, choose]);
+  }, [droped]);
 
   useEffect(() => {
     if (choose) setDroped(false);
@@ -268,8 +268,22 @@ function Homepage(props) {
 
   //--didmount event---
   useEffect(() => {
+    if (user.id && user.firstName)
+      users({
+        tgid: user.id || "",
+        username: user.username || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+      });
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
-  });
+  }, []);
+
+  //--Game End part--
+  useEffect(() => {
+    if (gameend) {
+      setHoldClick(false);
+    }
+  }, [gameend]);
 
   //
 
@@ -321,7 +335,7 @@ function Homepage(props) {
                   animation: coinAnimation(owner),
                 }}
               >
-                {result ? (
+                {result.current ? (
                   <div className="coin-score">{increase.current}</div>
                 ) : (
                   <img

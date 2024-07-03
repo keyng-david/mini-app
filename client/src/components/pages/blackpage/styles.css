@@ -1,5 +1,5 @@
 .blackpage {
-  height: 100vh;
+  min-height: 100vh;
   background-color: black;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,6 @@
 }
 .blackpage-header-picture img {
   width: 135px;
-  
 }
 .blackpage-header-description-header,
 .blackpage-header-description-body {

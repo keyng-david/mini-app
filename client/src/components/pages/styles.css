@@ -158,8 +158,8 @@
 
 .hide-img:active {
   /* opacity: 0.8; */
-  height: 38vw;
-  width: 55vw;
+  height: 37.5vw;
+  width: 54vw;
   z-index: 2;
   filter: brightness(90%);
 }
@@ -179,7 +179,7 @@
   margin-bottom: -50px;
   z-index: 2;
   /* filter: contrast(50%)   */
-  /* filter:grayscale(80%) */
+  filter: grayscale(80%);
 }
 
 .background {
