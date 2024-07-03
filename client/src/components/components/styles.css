@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "MyriadPro-Bold";
+  src: url(../assets/Font/Myriad_Pro/MyriadPro-Bold.otf);
+}
+.temp-div {
+  background-image: url("../assets/images/btns.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 10vw;
+  font-weight: bold;
+  font-family: "MyriadPro-Bold";
+  font-size: 3vw;
+}

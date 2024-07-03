@@ -1,0 +1,43 @@
+.blackpage {
+  min-height: 100vh;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  color: white;
+  gap: 20px;
+}
+
+.blackpage-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blackpage-body {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.blackpage-header {
+  align-items: center;
+}
+.blackpage-header-picture {
+  text-align: center;
+}
+.blackpage-header-picture img {
+  width: 135px;
+}
+.blackpage-header-description-header,
+.blackpage-header-description-body {
+  text-align: center;
+  color: white;
+}
+.blackpage-header-description-header {
+  font-size: 40px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+.blackpage-header-description-body {
+  font-size: 20px;
+}

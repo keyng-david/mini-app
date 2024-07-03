@@ -1,24 +1,36 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-  tgId: {
+  tgid: {
     type: String,
-    required: true
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
   },
   score: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
   totalScore: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = User = mongoose.model("user", UserSchema);
