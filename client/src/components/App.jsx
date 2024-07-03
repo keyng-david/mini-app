@@ -23,6 +23,7 @@ import Splash from "./pages/Splash/splash.js";
 import Homepage from "./pages/Home.js";
 import Wallet from "./pages/Wallet/wallet.js";
 import LoadingPage from "./components/Loading.js";
+import Invite from "./pages/Invite/invite.js";
 
 const App = () => {
   const lp = useLaunchParams();
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/" element={<Homepage />} />
           <Route path="/earn" element={<Earn />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/invite" element={<Invite />} />
         </Router>
       </BrowserRouter>
     </LoadingPage>

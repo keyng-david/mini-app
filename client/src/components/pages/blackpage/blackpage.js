@@ -1,4 +1,5 @@
 import BackButton from "../backButton/backButton.js";
+import BtnArrangement from "@/components/components/BtnArrangement.js";
 
 import "./styles.css";
 
@@ -18,6 +19,7 @@ const BlackPage = ({ mainImg, bigDes, smallDes, radius, ...props }) => {
         </div>
       </div>
       <div className="blackpage-body">{props.children}</div>
+      <BtnArrangement />
     </div>
   );
 };

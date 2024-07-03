@@ -1,0 +1,85 @@
+.invite-btn-pack {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.invite-itemview {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.invite-itemview-bottom {
+  display: flex;
+  /* justify-content: flex-start; */
+  gap: 1vw;
+}
+
+.invite-itemview-bottom-coin {
+}
+.invite-itemview-bottom-coin-img {
+  width: 5vw;
+}
+
+.invite-itemview-bottom-score {
+  color: rgb(242, 214, 81);
+}
+
+.invite-bonustext {
+  text-align: center;
+  color: rgb(90, 96, 255);
+}
+
+.invite-friendlist {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.invite-friendlist-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invite-friendlist-list {
+  background-color: rgb(39, 42, 47);
+  width: 100%;
+  border-radius: 1rem;
+  min-height: 20vw;
+}
+
+.invite-btn-pack {
+  height: 15vw;
+  display: flex;
+  justify-content: space-between;
+  gap: 2vw;
+}
+
+.invite-btn-pack-btn {
+  flex: 6;
+  /* width: 100%; */
+  background-color: rgb(90, 96, 255);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+.invite-btn-pack-btn-text {
+}
+.invite-btn-pack-btn-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.invite-btn-pack-right {
+  flex: 1;
+
+  background-color: rgb(90, 96, 255);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
