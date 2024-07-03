@@ -30,14 +30,16 @@ const Splash = () => {
         <div className="splash-loader-spinner"></div>
         <div className="splash-loader-text">Loading...</div>
       </div>
-      <div className="splash-description">
-        <div>Stay tunned</div>
-        <div>More info in official channels</div>
-      </div>
-      <div className="splach-social-icons">
-        <img src={telegramIcon} />
-        <img src={xIcon} />
-        <img src={yutubeIcon} />
+      <div className="splash-desc-icons">
+        <div className="splash-description">
+          <div>Stay tunned</div>
+          <div>More info in official channels</div>
+        </div>
+        <div className="splach-social-icons">
+          <img src={telegramIcon} />
+          <img src={xIcon} />
+          <img src={yutubeIcon} />
+        </div>
       </div>
     </div>
   );

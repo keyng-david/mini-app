@@ -31,7 +31,7 @@
   /* margin-top: 15%; */
 }
 .splash-logo-img {
-  width: 50%;
+  width: 40%;
   text-align: center;
   z-index: 1;
   margin-top: 15%;
@@ -51,18 +51,12 @@
 }
 
 .splash-big-title {
-  font-size: 8vw;
+  font-size: 7vw;
 }
 .splash-small-title {
-  font-size: 5vw;
-}
-.splash-description {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
   font-size: 4vw;
 }
+
 .splash-loader {
   display: flex;
   flex-direction: column;
@@ -115,6 +109,21 @@
   }
 }
 
+.splash-desc-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3vw;
+}
+
+.splash-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 3vw;
+}
+
 .splach-social-icons {
   width: 100%;
   display: flex;
@@ -123,6 +132,6 @@
 }
 
 .splach-social-icons > img {
-  width: 10%;
+  width: 15vw;
   /* height: 50px; */
 }
