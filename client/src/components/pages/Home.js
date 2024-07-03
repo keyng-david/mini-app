@@ -160,6 +160,16 @@ function Homepage(props) {
     setLoading(true);
     const returnVal = await play(sendData);
     console.log({ returnVal });
+
+    //Receiving comparing result from backend.
+    //if "Success!", increase totalScore state and catch animation start.
+    //If else, no increase.
+    if (returnVal === "Success!") {
+      setTotalScore(totalScore + 1);
+      result.current = true;
+    } else {
+      result.current = false;
+    }
     setLoading(false);
     return returnVal;
   };
@@ -221,22 +231,20 @@ function Homepage(props) {
       //choosing status is set.
       setChoose(true);
       //send owner info and receive the camparing result.
-      // if (choose)
       loadServer({
         tgid: user.id || "",
         selected: owner,
       });
-      //comparing selected vase number with airdroped vase number.
-      //if true, increase score one more then store it to localstorage.
-      //If false, no increase.
-      if (airdrop.current === owner) {
-        airdrop.current = 0;
-        localStorage.setItem("score", (score + 1).toString());
-        result.current = true;
-      } else {
-        result.current = false;
-        increase.current = "";
-      }
+
+      //---FRONT DEV MODE------
+      // if (airdrop.current === owner) {
+      //   airdrop.current = 0;
+      //   localStorage.setItem("score", (score + 1).toString());
+      //   result.current = true;
+      // } else {
+      //   result.current = false;
+      //   increase.current = "";
+      // }
       setGameend(true);
     } else {
       result.current = false;
@@ -258,7 +266,7 @@ function Homepage(props) {
   useEffect(() => {
     if (shuffling) {
       setDroped(true);
-      airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);
+      // airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);//DEV MODE
       //vases path to bright status
       // static_vases.current = elementArrayStyleSet(
       //   static_vases.current,
@@ -279,7 +287,6 @@ function Homepage(props) {
           lastName: user.lastName || "",
         });
         setTotalScore(res.totalScore);
-        // return response.current.totalScore;
         console.log("home-----", totalScore);
       }
     };
