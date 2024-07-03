@@ -100,7 +100,6 @@ function Homepage(props) {
     if (shuffling) {
       clearTimeout(retrieveShuffle.current); //remove the shuffle timeout.
       temp = move(); //set return value to move animation(dynamic_vases)
-      canbeSelect.current = true; //vase can be selected from now
       retrieveShuffle.current = setTimeout(() => setShuffling(false), 1000); //After 1s, suffling will be stoped
     } else {
       clearTimeout(retrieveHold);
@@ -154,6 +153,7 @@ function Homepage(props) {
       return vase;
     });
     setReset(!reset);
+    setDroped(false);
     clearTimeout(retrieveTimeout);
   };
   const loadServer = async (sendData) => {
@@ -259,13 +259,14 @@ function Homepage(props) {
   }, [droped]);
 
   useEffect(() => {
-    if (choose) setDroped(false);
+    // if (choose) setDroped(false);
   }, [choose]);
 
   //--shuffling event---
   useEffect(() => {
     if (shuffling) {
       setDroped(true);
+      canbeSelect.current = true; //vase can be selected from now
       // airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);//DEV MODE
       //vases path to bright status
       // static_vases.current = elementArrayStyleSet(
