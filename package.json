@@ -7,8 +7,8 @@
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
-    "bot": "nodemon bot",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "bot": "npm start --prefix telegram",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run bot\"",
     "test": "mocha tests/*.js --exit",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
@@ -30,6 +30,7 @@
     "express-validator": "^7.1.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mocha": "^10.6.0",
     "mongoose": "^8.4.4",
     "normalize-url": "^8.0.1",
     "react-spinners": "^0.14.1",
