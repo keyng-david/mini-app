@@ -345,7 +345,7 @@ function Homepage(props) {
         </div>
         <div className="hide">
           <img
-            className={droped ? "disabled-hide-img" : "hide-img"}
+            className={holdClick ? "disabled-hide-img" : "hide-img"}
             src={Hide}
             onClick={clickHide}
             alt="no img"
