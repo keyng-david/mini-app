@@ -50,7 +50,7 @@ const Invite = () => {
           </div>
         </div>
       </Itemview>
-      <div className="invite-bonustext">More bornuses</div>
+      <div className="invite-bonustext">More bonuses</div>
       <div className="invite-friendlist">
         <div className="invite-friendlist-title">
           <div className="invite-friendlist-title-text">

@@ -6,10 +6,12 @@ import "./styles.css";
 const BlackPage = ({ mainImg, bigDes, smallDes, radius, ...props }) => {
   return (
     <div className="blackpage">
-      <div className="blackpage-title">
-        <BackButton />
-      </div>
+      {/* */}
       <div className="blackpage-header">
+        <div className="blackpage-title">
+          <BackButton />
+        </div>
+
         <div className="blackpage-header-picture">
           <img style={{ borderRadius: radius ? "100%" : "" }} src={mainImg} />
         </div>
@@ -19,6 +21,7 @@ const BlackPage = ({ mainImg, bigDes, smallDes, radius, ...props }) => {
         </div>
       </div>
       <div className="blackpage-body">{props.children}</div>
+      <div className="blackpage-bottom-space"></div>
       <BtnArrangement />
     </div>
   );

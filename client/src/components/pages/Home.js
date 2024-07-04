@@ -329,7 +329,7 @@ function Homepage(props) {
       </div>
       <div className="mask">
         <div className="panel">
-          <Btn title="Earn" url="/earn" />
+          {/* <Btn title="Earn" url="/earn" /> */}
           <div className="panel-score">
             <img
               src={amar_token}
@@ -341,7 +341,7 @@ function Homepage(props) {
             />
             <div className="panel-score-text">{totalScore}</div>
           </div>
-          <Btn title="Wallet" url="/wallet" />
+          {/* <Btn title="Wallet" url="/wallet" /> */}
         </div>
         <div className="hide">
           <img

@@ -4,15 +4,17 @@ const BtnArrangement = () => {
     <div
       style={{
         display: "flex",
-        // width: "100%",
+        width: "86vw",
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "rgb(18 18 18/80%)",
-        // opacity: "0.7",
         borderRadius: "1rem",
         padding: "2vw",
-        margin: "3vw",
         zIndex: "2",
+        position: "fixed",
+        bottom: 0,
+        // left: "10vw",
+        // right: "10vw",
       }}
     >
       <Button title="Earn" url="/earn" />
