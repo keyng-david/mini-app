@@ -237,7 +237,7 @@
 
 /* -------------vase responsive---------------------- */
 .gradient {
-  position: relative;
+  /* position: relative; */
   height: 100%;
   background-image: linear-gradient(
     to bottom,
@@ -327,7 +327,7 @@
 
 .panel {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 10px 15px;
 }
@@ -422,7 +422,7 @@
   width: 180px;
   height: 350px;
 }
-
+/* 
 @keyframes glow {
   0% {
     box-shadow: 0 0 10px 0 rgba(255, 215, 0, 1);
@@ -430,7 +430,7 @@
   100% {
     box-shadow: 0 0 20px 0 rgba(255, 215, 0, 0);
   }
-}
+} */
 
 @keyframes coin_down {
   0% {
@@ -477,7 +477,7 @@
     opacity: 1;
   }
   100% {
-    top: 0;
+    top: 5%;
     left: 65%;
     opacity: 0;
   }

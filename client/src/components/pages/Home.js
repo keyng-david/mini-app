@@ -335,9 +335,9 @@ function Homepage(props) {
               src={amar_token}
               className="panel-score-img"
               alt="no img"
-              style={{
-                animation: result.current ? "score_increase 2s backwards" : "",
-              }}
+              // style={{
+              //   animation: result.current ? "score_increase 2s backwards" : "",
+              // }}
             />
             <div className="panel-score-text">{totalScore}</div>
           </div>
