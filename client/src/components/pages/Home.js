@@ -31,8 +31,10 @@ function Homepage(props) {
   const retrieveShuffle = useRef();
   const response = useRef();
   const result = useRef();
+
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
+
   const initData = useInitData();
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
@@ -66,6 +68,7 @@ function Homepage(props) {
       key="3"
     ></div>,
   ]);
+  const broken_vase = <div className="vase-img-broken"></div>;
   const dynamic_vases = [
     <div
       className="vase-img-small"
@@ -215,13 +218,12 @@ function Homepage(props) {
         };
       } else {
         static_vases.current[(owner - 1).toString()] = {
-          ...static_vases.current[(owner - 1).toString()],
+          ...broken_vase,
           props: {
             ...static_vases.current[(owner - 1).toString()].props,
-            className: "vase-img-broken",
+            ...broken_vase.props,
             style: {
               ...static_vases.current[(owner - 1).toString()].props.style,
-              backgroundPosition: "bottom",
             },
           },
         };
@@ -329,7 +331,14 @@ function Homepage(props) {
         <div className="panel">
           <Btn title="Earn" url="/earn" />
           <div className="panel-score">
-            <img src={amar_token} className="panel-score-img" alt="no img" />
+            <img
+              src={amar_token}
+              className="panel-score-img"
+              alt="no img"
+              style={{
+                animation: result.current ? "score_increase 2s backwards" : "",
+              }}
+            />
             <div className="panel-score-text">{totalScore}</div>
           </div>
           <Btn title="Wallet" url="/wallet" />

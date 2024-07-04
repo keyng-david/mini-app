@@ -317,7 +317,7 @@
   z-index: 1;
 
   background-image: url(../assets/images/vaseBroken.png);
-  background-position: center;
+  background-position: bottom;
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -612,5 +612,13 @@
     background-color: #464646;
     color: white;
     padding-left: 15px;
+  }
+}
+
+@keyframes score_increase {
+  0% {
+    margin: 5vw;
+  }
+  100% {
   }
 }
