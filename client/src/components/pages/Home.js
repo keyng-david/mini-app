@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import background from "../assets/images/background.png";
 import paperScroll from "../assets/images/paperscroll.png";
 
-import { useInitData } from "@tma.js/sdk-react";
+import { useInitData, useLaunchParams } from "@tma.js/sdk-react";
 
 import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
@@ -35,12 +35,16 @@ function Homepage(props) {
   const retrieveShuffle = useRef();
   const response = useRef();
   const result = useRef();
+  const updatelimit = useRef({ action: false, updateDay: 0 });
 
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
 
   const initData = useInitData();
+  const initDataRaw = useLaunchParams().initDataRaw;
+
   const user = useMemo(() => {
+    console.log("queryId", initDataRaw);
     return initData && initData.user ? initData.user : "unknown";
   });
   const vase_choosed = (e) => {
@@ -129,7 +133,8 @@ function Homepage(props) {
   };
 
   const clickHide = () => {
-    if (limit()) setHoldClick(true);
+    updatelimit.current = limit();
+    if (updatelimit.current?.action) setHoldClick(true);
   };
 
   const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
@@ -148,6 +153,20 @@ function Homepage(props) {
 
     return retArray;
   };
+
+  // Update function called every second to check for day change
+  function updateDay() {
+    const currentDay = new Date().getDay();
+
+    if (currentDay !== updatelimit.current.updateDay) {
+      // Day has changed, do something here
+      updatelimit.current = limit();
+      console.log("Day has changed");
+    }
+  }
+
+  // Call updateDay function every second
+  const rinterval = setInterval(updateDay, 30 * 60000);
 
   const returnVaseImg = (owner) => {
     static_vases.current = static_vases.current.map((vase, index) => {
@@ -302,6 +321,9 @@ function Homepage(props) {
     fetchedFunc();
 
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
+    return () => {
+      clearInterval(rinterval);
+    };
   }, []);
 
   //--Game End part--
@@ -345,7 +367,11 @@ function Homepage(props) {
         </div>
         <div className="hide">
           <img
-            className={holdClick || !limit() ? "disabled-hide-img" : "hide-img"}
+            className={
+              holdClick || !updatelimit.current.action
+                ? "disabled-hide-img"
+                : "hide-img"
+            }
             src={Hide}
             onClick={clickHide}
             alt="no img"

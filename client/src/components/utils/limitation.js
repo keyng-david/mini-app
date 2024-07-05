@@ -6,15 +6,17 @@ export const limit = () => {
   };
 
   console.log({ store });
-  if (dd === store.date && store.limit > 10) return false;
+  if (dd === store.date && store.limit >= 10)
+    return { action: false, updateday: store.date };
   if (dd === store.date && store.limit < 10) {
     localStorage.setItem(
       "store",
       JSON.stringify({ limit: store.limit + 1, date: dd })
     );
-    return true;
+    return { action: true, updateday: store.date };
   } else if (dd !== store.date) {
     localStorage.setItem("store", JSON.stringify({ limit: 1, date: dd }));
-    return true;
+    return { action: true, updateday: store.date };
   }
+  return { action: false, updateday: store.date };
 };

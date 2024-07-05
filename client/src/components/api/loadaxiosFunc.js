@@ -41,6 +41,7 @@ export const registAddress = async (data) => {
     // console.log("users", response);
     return response.data;
   } catch (error) {
+    localStorage.setItem("wallet", JSON.stringify(data));
     console.error("Error sending data to backend:", error);
   }
 };
@@ -55,6 +56,10 @@ export const fetchAddress = async (data) => {
     // console.log("users", response);
     return response.data;
   } catch (error) {
+    const res = JSON.parse(localStorage.getItem("wallet"));
+    console.log(res);
     console.error("Error sending data to backend:", error);
+
+    return res.data;
   }
 };

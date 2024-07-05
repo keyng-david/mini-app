@@ -18,7 +18,7 @@ const Wallet = () => {
       setText(text);
       const fetchData = async () => {
         try {
-          await registAddress({ adress: text });
+          await registAddress({ data: { address: text } });
         } catch (err) {}
       };
       fetchData();
@@ -26,9 +26,11 @@ const Wallet = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      const res =
-        (await fetchAddress()?.address.toString()) || "Connect your BSC wallet";
-      setText(res);
+      try {
+        const res = await fetchAddress();
+        console.log("---", { res });
+        setText(res.address);
+      } catch (err) {}
     };
     fetchData();
   }, []);
