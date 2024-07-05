@@ -1,30 +1,37 @@
 // import BackButton from "pages/Topbar/topbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo2 from "../../assets/images/icon1024V3.png";
 import Itemview from "../../components/componentEarn/Itemview.js";
 import binance from "../../assets/svg/binance.svg";
 import check from "../../assets/images/check.png";
 import BlackPage from "../blackpage/blackpage.js";
 import Itempack from "../../components/componentEarn/ItemPack.js";
+import { fetchAddress, registAddress } from "@/components/api/loadaxiosFunc";
+import pasteImg from "../../assets/images/paste.png";
 
 import "./wallet.css";
-import Modal from "@/components/components/Walletmodal";
 
 const Wallet = () => {
-  const [open, setOpen] = useState(false);
   const [text, setText] = useState("Connect your BSC wallet");
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   const handlepaste = () => {
-    navigator.clipboard.readText().then((text) => setText(text));
-    setOpen(true);
+    navigator.clipboard.readText().then((text) => {
+      setText(text);
+      const fetchData = async () => {
+        try {
+          await registAddress({ adress: text });
+        } catch (err) {}
+      };
+      fetchData();
+    });
   };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const res =
+        (await fetchAddress()?.address.toString()) || "Connect your BSC wallet";
+      setText(res);
+    };
+    fetchData();
+  }, []);
   return (
     <BlackPage
       mainImg={logo2}
@@ -35,11 +42,13 @@ const Wallet = () => {
       <Itempack title="Tasks list">
         <Itemview
           header={binance}
-          footer={check}
+          footer={pasteImg || check}
           backgroundColor="rgb(240, 183, 64)"
           onClick={handlepaste}
+          content={text}
+          buttonName="Connect"
         >
-          <div style={{ textAlign: "center" }}>{text}</div>
+          <div style={{ textAlign: "center" }}>Connect your BSC wallet</div>
         </Itemview>
       </Itempack>
     </BlackPage>

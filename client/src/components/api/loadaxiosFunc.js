@@ -30,3 +30,31 @@ export const users = async (data) => {
     console.error("Error sending data to backend:", error);
   }
 };
+
+export const registAddress = async (data) => {
+  try {
+    const response = await axios.post(`${api}/wallet`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // console.log("users", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to backend:", error);
+  }
+};
+
+export const fetchAddress = async (data) => {
+  try {
+    const response = await axios.get(`${api}/wallet`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // console.log("users", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error sending data to backend:", error);
+  }
+};

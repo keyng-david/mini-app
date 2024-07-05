@@ -8,9 +8,14 @@ import bonus2 from "../../assets/images/bonus2.png";
 import coin from "../../assets/images/bonus-coin.png";
 
 import "./invite.css";
-import Popup from "../../components/Walletmodal.js";
+import Popup from "../../components/Modal.js";
+import ListComponent from "@/components/components/Listcomponent";
 
 const Invite = () => {
+  const inviteUrl = "https://t.me/amarna_shell_game_bot";
+  const copyUrl = (url) => {
+    navigator.clipboard.writeText(url);
+  };
   return (
     <BlackPage
       bigDes="Invite friends!"
@@ -51,7 +56,7 @@ const Invite = () => {
         </div>
       </Itemview>
       <div className="invite-bonustext">More bonuses</div>
-      <div className="invite-friendlist">
+      {/* <div className="invite-friendlist">
         <div className="invite-friendlist-title">
           <div className="invite-friendlist-title-text">
             List of your friends
@@ -61,7 +66,8 @@ const Invite = () => {
           </div>
         </div>
         <div className="invite-friendlist-list"></div>
-      </div>
+      </div> */}
+      <ListComponent refIcon={<TfiReload />} />
       <div className="invite-btn-pack">
         <div className="invite-btn-pack-btn">
           <div className="invite-btn-pack-btn-text">Invite a friend</div>
@@ -69,7 +75,10 @@ const Invite = () => {
             <PiUserCirclePlusBold />
           </div>
         </div>
-        <div className="invite-btn-pack-right">
+        <div
+          className="invite-btn-pack-right"
+          onClick={() => copyUrl(inviteUrl)}
+        >
           <PiCopySimple size="50%" />
         </div>
       </div>

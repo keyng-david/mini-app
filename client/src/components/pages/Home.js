@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import background from "../assets/images/background.png";
+import paperScroll from "../assets/images/paperscroll.png";
 
 import { useInitData } from "@tma.js/sdk-react";
 
@@ -13,6 +14,7 @@ import profile from "../assets/images/profile.png";
 import { play, users } from "../api/loadaxiosFunc.js";
 import BtnArrangement from "../components/BtnArrangement";
 import { limit } from "../utils/limitation";
+import Modal from "../components/Modal";
 
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
@@ -24,6 +26,7 @@ function Homepage(props) {
   const [reset, setReset] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
+  const [quest, setQuest] = useState(false);
   let score = parseInt(localStorage.getItem("score")) || 0;
   const airdrop = useRef(0);
   const retrieveTimeout = useRef();
@@ -323,12 +326,13 @@ function Homepage(props) {
           </div>
           <div className="info-avatar-text">{user.firstName}</div>
         </div>
-        <div className="info-quest">
+        <div className="info-quest" onClick={() => setQuest(true)}>
           <div className="info-quest-text" style={{ position: "relative" }}>
             <img className="info-quest-img" src={scroll} alt="no quest" />
             Quest:Find the hidden $AMAR token
           </div>
         </div>
+        {<Modal isOpen={quest} onClose={() => setQuest(false)} />}
       </div>
       <div className="mask">
         <div className="panel">

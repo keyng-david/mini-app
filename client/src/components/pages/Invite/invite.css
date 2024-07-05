@@ -47,6 +47,11 @@
   width: 100%;
   border-radius: 1rem;
   min-height: 20vw;
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .invite-btn-pack {
@@ -76,10 +81,26 @@
 
 .invite-btn-pack-right {
   flex: 1;
-
   background-color: rgb(90, 96, 255);
   border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.invite-btn-pack-btn:hover,
+.invite-btn-pack-right:hover {
+  filter: brightness(150%);
+}
+
+@keyframes refresh_loading {
+  0% {
+    filter: blur(5px);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    filter: blur(4px);
+    transform: rotate(180deg);
+  }
 }

@@ -16,3 +16,19 @@
   font-family: "MyriadPro-Bold";
   font-size: 3vw;
 }
+
+.modal-body {
+  /* background: #282c34; */
+  background-image: url(../assets/images/paperscroll.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 50%;
+  width: 80%;
+  margin: auto;
+  padding: 2%;
+  /* border: 2px solid #000; */
+  /* border-radius: 10px; */
+  box-shadow: 2px solid black;
+  color: black;
+}

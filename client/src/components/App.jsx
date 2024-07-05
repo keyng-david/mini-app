@@ -27,42 +27,42 @@ import LoadingPage from "./components/Loading.js";
 import Invite from "./pages/Invite/invite.js";
 
 const App = () => {
-  // const lp = useLaunchParams();
-  // const miniApp = useMiniApp();
-  // const themeParams = useThemeParams();
-  // const viewport = useViewport();
+  const lp = useLaunchParams();
+  const miniApp = useMiniApp();
+  const themeParams = useThemeParams();
+  const viewport = useViewport();
 
-  // useEffect(() => {
-  //   return bindMiniAppCSSVars(miniApp, themeParams);
-  // }, [miniApp, themeParams]);
+  useEffect(() => {
+    return bindMiniAppCSSVars(miniApp, themeParams);
+  }, [miniApp, themeParams]);
 
-  // useEffect(() => {
-  //   return bindThemeParamsCSSVars(themeParams);
-  // }, [themeParams]);
+  useEffect(() => {
+    return bindThemeParamsCSSVars(themeParams);
+  }, [themeParams]);
 
-  // useEffect(() => {
-  //   return viewport && bindViewportCSSVars(viewport);
-  // }, [viewport]);
+  useEffect(() => {
+    return viewport && bindViewportCSSVars(viewport);
+  }, [viewport]);
 
-  // const navigator = useMemo(() => initNavigator("app-navigation-state"), []);
-  // const [location, reactNavigator] = useIntegration(navigator);
+  const navigator = useMemo(() => initNavigator("app-navigation-state"), []);
+  const [location, reactNavigator] = useIntegration(navigator);
   return (
-    // <AppRoot
-    //   appearance={miniApp.isDark ? "dark" : "light"}
-    //   platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
-    // >
-    <LoadingPage>
-      <BrowserRouter>
-        <Router>
-          <Route path="/splash" element={<Splash />} />
-          <Route path="/" element={<Homepage />} />
-          <Route path="/earn" element={<Earn />} />
-          <Route path="/wallet" element={<Wallet />} />
-          <Route path="/invite" element={<Invite />} />
-        </Router>
-      </BrowserRouter>
-    </LoadingPage>
-    // </AppRoot>
+    <AppRoot
+      appearance={miniApp.isDark ? "dark" : "light"}
+      platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
+    >
+      <LoadingPage>
+        <BrowserRouter>
+          <Router>
+            <Route path="/splash" element={<Splash />} />
+            <Route path="/" element={<Homepage />} />
+            <Route path="/earn" element={<Earn />} />
+            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/invite" element={<Invite />} />
+          </Router>
+        </BrowserRouter>
+      </LoadingPage>
+    </AppRoot>
   );
 };
 

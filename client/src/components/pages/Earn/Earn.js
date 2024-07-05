@@ -7,6 +7,7 @@ import tokenImg from "../../assets/images/amarIcon.png";
 
 import "./earn.css";
 import BlackPage from "../blackpage/blackpage.js";
+import { Modal } from "@telegram-apps/telegram-ui";
 
 const Earn = () => {
   return (

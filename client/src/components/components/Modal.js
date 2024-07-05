@@ -18,23 +18,10 @@ const Modal = ({ isOpen, onClose, children }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        zIndex: 2,
       }}
     >
-      <div
-        style={{
-          background: "#282c34",
-          height: 150,
-          width: 240,
-          margin: "auto",
-          padding: "2%",
-          //   border: "2px solid #000",
-          borderRadius: "10px",
-          boxShadow: "2px solid black",
-          color: "white",
-        }}
-      >
-        {children}
-      </div>
+      <div className="modal-body">{children}</div>
     </div>
   );
 };
