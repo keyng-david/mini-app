@@ -332,23 +332,16 @@ function Homepage(props) {
             Quest:Find the hidden $AMAR token
           </div>
         </div>
-        {<Modal isOpen={quest} onClose={() => setQuest(false)} />}
+        <Modal isOpen={quest} onClose={() => setQuest(false)}>
+          <QuestBody />
+        </Modal>
       </div>
       <div className="mask">
         <div className="panel">
-          {/* <Btn title="Earn" url="/earn" /> */}
           <div className="panel-score">
-            <img
-              src={amar_token}
-              className="panel-score-img"
-              alt="no img"
-              // style={{
-              //   animation: result.current ? "score_increase 2s backwards" : "",
-              // }}
-            />
+            <img src={amar_token} className="panel-score-img" alt="no img" />
             <div className="panel-score-text">{totalScore}</div>
           </div>
-          {/* <Btn title="Wallet" url="/wallet" /> */}
         </div>
         <div className="hide">
           <img
@@ -390,3 +383,15 @@ function Homepage(props) {
 }
 
 export default Homepage;
+
+const QuestBody = () => {
+  return (
+    <div>
+      <p>*THIS IS TESTING TEXT*</p>
+      <p>What's in our Game?</p>
+      <p>Unique Quests</p>
+      <p>Exciting Events</p>
+      <p>Surprise Airdrops: Special rewards and gifts for active players</p>
+    </div>
+  );
+};

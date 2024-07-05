@@ -8,8 +8,9 @@ const Itemview = ({
   header,
   footer,
   onClick,
-  content,
+  modalContent,
   buttonName,
+  modalHeaderTitle,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
@@ -38,7 +39,13 @@ const Itemview = ({
       </div>
       <Modal
         open={open}
-        header={<ModalHeader title={header} click={() => setOpen(false)} />}
+        header={
+          <ModalHeader
+            title={header}
+            content={modalHeaderTitle}
+            click={() => setOpen(false)}
+          />
+        }
         modal={true}
         dismissible={false}
       >
@@ -49,11 +56,17 @@ const Itemview = ({
             justifyContent: "center",
             alignItems: "center",
             padding: "5vw",
-            gap: "1vw",
+            gap: "10vw",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            {content || "Welcome!"}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "5vw",
+            }}
+          >
+            {modalContent || "Welcome!"}
           </div>
           <div>
             <Button onClick={onClick}>{buttonName || "Check"}</Button>
@@ -64,18 +77,20 @@ const Itemview = ({
   );
 };
 
-const ModalHeader = ({ title, click }) => {
+const ModalHeader = ({ title, click, content }) => {
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "space-between",
         padding: "2vw",
+        alignItems: "center",
       }}
     >
       <div>
         <img style={{ height: "5vh" }} src={title} />
       </div>
+      <div>{content}</div>
       <IconButton
         onClick={click}
         style={{

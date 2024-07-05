@@ -45,7 +45,7 @@ const Wallet = () => {
           footer={pasteImg || check}
           backgroundColor="rgb(240, 183, 64)"
           onClick={handlepaste}
-          content={text}
+          modalContent={text}
           buttonName="Connect"
         >
           <div style={{ textAlign: "center" }}>Connect your BSC wallet</div>

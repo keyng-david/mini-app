@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 
 const Button = ({ title, url }) => {
-  console.log("click ", title);
+  //   console.log("click ", title);
   return (
     <div className="temp-div">
       {url ? (

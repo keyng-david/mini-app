@@ -17,6 +17,7 @@ const BtnArrangement = () => {
         // right: "10vw",
       }}
     >
+      <Button title="Home" url="/" />
       <Button title="Earn" url="/earn" />
       <Button title="Invite" url="/invite" />
       <Button title="Wallet" url="/wallet" />

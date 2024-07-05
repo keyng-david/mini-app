@@ -13,13 +13,23 @@ const Earn = () => {
   return (
     <BlackPage mainImg={tokenImg} bigDes="Earn more coins" smallDes="">
       <Itempack title="Tasks list">
-        <Itemview header={yutube} footer={rightArrow}>
+        <Itemview
+          header={yutube}
+          footer={rightArrow}
+          modalHeaderTitle="200M Hamster Kombat Oyuncusu"
+          modalContent="+100.0"
+        >
           <div className="itemview-body-top">200M Hamster Kombat Oyuncusu</div>
           <div className="itemview-body-down">+100.000</div>
         </Itemview>
       </Itempack>
       <Itempack title="Tasks list">
-        <Itemview header={calender} footer={rightArrow}>
+        <Itemview
+          header={calender}
+          footer={rightArrow}
+          modalHeaderTitle="200M Hamster Kombat Oyuncusu"
+          modalContent="+100.0"
+        >
           <div className="itemview-body-top">200M Hamster Kombat Oyuncusu</div>
           <div className="itemview-body-down">+100.000</div>
         </Itemview>

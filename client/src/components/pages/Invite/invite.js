@@ -25,6 +25,8 @@ const Invite = () => {
         header={bonus1}
         //   footer={}
         backgroundColor="rgb(39, 42, 47)"
+        modalHeaderTitle="Invite a friend"
+        modalContent="+5,000"
       >
         <div className="invite-itemview">
           <div>Invite a friend</div>
@@ -42,6 +44,8 @@ const Invite = () => {
         header={bonus2}
         //   footer={}
         backgroundColor="rgb(39, 42, 47)"
+        modalHeaderTitle="Invite a friend with Telegram Premium"
+        modalContent="+25,000"
       >
         <div className="invite-itemview">
           <div>Invite a friend with Telegram Premium</div>

@@ -18,17 +18,14 @@
 }
 
 .modal-body {
-  /* background: #282c34; */
-  background-image: url(../assets/images/paperscroll.png);
+  background-image: url(/src/components/assets/images/paperscroll.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  height: 50%;
+  height: 70vw;
   width: 80%;
   margin: auto;
-  padding: 2%;
-  /* border: 2px solid #000; */
-  /* border-radius: 10px; */
+  padding: 12vw 24vw;
   box-shadow: 2px solid black;
   color: black;
 }
