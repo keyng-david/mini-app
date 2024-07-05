@@ -1,4 +1,3 @@
-import BtnArrangement from "@/components/components/BtnArrangement";
 import BlackPage from "../blackpage/blackpage";
 import Itemview from "@/components/components/componentEarn/Itemview";
 import { PiUserCirclePlusBold } from "react-icons/pi";
@@ -9,6 +8,7 @@ import bonus2 from "../../assets/images/bonus2.png";
 import coin from "../../assets/images/bonus-coin.png";
 
 import "./invite.css";
+import Popup from "../../components/Walletmodal.js";
 
 const Invite = () => {
   return (
@@ -73,6 +73,7 @@ const Invite = () => {
           <PiCopySimple size="50%" />
         </div>
       </div>
+      {/* <Popup></Popup> */}
     </BlackPage>
   );
 };

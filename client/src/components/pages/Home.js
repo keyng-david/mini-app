@@ -12,6 +12,7 @@ import profile from "../assets/images/profile.png";
 
 import { play, users } from "../api/loadaxiosFunc.js";
 import BtnArrangement from "../components/BtnArrangement";
+import { limit } from "../utils/limitation";
 
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
@@ -124,7 +125,9 @@ function Homepage(props) {
     return "";
   };
 
-  const clickHide = () => setHoldClick(true);
+  const clickHide = () => {
+    if (limit()) setHoldClick(true);
+  };
 
   const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
     const retArray = objArray.map((obj) => {
@@ -345,7 +348,7 @@ function Homepage(props) {
         </div>
         <div className="hide">
           <img
-            className={holdClick ? "disabled-hide-img" : "hide-img"}
+            className={holdClick || !limit() ? "disabled-hide-img" : "hide-img"}
             src={Hide}
             onClick={clickHide}
             alt="no img"

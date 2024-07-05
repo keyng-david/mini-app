@@ -22,10 +22,10 @@ import Invite from '@/components/pages/Invite/invite';
  */
 export const routes = [
   { path: '/', Component: Homepage },
-  { path: '/splash', Component: Splash, title: 'Init Data' },
-  { path: '/earn', Component: Earn, title: 'Theme Params' },
-  { path: '/wallet', Component: Wallet, title: 'Launch Params' },
-  { path: '/invite', Component: Invite, title: 'Launch Params' },
+  { path: '/splash', Component: Splash, title: 'Splash Page' },
+  { path: '/earn', Component: Earn, title: 'Earning Page' },
+  { path: '/wallet', Component: Wallet, title: 'Wallet Page' },
+  { path: '/invite', Component: Invite, title: 'Invite Page' },
   // {
   //   path: '/ton-connect',
   //   Component: TONConnectPage,

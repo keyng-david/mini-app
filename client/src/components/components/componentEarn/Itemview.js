@@ -1,8 +1,12 @@
 import "./styles.css";
 
-const Itemview = ({ header, footer, ...props }) => {
+const Itemview = ({ header, footer, onClick, ...props }) => {
   return (
-    <div className="itemview" style={{ backgroundColor: "gray", ...props }}>
+    <div
+      className="itemview"
+      style={{ backgroundColor: "gray", ...props }}
+      onClick={onClick}
+    >
       {header && (
         <div className="itemview-header">
           <img className="item-img" src={header} />
