@@ -9,7 +9,7 @@ import {
   useViewport,
 } from "@tma.js/sdk-react";
 import { AppRoot } from "@telegram-apps/telegram-ui";
-import { HashRouter, Routes as Router, Route } from "react-router-dom";
+import { BrowserRouter, Routes as Router, Route } from "react-router-dom";
 
 import Earn from "./pages/Earn/Earn.js";
 import Splash from "./pages/Splash/splash.js";
@@ -43,7 +43,7 @@ const App = () => {
       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
     >
       <LoadingPage>
-        <HashRouter>
+        <BrowserRouter>
           <Router>
             <Route path="/splash" element={<Splash />} />
             <Route path="/" element={<Homepage />} />
@@ -51,7 +51,7 @@ const App = () => {
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/invite" element={<Invite />} />
           </Router>
-        </HashRouter>
+        </BrowserRouter>
       </LoadingPage>
     </AppRoot>
   );
@@ -72,7 +72,7 @@ export default App;
 // } from "@tma.js/sdk-react";
 // import { AppRoot } from "@telegram-apps/telegram-ui";
 // import { useEffect, useMemo } from "react";
-// import { Navigate, Route, Router, Routes, HashRouter } from "react-router-dom";
+// import { Navigate, Route, Router, Routes, BrowserRouter } from "react-router-dom";
 // // import {
 // //   WebAppProvider,
 // //   MainButton,
