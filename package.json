@@ -7,8 +7,8 @@
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
-    "bot": "nodemon bot",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "bot": "npm start --prefix telegram",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run bot\"",
     "test": "mocha tests/*.js --exit",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
@@ -16,7 +16,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "mocha": "^10.6.0",
+    "nodemon": "^3.1.4",
+    "should": "^13.2.3",
+    "chai-http": "^5.0.0",
+    "supertest": "^7.0.0"
   },
   "dependencies": {
     "@babel/preset-env": "^7.24.7",
@@ -26,6 +30,7 @@
     "@tma.js/sdk-react": "^2.2.7",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^8.2.2",
     "config": "^3.3.12",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -33,10 +38,12 @@
     "express-validator": "^7.1.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mocha": "^10.6.0",
     "mongoose": "^8.4.4",
     "normalize-url": "^8.0.1",
     "react-icons": "^5.2.1",
     "request": "^2.88.2",
-    "telegraf": "^4.16.3"
+    "telegraf": "^4.16.3",
+    "web3": "^4.10.0"
   }
 }
