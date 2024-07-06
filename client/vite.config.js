@@ -50,4 +50,12 @@ export default defineConfig({
       "@": resolve(dirname(fileURLToPath(import.meta.url)), "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      external: ["react"],
+    },
+    optimizeDeps: {
+      exclude: ["react"],
+    },
+  },
 });

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import background from "../assets/images/background.png";
-import paperScroll from "../assets/images/paperscroll.png";
 
 import { useInitData, useLaunchParams } from "@tma.js/sdk-react";
 
@@ -8,7 +7,6 @@ import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
-import Btn from "../components/Btn.js";
 import profile from "../assets/images/profile.png";
 
 import { play, users } from "../api/loadaxiosFunc.js";
@@ -18,25 +16,19 @@ import Modal from "../components/Modal";
 
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
-  const [droped, setDroped] = useState(false);
-  const [gameend, setGameend] = useState(false);
   const [owner, setOwner] = useState(0);
-  const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
   const [result, setResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [quest, setQuest] = useState(false);
   const [click_limit, setClick_limit] = useState(true);
-  let score = parseInt(localStorage.getItem("score")) || 0;
-  const airdrop = useRef(0);
+  // let score = parseInt(localStorage.getItem("score")) || 0;
+  // const airdrop = useRef(0);
   const retrieveTimeout = useRef();
   const increase = useRef();
   const canbeSelect = useRef(false);
   const retrieveShuffle = useRef();
-  const response = useRef();
-  // const updatelimit = useRef({ action: false, updateDay: 0 });
-
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
 
@@ -44,7 +36,6 @@ function Homepage(props) {
   const initDataRaw = useLaunchParams().initDataRaw;
 
   const user = useMemo(() => {
-    console.log("queryId", initDataRaw);
     return initData && initData.user ? initData.user : "unknown";
   });
   const vase_choosed = (e) => {
@@ -125,7 +116,7 @@ function Homepage(props) {
       increase.current = "";
       return "coin_down 2s backwards";
     }
-    if (result.current) {
+    if (result) {
       increase.current = "+1";
       return `coin_catch_${num} 4s backwards`;
     }
@@ -134,8 +125,6 @@ function Homepage(props) {
 
   const clickHide = () => {
     setHoldClick(true);
-    // setClick_limit(limit());
-    // if (!click_limit) setHoldClick(true);
   };
 
   const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
@@ -181,15 +170,11 @@ function Homepage(props) {
         };
       return vase;
     });
-    // setReset(!reset);
-    setDroped(false);
     clearTimeout(retrieveTimeout);
   };
   const loadServer = async (sendData) => {
     setLoading(true);
     const returnVal = await play(sendData);
-    console.log({ returnVal });
-
     //Receiving comparing result from backend.
     //if "Success!", increase totalScore state and catch animation start.
     //If else, no increase.
@@ -209,7 +194,6 @@ function Homepage(props) {
   useEffect(() => {
     if (holdClick) {
       //Game status initialize
-      setChoose(false);
       setResult(false);
       setOwner(0);
       setClick_limit(limit());
@@ -218,7 +202,6 @@ function Homepage(props) {
         //After 2.5s, shuffling animation will execute
         retrieveShuffle.current = setTimeout(() => setShuffling(true), 2500);
       }
-      // setGameend(false);
     }
   }, [holdClick]);
 
@@ -259,8 +242,6 @@ function Homepage(props) {
       }
       //After 3s, return vase status to origin status.
       retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 1500);
-      //choosing status is set.
-      setChoose(true);
       //send owner info and receive the camparing result.
       loadServer({
         tgid: user.id || "",
@@ -276,7 +257,6 @@ function Homepage(props) {
       //   result.current = false;
       //   increase.current = "";
       // }
-      setGameend(true);
     } else {
       setResult(false);
     }
@@ -285,7 +265,6 @@ function Homepage(props) {
   //--shuffling event---
   useEffect(() => {
     if (shuffling) {
-      setDroped(true);
       canbeSelect.current = true; //vase can be selected from now
       // airdrop.current = Math.floor(Math.random(0, 1) * 3 + 1);//DEV MODE
       //vases path to bright status
@@ -308,7 +287,6 @@ function Homepage(props) {
           lastName: user.lastName || "",
         });
         setTotalScore(res.totalScore);
-        console.log("home-----", totalScore);
       }
     };
     fetchedFunc();
@@ -324,7 +302,6 @@ function Homepage(props) {
 
   return (
     <div className="home">
-      {console.log({ click_limit, holdClick })}
       <div className="info">
         <div className="info-avatar">
           <div className="info-avatar-imgbox">

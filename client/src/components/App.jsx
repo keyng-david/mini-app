@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
+import { Provider } from "react-redux";
 import { useIntegration } from "@tma.js/react-router-integration";
 import {
   bindMiniAppCSSVars,
@@ -26,6 +27,8 @@ import Wallet from "./pages/Wallet/wallet.js";
 import LoadingPage from "./components/Loading.js";
 import Invite from "./pages/Invite/invite.js";
 
+import { store } from "./store.js";
+
 const App = () => {
   const lp = useLaunchParams();
   const miniApp = useMiniApp();
@@ -51,17 +54,19 @@ const App = () => {
       appearance={miniApp.isDark ? "dark" : "light"}
       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
     >
-      <LoadingPage>
-        <BrowserRouter>
-          <Router>
-            <Route path="/splash" element={<Splash />} />
-            <Route path="/" element={<Homepage />} />
-            <Route path="/earn" element={<Earn />} />
-            <Route path="/wallet" element={<Wallet />} />
-            <Route path="/invite" element={<Invite />} />
-          </Router>
-        </BrowserRouter>
-      </LoadingPage>
+      <Provider store={store}>
+        <LoadingPage>
+          <BrowserRouter>
+            <Router>
+              <Route path="/splash" element={<Splash />} />
+              <Route path="/" element={<Homepage />} />
+              <Route path="/earn" element={<Earn />} />
+              <Route path="/wallet" element={<Wallet />} />
+              <Route path="/invite" element={<Invite />} />
+            </Router>
+          </BrowserRouter>
+        </LoadingPage>
+      </Provider>
     </AppRoot>
   );
 };
