@@ -1,23 +1,15 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import { Provider } from "react-redux";
-import { useIntegration } from "@tma.js/react-router-integration";
 import {
   bindMiniAppCSSVars,
   bindThemeParamsCSSVars,
   bindViewportCSSVars,
-  initNavigator,
   useLaunchParams,
   useMiniApp,
   useThemeParams,
   useViewport,
 } from "@tma.js/sdk-react";
 import { AppRoot } from "@telegram-apps/telegram-ui";
-import {
-  BrowserRouter,
-  Routes as Router,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { HashRouter, Routes as Router, Route } from "react-router-dom";
 
 import Earn from "./pages/Earn/Earn.js";
 import Splash from "./pages/Splash/splash.js";
@@ -26,8 +18,6 @@ import Homepage from "./pages/Home.js";
 import Wallet from "./pages/Wallet/wallet.js";
 import LoadingPage from "./components/Loading.js";
 import Invite from "./pages/Invite/invite.js";
-
-import { store } from "./store.js";
 
 const App = () => {
   const lp = useLaunchParams();
@@ -47,26 +37,22 @@ const App = () => {
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
 
-  const navigator = useMemo(() => initNavigator("app-navigation-state"), []);
-  const [location, reactNavigator] = useIntegration(navigator);
   return (
     <AppRoot
       appearance={miniApp.isDark ? "dark" : "light"}
       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
     >
-      <Provider store={store}>
-        <LoadingPage>
-          <BrowserRouter>
-            <Router>
-              <Route path="/splash" element={<Splash />} />
-              <Route path="/" element={<Homepage />} />
-              <Route path="/earn" element={<Earn />} />
-              <Route path="/wallet" element={<Wallet />} />
-              <Route path="/invite" element={<Invite />} />
-            </Router>
-          </BrowserRouter>
-        </LoadingPage>
-      </Provider>
+      <LoadingPage>
+        <HashRouter>
+          <Router>
+            <Route path="/splash" element={<Splash />} />
+            <Route path="/" element={<Homepage />} />
+            <Route path="/earn" element={<Earn />} />
+            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/invite" element={<Invite />} />
+          </Router>
+        </HashRouter>
+      </LoadingPage>
     </AppRoot>
   );
 };
@@ -86,14 +72,14 @@ export default App;
 // } from "@tma.js/sdk-react";
 // import { AppRoot } from "@telegram-apps/telegram-ui";
 // import { useEffect, useMemo } from "react";
-// import { Navigate, Route, Router, Routes } from "react-router-dom";
-// import {
-//   WebAppProvider,
-//   MainButton,
-//   BackButton,
-// } from "@vkruglikov/react-telegram-web-app";
+// import { Navigate, Route, Router, Routes, HashRouter } from "react-router-dom";
+// // import {
+// //   WebAppProvider,
+// //   MainButton,
+// //   BackButton,
+// // } from "@vkruglikov/react-telegram-web-app";
 
-// import { routes } from "./components/navigation/routes";
+// // import { routes } from "./components/navigation/routes";
 // import LoadingPage from "./components/Loading";
 
 // /**
@@ -134,22 +120,18 @@ export default App;
 //       appearance={miniApp.isDark ? "dark" : "light"}
 //       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
 //     >
-//       <Router location={location} navigator={reactNavigator}>
-//         <LoadingPage>
-//           <Routes>
+//         <Router location={location} navigator={reactNavigator}>
+//           <LoadingPage>
+//             {/* <Routes>
 //             {routes.map((route) => (
 //               <Route key={route.path} {...route} />
 //             ))}
 //             <Route path="*" element={<Navigate to="/" />} />
-//           </Routes>
-//         </LoadingPage>
-//       </Router>
+//           </Routes> */}
+//           </LoadingPage>
+//         </Router>
 //     </AppRoot>
 //   );
 // }
 
 // export default App;
-
-// {/** Use components inside provider */}
-// <MainButton {...} />
-// <BackButton {...} />

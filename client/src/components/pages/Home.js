@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import background from "../assets/images/background.png";
 
-import { useInitData, useLaunchParams } from "@tma.js/sdk-react";
+import { useInitData } from "@tma.js/sdk-react";
 
 import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
@@ -33,7 +33,6 @@ function Homepage(props) {
   let temp, retrieveHold;
 
   const initData = useInitData();
-  const initDataRaw = useLaunchParams().initDataRaw;
 
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
