@@ -6,6 +6,32 @@ const { validationResult } = require("express-validator");
 const User = require("../../models/User");
 const auth = require("../../middleware/auth");
 
+// @route    POST api/users/wallet
+// @desc     Create or Update user user
+// @access   Public
+router.post("/wallet", async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    // Using upsert option (creates new doc if no match is found):
+    const { tgid, walletAddress } = req.body;
+    const user = await User.findOneAndUpdate(
+      { tgid },
+      { tgid, walletAddress },
+      { new: true, upsert: true }
+    );
+
+    res.status(201).json(user);
+    // next();
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err);
+  }
+});
+
 // @route    POST api/users
 // @desc     Create or Update user user
 // @access   Public
