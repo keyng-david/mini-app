@@ -27,6 +27,7 @@ function Homepage(props) {
   const [loading, setLoading] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [quest, setQuest] = useState(false);
+  const [click_limit, setClick_limit] = useState(true);
   let score = parseInt(localStorage.getItem("score")) || 0;
   const airdrop = useRef(0);
   const retrieveTimeout = useRef();
@@ -35,7 +36,7 @@ function Homepage(props) {
   const retrieveShuffle = useRef();
   const response = useRef();
   const result = useRef();
-  const updatelimit = useRef({ action: false, updateDay: 0 });
+  // const updatelimit = useRef({ action: false, updateDay: 0 });
 
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
@@ -133,8 +134,8 @@ function Homepage(props) {
   };
 
   const clickHide = () => {
-    updatelimit.current = limit();
-    if (updatelimit.current?.action) setHoldClick(true);
+    setClick_limit(limit());
+    if (!click_limit) setHoldClick(true);
   };
 
   const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
@@ -157,11 +158,9 @@ function Homepage(props) {
   // Update function called every second to check for day change
   function updateDay() {
     const currentDay = new Date().getDay();
-
-    if (currentDay !== updatelimit.current.updateDay) {
-      // Day has changed, do something here
-      updatelimit.current = limit();
-      console.log("Day has changed");
+    const last_clicked_day = JSON.parse(localStorage.getItem("storage"))?.day;
+    if (currentDay !== last_clicked_day) {
+      setClick_limit(false);
     }
   }
 
@@ -169,6 +168,7 @@ function Homepage(props) {
   const rinterval = setInterval(updateDay, 30 * 60000);
 
   const returnVaseImg = (owner) => {
+    setHoldClick(false);
     static_vases.current = static_vases.current.map((vase, index) => {
       if (index === owner - 1)
         return {
@@ -181,7 +181,7 @@ function Homepage(props) {
         };
       return vase;
     });
-    setReset(!reset);
+    // setReset(!reset);
     setDroped(false);
     clearTimeout(retrieveTimeout);
   };
@@ -278,17 +278,6 @@ function Homepage(props) {
     }
   }, [owner]);
 
-  //--droped event---
-  useEffect(() => {
-    if (!droped && choose) {
-      setHoldClick(false);
-    }
-  }, [droped]);
-
-  useEffect(() => {
-    // if (choose) setDroped(false);
-  }, [choose]);
-
   //--shuffling event---
   useEffect(() => {
     if (shuffling) {
@@ -321,22 +310,18 @@ function Homepage(props) {
     fetchedFunc();
 
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
+    if (JSON.parse(localStorage.getItem("store"))?.count < 10)
+      setClick_limit(false);
+    else if (JSON.parse(localStorage.getItem("store"))?.count >= 10)
+      setClick_limit(true);
     return () => {
       clearInterval(rinterval);
     };
   }, []);
 
-  //--Game End part--
-  useEffect(() => {
-    if (gameend) {
-      setHoldClick(false);
-    }
-  }, [gameend]);
-
-  //
-
   return (
     <div className="home">
+      {console.log({ click_limit, holdClick })}
       <div className="info">
         <div className="info-avatar">
           <div className="info-avatar-imgbox">
@@ -368,9 +353,7 @@ function Homepage(props) {
         <div className="hide">
           <img
             className={
-              holdClick || !updatelimit.current.action
-                ? "disabled-hide-img"
-                : "hide-img"
+              holdClick || click_limit ? "disabled-hide-img" : "hide-img"
             }
             src={Hide}
             onClick={clickHide}

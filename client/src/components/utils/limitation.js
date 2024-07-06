@@ -1,22 +1,21 @@
 export const limit = () => {
   const dd = new Date().getDay();
   const store = JSON.parse(localStorage.getItem("store")) || {
-    limit: 0,
-    date: dd,
+    count: 0,
+    day: dd,
   };
 
   console.log({ store });
-  if (dd === store.date && store.limit >= 10)
-    return { action: false, updateday: store.date };
-  if (dd === store.date && store.limit < 10) {
+  if (dd === store.day && store.count >= 10) return true;
+  if (dd === store.day && store.count < 10) {
     localStorage.setItem(
       "store",
-      JSON.stringify({ limit: store.limit + 1, date: dd })
+      JSON.stringify({ count: store.count + 1, day: dd })
     );
-    return { action: true, updateday: store.date };
-  } else if (dd !== store.date) {
-    localStorage.setItem("store", JSON.stringify({ limit: 1, date: dd }));
-    return { action: true, updateday: store.date };
+    return false;
+  } else if (dd !== store.day) {
+    localStorage.setItem("store", JSON.stringify({ count: 0, day: dd }));
+    return false;
   }
-  return { action: false, updateday: store.date };
+  return false;
 };
