@@ -31,6 +31,14 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  energy: {
+    type: Number,
+    default: 10,
+  },
+  lastPlayDate: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = User = mongoose.model("user", UserSchema);
