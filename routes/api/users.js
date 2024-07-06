@@ -9,7 +9,7 @@ const auth = require("../../middleware/auth");
 // @route    POST api/users/wallet
 // @desc     Create or Update user user
 // @access   Public
-router.post("/wallet", async (req, res) => {
+router.post("/walletAddress", async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
