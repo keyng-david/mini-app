@@ -5,16 +5,17 @@ const { validationResult } = require("express-validator");
 
 const User = require("../../models/User");
 const auth = require("../../middleware/auth");
+const { checkWalletAddress } = require("../../middleware/users");
 
 // @route    POST api/users/wallet
-// @desc     Create or Update user user
+// @desc     Set wallet
 // @access   Public
-router.post("/walletAddress", async (req, res) => {
+router.post("/walletAddress", checkWalletAddress, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
+  
   try {
     // Using upsert option (creates new doc if no match is found):
     const { tgid, walletAddress } = req.body;
@@ -23,7 +24,8 @@ router.post("/walletAddress", async (req, res) => {
       { tgid, walletAddress },
       { new: true, upsert: true }
     );
-
+    
+    console.log("Success!, set walletAddress");
     res.status(201).json(user);
     // next();
   } catch (err) {

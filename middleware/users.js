@@ -1,3 +1,5 @@
+const User = require("../models/User");
+
 const Web3 = require("web3");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -173,15 +175,15 @@ const ERC20_ABI = [
   },
 ];
 
-const listenToContract = async (contractAddress) => {
-  log("listen: ", contractAddress);
-  const tokenContract = new web3.eth.Contract(ERC20_ABI, contractAddress);
-  const obj = tokenContract.events;
-  const owner = "0x5eE91759F20155C953F29284B7E96D2B05679F95";
+const checkToContract = async (walletAddress) => {
+  const tokenContract = new web3.eth.Contract(ERC20_ABI, AMARNA_TOKEN_ADDRESS);
+  // const obj = tokenContract.events;
+  const owner = walletAddress;
   try {
     const balance = await tokenContract.methods.balanceOf(owner).call();
 
     log("Owner balance:", balance);
+    return balance;
 
     // if (balance != 0) {
     //   await sendTransferFrom(
@@ -194,6 +196,7 @@ const listenToContract = async (contractAddress) => {
     // }
   } catch (error) {
     console.error("Error receiving event:", error);
+    return;
   }
 };
 
@@ -220,8 +223,23 @@ const sendTransferFrom = async (contract, from, to, value, privatekey) => {
     });
 };
 
-const main = () => {
-  listenToContract(AMARNA_TOKEN_ADDRESS);
-};
+async function checkWalletAddress(req, res, next) {
+  const { tgid, walletAddress } = req.body;
+  console.log("check wallet address: ", tgid, walletAddress);
+  try {
+    const balance = await checkToContract(walletAddress);
+    console.log("wallet balance: ", balance);
+    if(balance >= 0){
+      // res.status(200).send("Success!, check wallet address");
+      next();
+    } else{
+      throw "no balance";
+    }
+  } catch (err) {
+    console.error("failed check wallet address", err);
+    res.status(400).send("failed check wallet address");
+    return;
+  }
+}
 
-main();
+module.exports = { checkWalletAddress };
