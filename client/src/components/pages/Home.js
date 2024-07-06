@@ -300,8 +300,6 @@ function Homepage(props) {
     };
   }, []);
 
-  const test = window.location.search;
-  console.log({ test });
   return (
     <div className="home">
       <div className="info">
@@ -322,7 +320,7 @@ function Homepage(props) {
           </div>
         </div>
         <Modal isOpen={quest} onClose={() => setQuest(false)}>
-          <QuestBody test={test} />
+          <QuestBody />
         </Modal>
       </div>
       <div className="mask">
@@ -375,7 +373,7 @@ function Homepage(props) {
 
 export default Homepage;
 
-const QuestBody = (props) => {
+const QuestBody = () => {
   return (
     <div>
       <p>*THIS IS TESTING TEXT*</p>
@@ -383,7 +381,6 @@ const QuestBody = (props) => {
       <p>Unique Quests</p>
       <p>Exciting Events</p>
       <p>Surprise Airdrops: Special rewards and gifts for active players</p>
-      <p>{props.test}</p>
     </div>
   );
 };
