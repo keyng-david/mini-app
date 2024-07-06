@@ -13,6 +13,7 @@ import ListComponent from "@/components/components/Listcomponent";
 
 const Invite = () => {
   const inviteUrl = "https://t.me/amarna_shell_game_bot";
+  const shotenUrl = "https://bit.ly/3xzKDs8";
   const copyUrl = (url) => {
     navigator.clipboard.writeText(url);
   };
@@ -60,17 +61,6 @@ const Invite = () => {
         </div>
       </Itemview>
       <div className="invite-bonustext">More bonuses</div>
-      {/* <div className="invite-friendlist">
-        <div className="invite-friendlist-title">
-          <div className="invite-friendlist-title-text">
-            List of your friends
-          </div>
-          <div className="invite-friendlist-title-icon">
-            <TfiReload />
-          </div>
-        </div>
-        <div className="invite-friendlist-list"></div>
-      </div> */}
       <ListComponent refIcon={<TfiReload />} />
       <div className="invite-btn-pack">
         <div className="invite-btn-pack-btn">

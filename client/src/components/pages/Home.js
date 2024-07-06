@@ -23,7 +23,7 @@ function Homepage(props) {
   const [owner, setOwner] = useState(0);
   const [choose, setChoose] = useState(false);
   const [shuffling, setShuffling] = useState(false);
-  const [reset, setReset] = useState(false);
+  const [result, setResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [quest, setQuest] = useState(false);
@@ -35,7 +35,6 @@ function Homepage(props) {
   const canbeSelect = useRef(false);
   const retrieveShuffle = useRef();
   const response = useRef();
-  const result = useRef();
   // const updatelimit = useRef({ action: false, updateDay: 0 });
 
   let retOwner, retrieveDrop;
@@ -134,8 +133,9 @@ function Homepage(props) {
   };
 
   const clickHide = () => {
-    setClick_limit(limit());
-    if (!click_limit) setHoldClick(true);
+    setHoldClick(true);
+    // setClick_limit(limit());
+    // if (!click_limit) setHoldClick(true);
   };
 
   const elementArrayStyleSet = (objArray, stylePropsName, stylePropsValue) => {
@@ -194,10 +194,10 @@ function Homepage(props) {
     //if "Success!", increase totalScore state and catch animation start.
     //If else, no increase.
     if (returnVal === "Success!") {
+      setResult(true);
       setTotalScore(totalScore + 1);
-      result.current = true;
     } else {
-      result.current = false;
+      setResult(false);
     }
     setLoading(false);
     return returnVal;
@@ -208,13 +208,17 @@ function Homepage(props) {
   //--holdclick event---(Game Entry Point)
   useEffect(() => {
     if (holdClick) {
-      //After 2.5s, shuffling animation will execute
-      retrieveShuffle.current = setTimeout(() => setShuffling(true), 2500);
       //Game status initialize
       setChoose(false);
-      result.current = false;
+      setResult(false);
       setOwner(0);
-      setGameend(false);
+      setClick_limit(limit());
+      if (click_limit) setHoldClick(false);
+      else {
+        //After 2.5s, shuffling animation will execute
+        retrieveShuffle.current = setTimeout(() => setShuffling(true), 2500);
+      }
+      // setGameend(false);
     }
   }, [holdClick]);
 
@@ -274,7 +278,7 @@ function Homepage(props) {
       // }
       setGameend(true);
     } else {
-      result.current = false;
+      setResult(false);
     }
   }, [owner]);
 
@@ -310,10 +314,9 @@ function Homepage(props) {
     fetchedFunc();
 
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
-    if (JSON.parse(localStorage.getItem("store"))?.count < 10)
-      setClick_limit(false);
-    else if (JSON.parse(localStorage.getItem("store"))?.count >= 10)
+    if (JSON.parse(localStorage.getItem("store"))?.count >= 10)
       setClick_limit(true);
+    else setClick_limit(false);
     return () => {
       clearInterval(rinterval);
     };
@@ -371,7 +374,7 @@ function Homepage(props) {
                   animation: coinAnimation(owner),
                 }}
               >
-                {result.current ? (
+                {result ? (
                   <div className="coin-score">{increase.current}</div>
                 ) : (
                   <img
