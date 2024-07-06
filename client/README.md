@@ -245,3 +245,5 @@ project's information.
 - [Platform documentation](https://docs.telegram-mini-apps.com/)
 - [@tma.js/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/tma-js-sdk-react)
 - [Telegram developers community chat](https://t.me/devs)
+
+

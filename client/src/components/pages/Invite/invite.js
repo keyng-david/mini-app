@@ -6,14 +6,22 @@ import { PiCopySimple } from "react-icons/pi";
 import bonus1 from "../../assets/images/bonus1.png";
 import bonus2 from "../../assets/images/bonus2.png";
 import coin from "../../assets/images/bonus-coin.png";
+import { useInitData, useLaunchParams } from "@tma.js/sdk-react";
+import { useMemo } from "react";
 
 import "./invite.css";
 import Popup from "../../components/Modal.js";
 import ListComponent from "@/components/components/Listcomponent";
 
 const Invite = () => {
-  const inviteUrl = "https://t.me/amarna_shell_game_bot";
+  const initData = useInitData();
+  const launch = useLaunchParams();
+  const user = useMemo(() => {
+    return initData && initData.user ? initData.user : "unknown";
+  });
+  const inviteUrl = `https://t.me/amarna_shell_game_bot?ref={"name":${user.firstName}}`;
   const shotenUrl = "https://bit.ly/3xzKDs8";
+  console.log(user, launch);
   const copyUrl = (url) => {
     navigator.clipboard.writeText(url);
   };

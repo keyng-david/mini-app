@@ -14,10 +14,6 @@ const Itemview = ({
   ...props
 }) => {
   const [open, setOpen] = useState(false);
-  const handleModal = () => {
-    setOpen(false);
-  };
-  console.log(open);
   return (
     <>
       <div

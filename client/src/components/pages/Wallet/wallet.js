@@ -17,7 +17,10 @@ import { useInitData } from "@tma.js/sdk-react";
 import "./wallet.css";
 
 const Wallet = () => {
-  const [text, setText] = useState("Connect your BSC wallet");
+  const NEEDED_COIN_THRESHOLD = 20;
+  const GENERAL_TEXT = "Connect your BSC wallet";
+  const ALERT_TEXT = "More coins are needed!!";
+  const [text, setText] = useState(GENERAL_TEXT);
   const [totalScore, setTotalScore] = useState(0);
   const initData = useInitData();
   const user = useMemo(() => {
@@ -26,26 +29,33 @@ const Wallet = () => {
   const handlepaste = () => {
     navigator.clipboard.readText().then((text) => {
       setText(text);
-      const fetchData = async () => {
+      const registry = async () => {
         try {
-          await registAddress({ data: { address: text } });
-        } catch (err) {}
+          const res = await registAddress({
+            tgid: user.id,
+            walletAddress: text,
+          });
+          console.log("=====", res);
+        } catch (err) {
+          console.log("error");
+        }
       };
-      fetchData();
+      registry();
     });
   };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res1 = await fetchAddress();
-        console.log("---", { res });
-        setText(res1.address);
+        // const res1 = await fetchAddress();
+        //
         const res = await users({
           tgid: user.id || "",
           username: user.username || "",
           firstName: user.firstName || "",
           lastName: user.lastName || "",
         });
+        console.log("-------", res);
+        setText(res.walletAddress);
         setTotalScore(res.totalScore);
       } catch (err) {}
     };
@@ -64,8 +74,8 @@ const Wallet = () => {
           header={binance}
           footer={pasteImg || check}
           backgroundColor="rgb(240, 183, 64)"
-          onClick={totalScore > 20 ? handlepaste : () => {}}
-          modalContent={text}
+          onClick={totalScore > NEEDED_COIN_THRESHOLD ? handlepaste : () => {}}
+          modalContent={totalScore > NEEDED_COIN_THRESHOLD ? text : ALERT_TEXT}
           buttonName="Connect"
         >
           <div style={{ textAlign: "center" }}>Connect your BSC wallet</div>

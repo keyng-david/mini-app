@@ -33,15 +33,14 @@ export const users = async (data) => {
 
 export const registAddress = async (data) => {
   try {
-    const response = await axios.post(`${api}/wallet`, data, {
+    const response = await axios.post(`${api}/users/walletAddress`, data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    // console.log("users", response);
+    console.log("users", response);
     return response.data;
   } catch (error) {
-    localStorage.setItem("wallet", JSON.stringify(data));
     console.error("Error sending data to backend:", error);
   }
 };

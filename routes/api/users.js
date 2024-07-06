@@ -12,10 +12,11 @@ const { checkWalletAddress } = require("../../middleware/users");
 // @access   Public
 router.post("/walletAddress", checkWalletAddress, async (req, res) => {
   const errors = validationResult(req);
+  console.log("wallet");
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  
+
   try {
     // Using upsert option (creates new doc if no match is found):
     const { tgid, walletAddress } = req.body;
@@ -24,7 +25,7 @@ router.post("/walletAddress", checkWalletAddress, async (req, res) => {
       { tgid, walletAddress },
       { new: true, upsert: true }
     );
-    
+
     console.log("Success!, set walletAddress");
     res.status(201).json(user);
     // next();
