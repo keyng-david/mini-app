@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Splash from "../pages/Splash/splash.js";
-import { Circle } from "react-preloaders";
 
 const LoadingPage = (props) => {
   const [isLoading, setIsLoading] = useState(true);
