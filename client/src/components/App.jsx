@@ -70,7 +70,8 @@ import {
   useThemeParams,
   useViewport,
 } from "@tma.js/sdk-react";
-import { AppRoot } from "@telegram-apps/telegram-ui";
+// import { AppRoot, List } from "@xelene/tgui";
+// import { AppRoot } from "@telegram-apps/telegram-ui";
 import { useEffect, useMemo } from "react";
 import {
   Navigate,
@@ -122,18 +123,19 @@ export function App() {
   }, [navigator]);
 
   return (
-    <AppRoot appearance={"dark"}>
-      <Router location={location} navigator={reactNavigator}>
-        <LoadingPage>
-          <Routes>
-            {routes.map((route) => (
-              <Route key={route.path} {...route} />
-            ))}
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </LoadingPage>
-      </Router>
-    </AppRoot>
+    // <AppRoot appearance={"dark"}>
+    // <AppRoot>
+    <Router location={location} navigator={reactNavigator}>
+      <LoadingPage>
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} {...route} />
+          ))}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </LoadingPage>
+    </Router>
+    // </AppRoot>
   );
 }
 
