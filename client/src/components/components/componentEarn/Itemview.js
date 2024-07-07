@@ -38,21 +38,14 @@ const Itemview = ({
                 ...props,
                 display: "flex",
                 justifyContent: "flex-start",
+                height: "10vw",
+                overflow: "visible",
               }}
             >
               <div className="itemview-body">{props.children}</div>
             </Button>
           }
-          header={
-            <Modal.Header />
-            // <ModalHeader
-            //   title={header}
-            //   content={modalHeaderTitle}
-            //   click={() => setOpen(false)}
-            // />
-          }
-          // modal={true}
-          // dismissible={false}
+          header={<Modal.Header />}
         >
           <div
             style={{

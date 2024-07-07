@@ -6,8 +6,10 @@
 
 .invite-itemview {
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
   gap: 1vw;
+  font-size: 3vw;
 }
 
 .invite-itemview-bottom {
@@ -32,6 +34,7 @@
 }
 
 .invite-friendlist {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1vw;

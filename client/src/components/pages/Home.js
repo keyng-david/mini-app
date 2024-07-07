@@ -3,7 +3,6 @@ import background from "../assets/images/background.png";
 
 import { useInitData } from "@tma.js/sdk-react";
 
-import "./styles.css";
 import amar_token from "../assets/images/amarIcon.png";
 import Hide from "../assets/images/logo.png";
 import scroll from "../assets/images/quest.png";
@@ -14,6 +13,7 @@ import BtnArrangement from "../components/BtnArrangement";
 import { limit } from "../utils/limitation";
 import Modal from "../components/Modal";
 
+import "./styles.css";
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [owner, setOwner] = useState(0);

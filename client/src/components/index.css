@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/*re define*/
+
+.tgui-5f6014c0f063b6de {
+  overflow: visible;
+  /* text-overflow: ellipsis; */
+  white-space: nowrap;
+  z-index: var(--tgui--z-index--simple);
+}
