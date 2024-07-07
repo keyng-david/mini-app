@@ -122,10 +122,7 @@ export function App() {
   }, [navigator]);
 
   return (
-    <AppRoot
-      appearance={miniApp.isDark ? "dark" : "light"}
-      platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
-    >
+    <AppRoot appearance={"dark"}>
       <Router location={location} navigator={reactNavigator}>
         <LoadingPage>
           <Routes>
