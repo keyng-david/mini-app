@@ -15,9 +15,10 @@ import pasteImg from "../../assets/images/paste.png";
 import { useInitData } from "@tma.js/sdk-react";
 
 import "./wallet.css";
+import ReactModal from "@/components/components/ReactModal";
 
 const Wallet = () => {
-  const NEEDED_COIN_THRESHOLD = 20;
+  const NEEDED_COIN_THRESHOLD = 5;
   const GENERAL_TEXT = "Connect your BSC wallet";
   const ALERT_TEXT = "More coins are needed!!";
   const [text, setText] = useState(GENERAL_TEXT);
@@ -70,16 +71,19 @@ const Wallet = () => {
     >
       {console.log({ totalScore })}
       <Itempack title="Tasks list">
-        <Itemview
-          header={binance}
-          footer={pasteImg || check}
-          backgroundColor="rgb(240, 183, 64)"
-          onClick={totalScore > NEEDED_COIN_THRESHOLD ? handlepaste : () => {}}
-          modalContent={totalScore > NEEDED_COIN_THRESHOLD ? text : ALERT_TEXT}
-          buttonName="Connect"
+        <ReactModal
+          title={"Connect Wallet"}
+          content={text}
+          okFunc={handlepaste}
         >
-          <div style={{ textAlign: "center" }}>Connect your BSC wallet</div>
-        </Itemview>
+          <Itemview
+            header={binance}
+            footer={pasteImg || check}
+            backgroundColor="rgb(240, 183, 64)"
+          >
+            <div style={{ textAlign: "center" }}>Connect your BSC wallet</div>
+          </Itemview>
+        </ReactModal>
       </Itempack>
     </BlackPage>
   );

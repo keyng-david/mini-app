@@ -21,7 +21,7 @@ const Modal = ({ isOpen, onClose, children }) => {
         zIndex: 2,
       }}
     >
-      <div className="modal-body">{children}</div>
+      <div className="quest-modalbody ">{children}</div>
     </div>
   );
 };

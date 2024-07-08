@@ -7,32 +7,39 @@ import tokenImg from "../../assets/images/amarIcon.png";
 
 import "./earn.css";
 import BlackPage from "../blackpage/blackpage.js";
-import { Modal } from "@telegram-apps/telegram-ui";
+import ReactModal from "@/components/components/ReactModal.js";
+import { useState } from "react";
 
 const Earn = () => {
   return (
     <BlackPage mainImg={tokenImg} bigDes="Earn more coins" smallDes="">
       <Itempack title="Tasks list">
-        <Itemview
-          header={yutube}
-          footer={rightArrow}
-          modalHeaderTitle="200M Hamster Kombat Oyuncusu"
-          modalContent="+100.0"
+        <ReactModal
+          title={"200M Hamster Kombat Oyuncusu"}
+          content={"+100.000"}
+          // okFunc={}
         >
-          <div className="itemview-body-top">200M Hamster Kombat Oyuncusu</div>
-          <div className="itemview-body-down">+100.000</div>
-        </Itemview>
+          <Itemview header={yutube} footer={rightArrow}>
+            <div className="itemview-body-top">
+              200M Hamster Kombat Oyuncusu
+            </div>
+            <div className="itemview-body-down">+100.000</div>
+          </Itemview>
+        </ReactModal>
       </Itempack>
       <Itempack title="Tasks list">
-        <Itemview
-          header={calender}
-          footer={rightArrow}
-          modalHeaderTitle="200M Hamster Kombat Oyuncusu"
-          modalContent="+100.0"
+        <ReactModal
+          title={"200M Hamster Kombat Oyuncusu"}
+          content={"+100.000"}
+          // okFunc={}
         >
-          <div className="itemview-body-top">200M Hamster Kombat Oyuncusu</div>
-          <div className="itemview-body-down">+100.000</div>
-        </Itemview>
+          <Itemview header={calender} footer={rightArrow}>
+            <div className="itemview-body-top">
+              200M Hamster Kombat Oyuncusu
+            </div>
+            <div className="itemview-body-down">+100.000</div>
+          </Itemview>
+        </ReactModal>
       </Itempack>
     </BlackPage>
   );

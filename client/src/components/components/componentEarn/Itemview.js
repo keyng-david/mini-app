@@ -1,7 +1,7 @@
 // import { Modal, Button, IconButton } from "@telegram-apps/telegram-ui";
 import { useState } from "react";
-import { IoCloseCircleOutline } from "react-icons/io5";
-import { Modal, Button } from "@xelene/tgui";
+// import { IoCloseCircleOutline } from "react-icons/io5";
+// import { Modal, Button } from "@xelene/tgui";
 
 import "./styles.css";
 
@@ -14,63 +14,20 @@ const Itemview = ({
   modalHeaderTitle,
   ...props
 }) => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   return (
     <>
       <div
         className="itemview"
         style={{ backgroundColor: "gray", ...props }}
-        onClick={() => setOpen(true)}
+        onClick={onClick}
       >
         {header && (
           <div className="itemview-header">
             <img className="item-img" src={header} />
           </div>
         )}
-        <Modal
-          // open={open}
-          trigger={
-            <Button
-              size="l"
-              stretched
-              style={{
-                backgroundColor: "gray",
-                ...props,
-                display: "flex",
-                justifyContent: "flex-start",
-                height: "10vw",
-                overflow: "visible",
-              }}
-            >
-              <div className="itemview-body">{props.children}</div>
-            </Button>
-          }
-          header={<Modal.Header />}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "5vw",
-              gap: "10vw",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "5vw",
-              }}
-            >
-              {modalContent || "Welcome!"}
-            </div>
-            <div>
-              <Button onClick={onClick}>{buttonName || "Check"}</Button>
-            </div>
-          </div>
-        </Modal>
+        <div className="itemview-body">{props.children}</div>
         {footer && (
           <div className="itemview-footer">
             <img className="item-img" src={footer} />
@@ -81,31 +38,4 @@ const Itemview = ({
   );
 };
 
-const ModalHeader = ({ title, click, content }) => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "2vw",
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <img style={{ height: "5vh" }} src={title} />
-      </div>
-      <div>{content}</div>
-      <IconButton
-        onClick={click}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <IoCloseCircleOutline size="5vw" />
-      </IconButton>
-    </div>
-  );
-};
 export default Itemview;

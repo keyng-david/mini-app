@@ -2,7 +2,6 @@ import { SDKProvider, useLaunchParams } from "@tma.js/sdk-react";
 import { useEffect } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import App from "./App";
-import { AppRoot, List } from "@xelene/tgui";
 
 /**
  * @param {unknown} error
@@ -51,9 +50,9 @@ function Inner() {
 export function Root() {
   return (
     <ErrorBoundary fallback={ErrorBoundaryError}>
-      <AppRoot>
-        <Inner />
-      </AppRoot>
+      {/* <AppRoot> */}
+      <Inner />
+      {/* </AppRoot> */}
     </ErrorBoundary>
   );
 }

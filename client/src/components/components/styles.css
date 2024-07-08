@@ -17,7 +17,7 @@
   font-size: 3vw;
 }
 
-.modal-body {
+.quest-modalbody {
   background-image: url(/src/components/assets/images/paperscroll.png);
   background-position: center;
   background-size: contain;

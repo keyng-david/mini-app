@@ -341,7 +341,12 @@ function Homepage(props) {
         </div>
 
         <div style={{ position: "relative", marginTop: "-50px" }}>
-          <img src={background} className="backImg" alt="noImg loaded" />
+          <img
+            src={background}
+            onLoad={props.loadImg}
+            className="backImg"
+            alt="noImg loaded"
+          />
           <div style={{ position: "absolute", inset: -1 }}>
             <div className="gradient">
               <div
