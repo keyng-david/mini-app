@@ -22,7 +22,6 @@ const BlackPage = ({ mainImg, bigDes, smallDes, radius, ...props }) => {
       </div>
       <div className="blackpage-body">{props.children}</div>
       <div className="blackpage-bottom-space"></div>
-      <BtnArrangement />
     </div>
   );
 };

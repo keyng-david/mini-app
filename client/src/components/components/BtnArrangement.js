@@ -4,7 +4,7 @@ const BtnArrangement = () => {
     <div
       style={{
         display: "flex",
-        width: "86vw",
+        // width: "86vw",
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "rgb(18 18 18/80%)",
@@ -13,8 +13,8 @@ const BtnArrangement = () => {
         zIndex: "2",
         position: "fixed",
         bottom: 0,
-        // left: "10vw",
-        // right: "10vw",
+        left: "10vw",
+        right: "10vw",
       }}
     >
       <Button title="Home" url="/" />

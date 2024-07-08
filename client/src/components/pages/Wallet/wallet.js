@@ -30,19 +30,18 @@ const Wallet = () => {
   const handlepaste = () => {
     navigator.clipboard.readText().then((text) => {
       setText(text);
-      const registry = async () => {
-        try {
-          const res = await registAddress({
-            tgid: user.id,
-            walletAddress: text,
-          });
-          console.log("=====", res);
-        } catch (err) {
-          console.log("error");
-        }
-      };
-      registry();
     });
+  };
+  const connetWallet = async () => {
+    try {
+      const res = await registAddress({
+        tgid: user.id,
+        walletAddress: text,
+      });
+      console.log("=====", res);
+    } catch (err) {
+      console.log("error");
+    }
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +73,9 @@ const Wallet = () => {
         <ReactModal
           title={"Connect Wallet"}
           content={text}
-          okFunc={handlepaste}
+          okFunc={connetWallet}
+          paste={handlepaste}
+          okText="Connect"
         >
           <Itemview
             header={binance}

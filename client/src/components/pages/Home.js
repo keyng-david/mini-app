@@ -12,8 +12,11 @@ import { play, users } from "../api/loadaxiosFunc.js";
 import BtnArrangement from "../components/BtnArrangement";
 import { limit } from "../utils/limitation";
 import Modal from "../components/Modal";
+import Admin from "./Admin/Admin";
+import { TfiSettings } from "react-icons/tfi";
 
 import "./styles.css";
+import ReactModal from "../components/ReactModal";
 function Homepage(props) {
   const [holdClick, setHoldClick] = useState(false);
   const [owner, setOwner] = useState(0);
@@ -41,7 +44,7 @@ function Homepage(props) {
     if (canbeSelect.current) setOwner(parseInt(e.target.id));
   };
 
-  const static_vases = useRef([
+  const temp_vases = useRef([
     <div
       className="vase-img-small"
       style={{ left: "30%" }}
@@ -67,6 +70,31 @@ function Homepage(props) {
     ></div>,
   ]);
   const broken_vase = <div className="vase-img-broken"></div>;
+  const static_vases = [
+    <div
+      className="vase-img-small"
+      style={{ left: "30%" }}
+      id="1"
+      onClick={vase_choosed}
+      key="1"
+    ></div>,
+    <div
+      className="vase-img-big"
+      style={{ left: "60%" }}
+      id="2"
+      onClick={vase_choosed}
+      key="2"
+    ></div>,
+    <div
+      className="vase-img-small"
+      style={{
+        left: "70%",
+      }}
+      id="3"
+      onClick={vase_choosed}
+      key="3"
+    ></div>,
+  ];
   const dynamic_vases = [
     <div
       className="vase-img-small"
@@ -90,7 +118,7 @@ function Homepage(props) {
 
   //------------ handlers ------------
   const init = () => {
-    return static_vases.current.map((vase) => vase);
+    return temp_vases.current.map((vase) => vase);
   };
 
   const move = () => {
@@ -152,12 +180,38 @@ function Homepage(props) {
     }
   }
 
+  const brokenAnimi = () => {
+    temp_vases.current[(owner - 1).toString()] = {
+      ...broken_vase,
+      props: {
+        ...static_vases[(owner - 1).toString()]?.props,
+        ...broken_vase.props,
+        style: {
+          ...static_vases[(owner - 1).toString()]?.props.style,
+        },
+      },
+    };
+    setTimeout(
+      () =>
+        (temp_vases.current[(owner - 1).toString()] = {
+          ...static_vases[(owner - 1).toString()],
+          props: {
+            ...static_vases[(owner - 1).toString()].props,
+            style: {
+              ...static_vases[(owner - 1).toString()].props.style,
+            },
+          },
+        }),
+      1000
+    );
+  };
+
   // Call updateDay function every second
   const rinterval = setInterval(updateDay, 30 * 60000);
 
   const returnVaseImg = (owner) => {
     setHoldClick(false);
-    static_vases.current = static_vases.current.map((vase, index) => {
+    static_vases = static_vases.map((vase, index) => {
       if (index === owner - 1)
         return {
           ...vase,
@@ -173,18 +227,23 @@ function Homepage(props) {
   };
   const loadServer = async (sendData) => {
     setLoading(true);
-    const returnVal = await play(sendData);
-    //Receiving comparing result from backend.
-    //if "Success!", increase totalScore state and catch animation start.
-    //If else, no increase.
-    if (returnVal === "Success!") {
-      setResult(true);
-      setTotalScore(totalScore + 1);
-    } else {
-      setResult(false);
+    brokenAnimi();
+    try {
+      const returnVal = await play(sendData);
+      //Receiving comparing result from backend.
+      //if "Success!", increase totalScore state and catch animation start.
+      //If else, no increase.
+      if (returnVal === "Success!") {
+        setResult(true);
+        setTotalScore(totalScore + 1);
+      } else {
+        setResult(false);
+      }
+      setLoading(false);
+      return returnVal;
+    } catch (err) {
+      setLoading(false);
     }
-    setLoading(false);
-    return returnVal;
   };
 
   //------------Event control part ------------
@@ -210,35 +269,13 @@ function Homepage(props) {
       //While this game is going, vase can't be selected
       canbeSelect.current = false;
       //vase array remove bright status after vase selecting
-      static_vases.current = elementArrayStyleSet(
-        static_vases.current,
+      temp_vases.current = elementArrayStyleSet(
+        temp_vases.current,
         "animation",
         ""
       );
       //Then path to dust rising animation or broken animation status following loading status.
-      if (loading) {
-        static_vases.current[(owner - 1).toString()] = {
-          ...static_vases.current[(owner - 1).toString()],
-          props: {
-            ...static_vases.current[(owner - 1).toString()].props,
-            style: {
-              ...static_vases.current[(owner - 1).toString()].props.style,
-              backgroundPosition: "bottom",
-            },
-          },
-        };
-      } else {
-        static_vases.current[(owner - 1).toString()] = {
-          ...broken_vase,
-          props: {
-            ...static_vases.current[(owner - 1).toString()].props,
-            ...broken_vase.props,
-            style: {
-              ...static_vases.current[(owner - 1).toString()].props.style,
-            },
-          },
-        };
-      }
+
       //After 3s, return vase status to origin status.
       retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 1500);
       //send owner info and receive the camparing result.
@@ -289,15 +326,15 @@ function Homepage(props) {
       }
     };
     fetchedFunc();
-
-    clearTimeout(retrieveHold, retrieveDrop, retOwner);
     if (JSON.parse(localStorage.getItem("store"))?.count >= 10)
       setClick_limit(true);
     else setClick_limit(false);
+    clearTimeout(retrieveHold, retrieveDrop, retOwner);
     return () => {
       clearInterval(rinterval);
     };
   }, []);
+  console.log("loading----", loading);
 
   return (
     <div className="home">
@@ -324,10 +361,18 @@ function Homepage(props) {
       </div>
       <div className="mask">
         <div className="panel">
+          <div>
+            <ReactModal content={<Admin />} title="Setting" okText="Apply">
+              <button className="btn">
+                <TfiSettings color="white" />
+              </button>
+            </ReactModal>
+          </div>
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" alt="no img" />
             <div className="panel-score-text">{totalScore}</div>
           </div>
+          <div></div>
         </div>
         <div className="hide">
           <img
@@ -347,7 +392,7 @@ function Homepage(props) {
             className="backImg"
             alt="noImg loaded"
           />
-          <div style={{ position: "absolute", inset: -1 }}>
+          <div style={{ inset: -1 }}>
             <div className="gradient">
               <div
                 id="coin"
@@ -366,7 +411,6 @@ function Homepage(props) {
                 )}
               </div>
               <div className="vase">{shuffling_process()}</div>
-              <BtnArrangement />
             </div>
           </div>
         </div>

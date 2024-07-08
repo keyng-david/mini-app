@@ -50,9 +50,7 @@ function Inner() {
 export function Root() {
   return (
     <ErrorBoundary fallback={ErrorBoundaryError}>
-      {/* <AppRoot> */}
       <Inner />
-      {/* </AppRoot> */}
     </ErrorBoundary>
   );
 }

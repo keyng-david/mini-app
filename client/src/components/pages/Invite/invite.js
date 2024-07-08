@@ -12,9 +12,11 @@ import { useMemo, useState } from "react";
 import "./invite.css";
 import ListComponent from "@/components/components/Listcomponent";
 import ReactModal from "@/components/components/ReactModal";
+import { Navigate } from "react-router-dom";
 
 const Invite = () => {
   const initData = useInitData();
+  const [nav, setNav] = useState(false);
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
@@ -77,13 +79,17 @@ const Invite = () => {
       </ReactModal>
       <div className="invite-bonustext">More bonuses</div>
       <ListComponent refIcon={<TfiReload />} />
+
       <div className="invite-btn-pack">
-        <div className="invite-btn-pack-btn">
+        {/* <div className="invite-btn-pack-btn"> */}
+        <a className="invite-btn-pack-btn" href={inviteUrl}>
           <div className="invite-btn-pack-btn-text">Invite a friend</div>
           <div className="invite-btn-pack-btn-img">
             <PiUserCirclePlusBold />
           </div>
-        </div>
+        </a>
+        {/* </div> */}
+
         <div
           className="invite-btn-pack-right"
           onClick={() => copyUrl(inviteUrl)}
@@ -91,6 +97,7 @@ const Invite = () => {
           <PiCopySimple size="50%" />
         </div>
       </div>
+
       {/* <Popup></Popup> */}
     </BlackPage>
   );

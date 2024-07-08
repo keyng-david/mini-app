@@ -70,8 +70,6 @@ import {
   useThemeParams,
   useViewport,
 } from "@tma.js/sdk-react";
-// import { AppRoot, List } from "@xelene/tgui";
-// import { AppRoot } from "@telegram-apps/telegram-ui";
 import { useEffect, useMemo } from "react";
 import {
   Navigate,
@@ -80,14 +78,10 @@ import {
   Routes,
   BrowserRouter,
 } from "react-router-dom";
-// import {
-//   WebAppProvider,
-//   MainButton,
-//   BackButton,
-// } from "@vkruglikov/react-telegram-web-app";
 
 import { routes } from "./components/navigation/routes";
 import LoadingPage from "./components/Loading";
+import BtnArrangement from "./components/BtnArrangement";
 
 /**
  * @return {JSX.Element}
@@ -133,6 +127,7 @@ export function App() {
           ))}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <BtnArrangement />
       </LoadingPage>
     </Router>
     // </AppRoot>
