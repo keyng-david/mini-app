@@ -38,6 +38,7 @@ router.post("/walletAddress", checkWalletAddress, async (req, res) => {
 // @desc     Create or Update user user
 // @access   Public
 router.post("/", async (req, res) => {
+  console.log("Create user...");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -45,10 +46,11 @@ router.post("/", async (req, res) => {
 
   try {
     // Using upsert option (creates new doc if no match is found):
-    const { tgid, username, firstName, lastName } = req.body;
+    const { tgid, username, firstName, lastName, payload } = req.body;
+    const referrer = payload.replace(/r_/i, "");
     const user = await User.findOneAndUpdate(
       { tgid },
-      { tgid, username, firstName, lastName },
+      { tgid, username, firstName, lastName, referrer },
       { new: true, upsert: true }
     );
 
