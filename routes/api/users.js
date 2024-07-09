@@ -38,27 +38,48 @@ router.post("/walletAddress", checkWalletAddress, async (req, res) => {
 // @route    POST api/users
 // @desc     Create or Update user user
 // @access   Public
-router.post("/", async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+router.post(
+  "/",
+  async (req, res, next) => {
+    console.log("Create user...");
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  try {
-    // Using upsert option (creates new doc if no match is found):
-    const { tgid, username, firstName, lastName } = req.body;
-    const user = await User.findOneAndUpdate(
-      { tgid },
-      { tgid, username, firstName, lastName },
+    try {
+      // Using upsert option (creates new doc if no match is found):
+      const { tgid, username, firstName, lastName, referrer } = req.body;
+      const user = await User.findOneAndUpdate(
+        { tgid },
+        { tgid, username, firstName, lastName, referrer },
+        { new: true, upsert: true }
+      );
+      res.status(201).json(user);
+      if (referrer) {
+        next();
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  },
+  async (req) => {
+    const { tgid, referrer } = req.body;
+    const user = await User.findOne({tgid: referrer});
+    if(!user){
+      console.log("there is not referrer");
+      return;
+    }
+    console.log(user);
+    user.referral.push(tgid);
+    await User.findOneAndUpdate(
+      { tgid: referrer },
+      { ...user },
       { new: true, upsert: true }
     );
-
-    res.status(201).json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
   }
-});
+);
 
 // @route    GET api/users/user/:user_id
 // @desc     Get user by user ID

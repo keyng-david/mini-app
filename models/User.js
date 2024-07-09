@@ -43,6 +43,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  referrer: {
+    type: String,
+    default: "",
+  },
+  referral: {
+    type: Array,
+    default:[]
+  },
 });
 
 module.exports = User = mongoose.model("user", UserSchema);
