@@ -12,6 +12,7 @@ const keyboard = Markup.inlineKeyboard([
 const start = async (ctx: Context) => {
   const { payload } = ctx;
   const { id, first_name, username } = ctx.update.message.from;
+  const referrer = payload.replace(/r_/i, "");
   ctx.reply(message, {
     reply_markup: keyboard,
     parse_mode: "HTML",
@@ -21,7 +22,7 @@ const start = async (ctx: Context) => {
     username: username,
     firstName: first_name,
     lastName: "",
-    payload: payload,
+    referrer: referrer,
   };
   console.log("start: ", data);
   await users(data);
