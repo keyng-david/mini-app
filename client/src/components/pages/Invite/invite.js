@@ -21,10 +21,17 @@ const Invite = () => {
     return initData && initData.user ? initData.user : "unknown";
   });
 
-  const inviteUrl = `https://t.me/amarna_shell_game_bot/start?startapp=amarna_${user.id}`;
+  const inviteUrl = `https://t.me/amarna_shell_game_bot?start=r_${user.id}`;
   // const shotenUrl = "https://bit.ly/3xzKDs8";
-  const copyUrl = (url) => {
-    navigator.clipboard.writeText(url);
+  const copyUrl = async (url) => {
+    if ("clipboard" in navigator) {
+      await navigator.clipboard.writeText(url);
+    } else {
+      document.execCommand("copy", true, url);
+    }
+    // navigator.clipboard.writeText(url).then((txt) => {
+    //   console.log("copied : ", txt);
+    // });
   };
   return (
     <BlackPage
@@ -34,6 +41,7 @@ const Invite = () => {
       <ReactModal
         title={"Invite a friend"}
         content={"+5,000"}
+        okText="Reward"
         // okFunc={}
       >
         <Itemview
@@ -57,6 +65,7 @@ const Invite = () => {
       <ReactModal
         title={"Invite a friend with Telegram Premium"}
         content={"+25,000"}
+        okText="Reward"
         // okFunc={}
       >
         <Itemview

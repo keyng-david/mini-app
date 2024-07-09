@@ -25,7 +25,7 @@ function Homepage(props) {
   const [loading, setLoading] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
   const [quest, setQuest] = useState(false);
-  const [click_limit, setClick_limit] = useState(true);
+  const [click_limit, setClick_limit] = useState(false);
   // let score = parseInt(localStorage.getItem("score")) || 0;
   // const airdrop = useRef(0);
   const retrieveTimeout = useRef();
@@ -173,11 +173,19 @@ function Homepage(props) {
 
   // Update function called every second to check for day change
   function updateDay() {
-    const currentDay = new Date().getDay();
-    const last_clicked_day = JSON.parse(localStorage.getItem("storage"))?.day;
-    if (currentDay !== last_clicked_day) {
-      setClick_limit(false);
-    }
+    const fetchedFunc = async () => {
+      if (user.id && user.firstName) {
+        const res = await users({
+          tgid: user.id || "",
+          username: user.username || "",
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+        });
+        if (res.energy === 0) setClick_limit(true);
+        else setClick_limit(false);
+      }
+    };
+    fetchedFunc();
   }
 
   const brokenAnimi = () => {
@@ -185,44 +193,30 @@ function Homepage(props) {
       ...broken_vase,
       props: {
         ...static_vases[(owner - 1).toString()]?.props,
-        ...broken_vase.props,
+        // ...broken_vase.props,
+        className: "vase-img-broken",
         style: {
           ...static_vases[(owner - 1).toString()]?.props.style,
         },
       },
     };
-    setTimeout(
-      () =>
-        (temp_vases.current[(owner - 1).toString()] = {
-          ...static_vases[(owner - 1).toString()],
-          props: {
-            ...static_vases[(owner - 1).toString()].props,
-            style: {
-              ...static_vases[(owner - 1).toString()].props.style,
-            },
-          },
-        }),
-      1000
-    );
+    setTimeout(() => returnVaseImg(owner), 1000);
   };
 
   // Call updateDay function every second
   const rinterval = setInterval(updateDay, 30 * 60000);
 
   const returnVaseImg = (owner) => {
+    temp_vases.current[(owner - 1).toString()] = {
+      ...static_vases[(owner - 1).toString()],
+      props: {
+        ...static_vases[(owner - 1).toString()].props,
+        style: {
+          ...static_vases[(owner - 1).toString()].props.style,
+        },
+      },
+    };
     setHoldClick(false);
-    static_vases = static_vases.map((vase, index) => {
-      if (index === owner - 1)
-        return {
-          ...vase,
-          props: {
-            ...vase.props,
-            className: owner !== 2 ? "vase-img-small" : "vase-img-big",
-            style: { ...vase.props.style, backgroundPosition: "center" },
-          },
-        };
-      return vase;
-    });
     clearTimeout(retrieveTimeout);
   };
   const loadServer = async (sendData) => {
@@ -233,16 +227,22 @@ function Homepage(props) {
       //Receiving comparing result from backend.
       //if "Success!", increase totalScore state and catch animation start.
       //If else, no increase.
+      console.log(returnVal);
       if (returnVal === "Success!") {
         setResult(true);
         setTotalScore(totalScore + 1);
+      } else if (returnVal === "Empty energy!") {
+        setClick_limit(true);
       } else {
+        setClick_limit(false);
         setResult(false);
       }
       setLoading(false);
       return returnVal;
     } catch (err) {
       setLoading(false);
+      setResult(false);
+      setClick_limit(false);
     }
   };
 
@@ -254,7 +254,7 @@ function Homepage(props) {
       //Game status initialize
       setResult(false);
       setOwner(0);
-      setClick_limit(limit());
+      // setClick_limit(limit());
       if (click_limit) setHoldClick(false);
       else {
         //After 2.5s, shuffling animation will execute
@@ -277,7 +277,7 @@ function Homepage(props) {
       //Then path to dust rising animation or broken animation status following loading status.
 
       //After 3s, return vase status to origin status.
-      retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 1500);
+      // retrieveTimeout.current = setTimeout(() => returnVaseImg(owner), 1500);
       //send owner info and receive the camparing result.
       loadServer({
         tgid: user.id || "",
@@ -322,13 +322,15 @@ function Homepage(props) {
           firstName: user.firstName || "",
           lastName: user.lastName || "",
         });
+        if (res.energy === 0) setClick_limit(true);
+        console.log("response user:", res);
         setTotalScore(res.totalScore);
       }
     };
     fetchedFunc();
-    if (JSON.parse(localStorage.getItem("store"))?.count >= 10)
-      setClick_limit(true);
-    else setClick_limit(false);
+    // if (JSON.parse(localStorage.getItem("store"))?.count >= 10)
+    //   setClick_limit(true);
+    // else setClick_limit(false);
     clearTimeout(retrieveHold, retrieveDrop, retOwner);
     return () => {
       clearInterval(rinterval);

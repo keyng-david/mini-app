@@ -25,7 +25,6 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header
         className="reactmodal-header"
-        style={{ backgroundColor: "gray" }}
         onHide={props.onhide}
         closeButton
       >
@@ -33,7 +32,7 @@ function MyVerticallyCenteredModal(props) {
           {props.modaltitle}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="form-group reactmodal-body">
+      <Modal.Body className="reactmodal-body form-group">
         {props.okText === "Connect" ? (
           <input className="form-control" type="text" onKeyDown={handle} />
         ) : (
@@ -46,7 +45,7 @@ function MyVerticallyCenteredModal(props) {
         ) : (
           <></>
         )}
-        <Button onClick={props.onhide}>Close</Button>
+        <Button onClick={props.onhide}>Cancel</Button>
       </Modal.Footer>
     </Modal>
   );

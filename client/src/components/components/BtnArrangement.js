@@ -4,7 +4,7 @@ const BtnArrangement = () => {
     <div
       style={{
         display: "flex",
-        // width: "86vw",
+        width: "80vw",
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "rgb(18 18 18/80%)",

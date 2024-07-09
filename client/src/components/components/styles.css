@@ -31,5 +31,6 @@
 }
 
 [class^="reactmodal"] {
-  background-color: darkslategray;
+  background-color: rgb(21, 30, 39);
+  color: white;
 }
