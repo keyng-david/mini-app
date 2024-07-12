@@ -9,11 +9,39 @@ import "./earn.css";
 import BlackPage from "../blackpage/blackpage.js";
 import ReactModal from "@/components/components/ReactModal.js";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Earn = () => {
+  const tasklist = useSelector((state) => state.reducer.tasklist);
+  console.log({ tasklist });
+  const imgSelection = (type) => {
+    if (type === "Yutobe") {
+      return yutube;
+    } else if (type === "Telegram") {
+      return telegram;
+    } else if (type === "Tweeiter") {
+      return tweeiter;
+    } else {
+      return;
+    }
+  };
   return (
     <BlackPage mainImg={tokenImg} bigDes="Earn more coins" smallDes="">
-      <Itempack title="Tasks list">
+      {tasklist?.map((task) => (
+        <Itempack title="Tasks list">
+          <ReactModal
+            title={task.title}
+            content={task.value}
+            // okFunc={}
+          >
+            <Itemview header={imgSelection(task.type)} footer={rightArrow}>
+              <div className="itemview-body-top">{task.title}</div>
+              <div className="itemview-body-down">{task.value}</div>
+            </Itemview>
+          </ReactModal>
+        </Itempack>
+      ))}
+      {/* <Itempack title="Tasks list">
         <ReactModal
           title={"200M Hamster Kombat Oyuncusu"}
           content={"+100.000"}
@@ -40,7 +68,7 @@ const Earn = () => {
             <div className="itemview-body-down">+100.000</div>
           </Itemview>
         </ReactModal>
-      </Itempack>
+      </Itempack> */}
     </BlackPage>
   );
 };

@@ -82,6 +82,8 @@ import {
 import { routes } from "./components/navigation/routes";
 import LoadingPage from "./components/Loading";
 import BtnArrangement from "./components/BtnArrangement";
+import TelegramHolder from "./components/TelegramHolder/holder";
+import { useExpand } from "@vkruglikov/react-telegram-web-app";
 
 /**
  * @return {JSX.Element}
@@ -108,6 +110,7 @@ export function App() {
   // it and listen to its changes.
   const navigator = useMemo(() => initNavigator("app-navigation-state"), []);
   const [location, reactNavigator] = useIntegration(navigator);
+  // const [isExpand, expand] = useExpand();
 
   // Don't forget to attach the navigator to allow it to control the BackButton state as well
   // as browser history.
@@ -115,22 +118,26 @@ export function App() {
     navigator.attach();
     return () => navigator.detach();
   }, [navigator]);
+  // useEffect(() => {
+  //   expand();
+  // }, []);
 
   return (
     // <AppRoot appearance={"dark"}>
     // <AppRoot>
-    <Router location={location} navigator={reactNavigator}>
-      <LoadingPage>
-        <Routes>
-          {routes.map((route) => (
-            <Route key={route.path} {...route} />
-          ))}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-        <BtnArrangement />
-      </LoadingPage>
-    </Router>
-    // </AppRoot>
+    <TelegramHolder>
+      <Router location={location} navigator={reactNavigator}>
+        <LoadingPage>
+          <Routes>
+            {routes.map((route) => (
+              <Route key={route.path} {...route} />
+            ))}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <BtnArrangement />
+        </LoadingPage>
+      </Router>
+    </TelegramHolder>
   );
 }
 

@@ -7,16 +7,17 @@ import bonus1 from "../../assets/images/bonus1.png";
 import bonus2 from "../../assets/images/bonus2.png";
 import coin from "../../assets/images/bonus-coin.png";
 import { useInitData } from "@tma.js/sdk-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import "./invite.css";
 import ListComponent from "@/components/components/Listcomponent";
 import ReactModal from "@/components/components/ReactModal";
-import { Navigate } from "react-router-dom";
+import { users } from "../../api/loadaxiosFunc";
 
 const Invite = () => {
   const initData = useInitData();
   const [nav, setNav] = useState(false);
+  const [referral, setReferral] = useState([]);
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
@@ -33,6 +34,21 @@ const Invite = () => {
     //   console.log("copied : ", txt);
     // });
   };
+  useEffect(() => {
+    const fetchedFunc = async () => {
+      if (user.id && user.firstName) {
+        const res = await users({
+          tgid: user.id || "",
+          username: user.username || "",
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+        });
+        console.log("response user:", res);
+        setReferral([...res.referral]);
+      }
+    };
+    fetchedFunc();
+  }, []);
   return (
     <BlackPage
       bigDes="Invite friends!"
@@ -87,7 +103,7 @@ const Invite = () => {
         </Itemview>
       </ReactModal>
       <div className="invite-bonustext">More bonuses</div>
-      <ListComponent refIcon={<TfiReload />} />
+      <ListComponent refIcon={<TfiReload />} listContent={referral} />
 
       <div className="invite-btn-pack">
         {/* <div className="invite-btn-pack-btn"> */}

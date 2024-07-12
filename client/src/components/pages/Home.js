@@ -17,7 +17,10 @@ import { TfiSettings } from "react-icons/tfi";
 
 import "./styles.css";
 import ReactModal from "../components/ReactModal";
+import { useDispatch } from "react-redux";
+import { settings } from "../redux/slice";
 function Homepage(props) {
+  const dispatch = useDispatch();
   const [holdClick, setHoldClick] = useState(false);
   const [owner, setOwner] = useState(0);
   const [shuffling, setShuffling] = useState(false);
@@ -35,8 +38,9 @@ function Homepage(props) {
   let retOwner, retrieveDrop;
   let temp, retrieveHold;
 
-  const initData = useInitData();
+  const [task, setTask] = useState({});
 
+  const initData = useInitData();
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
@@ -364,7 +368,12 @@ function Homepage(props) {
       <div className="mask">
         <div className="panel">
           <div>
-            <ReactModal content={<Admin />} title="Setting" okText="Apply">
+            <ReactModal
+              content={<Admin task={task} setTask={setTask} />}
+              title="Setting"
+              okText="Apply"
+              okFunc={() => dispatch(settings(task))}
+            >
               <button className="btn">
                 <TfiSettings color="white" />
               </button>

@@ -2,6 +2,8 @@ import { SDKProvider, useLaunchParams } from "@tma.js/sdk-react";
 import { useEffect } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 /**
  * @param {unknown} error
@@ -39,7 +41,9 @@ function Inner() {
 
   return (
     <SDKProvider acceptCustomStyles debug={debug}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </SDKProvider>
   );
 }

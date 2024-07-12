@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const ListComponent = ({ refIcon }) => {
-  const [listContent, setListContent] = useState([]);
+const ListComponent = ({ refIcon, listContent }) => {
+  // const [listContent, setListContent] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = () => {
@@ -9,7 +9,7 @@ const ListComponent = ({ refIcon }) => {
 
     // Simulate fetching new list content
     setTimeout(() => {
-      setListContent([...new Array(5).fill("New Item")]);
+      // setListContent([...new Array(5).fill("New Item")]);
       setRefreshing(false);
     }, 1500);
   };
@@ -32,7 +32,9 @@ const ListComponent = ({ refIcon }) => {
         <div className={`invite-friendlist-list `}>
           {refreshing
             ? "Refreshing..."
-            : listContent.map((item, index) => <div key={index}>{item}</div>)}
+            : listContent
+            ? listContent.map((item, index) => <div key={index}>{item}</div>)
+            : "No Friends!"}
         </div>
       </div>
     </div>

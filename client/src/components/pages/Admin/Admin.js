@@ -1,4 +1,18 @@
-const Admin = () => {
+const Admin = ({ task, setTask }) => {
+  // const [task, setTask] = useState({ type: "", value: "", url: "" });
+  const setting = (e) => {
+    const target = e.target.id;
+    // console.log("target", target);
+    if (target === "type") {
+      setTask({ ...task, type: e.target.value });
+    } else if (target === "value") {
+      setTask({ ...task, value: e.target.value });
+    } else if (target === "url") {
+      setTask({ ...task, url: e.target.value });
+    } else if (target === "title") {
+      setTask({ ...task, title: e.target.value });
+    }
+  };
   return (
     <div>
       <Slide label="withdraw" />
@@ -8,14 +22,16 @@ const Admin = () => {
         <form className="form-group admin-task">
           <div>
             <div>Task type</div>
-            <select className="form-control">
+            <select className="form-control" id="type" onChange={setting}>
               <option value="apple">Yutube</option>
               <option value="banana">Tweeter</option>
               <option value="orange">Telegram</option>
             </select>
           </div>
           {/* <InputText label="task" /> */}
-          <InputText label="Task value" />
+          <InputText label="Task value" id="value" onChange={setting} />
+          <InputText label="Task title" id="title" onChange={setting} />
+          <InputText label="Task URL" id="url" onChange={setting} />
         </form>
       </div>
     </div>
@@ -39,7 +55,12 @@ const InputText = (props) => {
     <div>
       <div>{props.label}</div>
       <div>
-        <input className="form-control" type="text"></input>
+        <input
+          id={props.id}
+          className="form-control"
+          type="text"
+          onChange={props.onChange}
+        ></input>
       </div>
     </div>
   );
