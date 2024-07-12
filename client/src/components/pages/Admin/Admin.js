@@ -22,10 +22,16 @@ const Admin = ({ task, setTask }) => {
         <form className="form-group admin-task">
           <div>
             <div>Task type</div>
-            <select className="form-control" id="type" onChange={setting}>
-              <option value="apple">Yutube</option>
-              <option value="banana">Tweeter</option>
-              <option value="orange">Telegram</option>
+            <select
+              className="form-control"
+              id="type"
+              onClick={setting}
+              required
+            >
+              <option value="" style={{ visibility: "hidden" }}></option>
+              <option value="yutube">Yutube</option>
+              <option value="tweeter">Tweeter</option>
+              <option value="telegram">Telegram</option>
             </select>
           </div>
           {/* <InputText label="task" /> */}
@@ -60,6 +66,7 @@ const InputText = (props) => {
           className="form-control"
           type="text"
           onChange={props.onChange}
+          required
         ></input>
       </div>
     </div>

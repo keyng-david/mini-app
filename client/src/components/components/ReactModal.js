@@ -16,6 +16,10 @@ function MyVerticallyCenteredModal(props) {
       setText(text + e.key);
     }
   };
+  const handle_ok_button = () => {
+    props.modalok();
+    props.onhide();
+  };
   return (
     <Modal
       {...props}
@@ -41,7 +45,7 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Body>
       <Modal.Footer className="reactmodal-footer">
         {props.oktext ? (
-          <Button onClick={props.modalok}>{props.oktext}</Button>
+          <Button onClick={handle_ok_button}>{props.oktext}</Button>
         ) : (
           <></>
         )}

@@ -1,7 +1,13 @@
-.itempack {
+/* .itempack {
   display: flex;
   flex-direction: column;
   gap: 10px;
+} */
+.item-pack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3vw;
 }
 .itempack-title {
   font-size: 20px;
@@ -11,6 +17,7 @@
 .item-content {
   display: flex;
   flex-direction: column;
+  gap: 3vw;
 }
 
 .itemview {

@@ -12,35 +12,40 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Earn = () => {
-  const tasklist = useSelector((state) => state.reducer.tasklist);
+  const tasklist = useSelector((state) => state.tasks.tasklist);
   console.log({ tasklist });
   const imgSelection = (type) => {
-    if (type === "Yutobe") {
+    console.log({ type });
+    if (type === "yutube") {
       return yutube;
-    } else if (type === "Telegram") {
+    } else if (type === "telegram") {
       return telegram;
-    } else if (type === "Tweeiter") {
+    } else if (type === "tweeiter") {
       return tweeiter;
     } else {
       return;
     }
   };
+  const taskUrlLink = (url) => {
+    window.location.href = url;
+  };
   return (
     <BlackPage mainImg={tokenImg} bigDes="Earn more coins" smallDes="">
-      {tasklist?.map((task) => (
-        <Itempack title="Tasks list">
+      <Itempack title="Tasks list">
+        {tasklist?.map((task) => (
           <ReactModal
             title={task.title}
             content={task.value}
-            // okFunc={}
+            okFunc={taskUrlLink}
+            okText="Check"
           >
             <Itemview header={imgSelection(task.type)} footer={rightArrow}>
               <div className="itemview-body-top">{task.title}</div>
               <div className="itemview-body-down">{task.value}</div>
             </Itemview>
           </ReactModal>
-        </Itempack>
-      ))}
+        ))}
+      </Itempack>
       {/* <Itempack title="Tasks list">
         <ReactModal
           title={"200M Hamster Kombat Oyuncusu"}
