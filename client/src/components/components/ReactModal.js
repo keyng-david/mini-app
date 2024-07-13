@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React, { useEffect, useState } from "react";
 
-function MyVerticallyCenteredModal(props) {
+function MyVerticallyCenteredModal({ modalOk, ...props }) {
   const [text, setText] = useState(props.modalContent);
   const handle = (e) => {
     if (e.key === "Enter") {
@@ -17,8 +17,8 @@ function MyVerticallyCenteredModal(props) {
     }
   };
   const handle_ok_button = () => {
-    props.modalok();
-    props.onhide();
+    modalOk();
+    props.onHide();
   };
   return (
     <Modal
@@ -40,7 +40,7 @@ function MyVerticallyCenteredModal(props) {
         {props.okText === "Connect" ? (
           <input className="form-control" type="text" onKeyDown={handle} />
         ) : (
-          <p>{props.modalcontent}</p>
+          <div>{props.modalcontent}</div>
         )}
       </Modal.Body>
       <Modal.Footer className="reactmodal-footer">
@@ -59,7 +59,7 @@ function ReactModal({ children, title, content, okFunc, okText, ...props }) {
   const [modalShow, setModalShow] = React.useState(false);
   const clickFunction = () => {
     setModalShow(true);
-    props?.paste();
+    props?.paste?.();
   };
 
   return (
@@ -71,10 +71,10 @@ function ReactModal({ children, title, content, okFunc, okText, ...props }) {
 
       <MyVerticallyCenteredModal
         show={modalShow}
-        onhide={() => setModalShow(false)}
+        onHide={() => setModalShow(false)}
         modaltitle={title}
         modalcontent={content}
-        modalok={okFunc}
+        modalOk={okFunc}
         oktext={okText}
         onClose={() => setModalShow(false)}
       />

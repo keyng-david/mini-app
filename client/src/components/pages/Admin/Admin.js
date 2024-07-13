@@ -1,16 +1,17 @@
 const Admin = ({ task, setTask }) => {
   // const [task, setTask] = useState({ type: "", value: "", url: "" });
+
   const setting = (e) => {
     const target = e.target.id;
     // console.log("target", target);
     if (target === "type") {
       setTask({ ...task, type: e.target.value });
-    } else if (target === "value") {
-      setTask({ ...task, value: e.target.value });
     } else if (target === "url") {
       setTask({ ...task, url: e.target.value });
     } else if (target === "title") {
       setTask({ ...task, title: e.target.value });
+    } else if (target === "earn") {
+      setTask({ ...task, earn: e.target.value });
     }
   };
   return (
@@ -35,9 +36,9 @@ const Admin = ({ task, setTask }) => {
             </select>
           </div>
           {/* <InputText label="task" /> */}
-          <InputText label="Task value" id="value" onChange={setting} />
           <InputText label="Task title" id="title" onChange={setting} />
           <InputText label="Task URL" id="url" onChange={setting} />
+          <InputText label="Task Earning" id="earn" onChange={setting} />
         </form>
       </div>
     </div>

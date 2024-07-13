@@ -18,7 +18,7 @@ import { TfiSettings } from "react-icons/tfi";
 import "./styles.css";
 import ReactModal from "../components/ReactModal";
 import { useDispatch } from "react-redux";
-import { settings } from "../redux/slice";
+import { createTask } from "../redux/slice";
 function Homepage(props) {
   const dispatch = useDispatch();
   const [holdClick, setHoldClick] = useState(false);
@@ -372,7 +372,7 @@ function Homepage(props) {
               content={<Admin task={task} setTask={setTask} />}
               title="Setting"
               okText="Apply"
-              okFunc={() => dispatch(settings(task))}
+              okFunc={() => dispatch(createTask({ tgid: user.id, task }))}
             >
               <button className="btn">
                 <TfiSettings color="white" />

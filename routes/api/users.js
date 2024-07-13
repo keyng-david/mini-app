@@ -66,8 +66,8 @@ router.post(
   },
   async (req) => {
     const { tgid, referrer } = req.body;
-    const user = await User.findOne({tgid: referrer});
-    if(!user){
+    const user = await User.findOne({ tgid: referrer });
+    if (!user) {
       console.log("there is not referrer");
       return;
     }

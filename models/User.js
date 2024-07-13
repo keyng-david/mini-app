@@ -49,7 +49,7 @@ const UserSchema = new mongoose.Schema({
   },
   referral: {
     type: Array,
-    default:[]
+    default: [],
   },
 });
 

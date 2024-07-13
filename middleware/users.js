@@ -229,10 +229,10 @@ async function checkWalletAddress(req, res, next) {
   try {
     const balance = await checkToContract(walletAddress);
     console.log("wallet balance: ", balance);
-    if(balance >= 0){
+    if (balance >= 0) {
       // res.status(200).send("Success!, check wallet address");
       next();
-    } else{
+    } else {
       throw "no balance";
     }
   } catch (err) {
@@ -241,5 +241,24 @@ async function checkWalletAddress(req, res, next) {
     return;
   }
 }
+
+// async function checkTask(req, res, next) {
+//   const { tgid, task } = req.body;
+//   console.log("check task: ", tgid, task);
+//   try {
+//     const balance = await checkToContract(task);
+//     console.log("wallet balance: ", balance);
+//     if(balance >= 0){
+//       // res.status(200).send("Success!, check wallet address");
+//       next();
+//     } else{
+//       throw "no balance";
+//     }
+//   } catch (err) {
+//     console.error("failed check wallet address", err);
+//     res.status(400).send("failed check wallet address");
+//     return;
+//   }
+// }
 
 module.exports = { checkWalletAddress };

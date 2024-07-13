@@ -31,7 +31,7 @@ const Invite = () => {
     } else {
       document.execCommand("copy", true, url);
     }
-    console.log(WebAppChat);
+    // console.log(WebAppChat);
     // console.log(Clipboard);
     // navigator.clipboard.writeText(url).then((txt) => {
     //   console.log("copied : ", txt);
