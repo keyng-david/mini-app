@@ -4,7 +4,7 @@ const message = `Help!!!
 ............................................................................`;
 
 const keyboard = Markup.inlineKeyboard([
-  [Markup.button.webApp("Play game", process.env.MINI_WEB_APP_URL!)],
+  [Markup.button.webApp("Play Game", process.env.MINI_WEB_APP_URL!)],
   [Markup.button.callback("How to earn from the game", "howto")],
 ]).reply_markup;
 

@@ -27,10 +27,16 @@ const Wallet = () => {
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
+  // const readText = useReadTextFromClipboard();
+
+  // readText().then(console.log);
+
   const handlepaste = (e) => {
     // navigator.clipboard.readText().then((text) => {
     //   setText(text);
     // });
+    // const Yahoo = useReadTextFromClipboard();
+    // console.log({ Yahoo });
   };
   const connetWallet = async () => {
     try {

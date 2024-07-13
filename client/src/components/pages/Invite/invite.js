@@ -13,23 +13,26 @@ import "./invite.css";
 import ListComponent from "@/components/components/Listcomponent";
 import ReactModal from "@/components/components/ReactModal";
 import { users } from "../../api/loadaxiosFunc";
-
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+// import { useWebAppChat } from "@/components/hooks/telegram";
 const Invite = () => {
   const initData = useInitData();
-  const [nav, setNav] = useState(false);
   const [referral, setReferral] = useState([]);
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
 
   const inviteUrl = `https://t.me/amarna_shell_game_bot?start=r_${user.id}`;
+  const contactUrl = `https://web.telegram.org/a/#${user.id}`;
   // const shotenUrl = "https://bit.ly/3xzKDs8";
   const copyUrl = async (url) => {
-    if ("clipboard" in navigator) {
+    if (navigator.clipboard) {
       await navigator.clipboard.writeText(url);
     } else {
       document.execCommand("copy", true, url);
     }
+    console.log(WebAppChat);
+    // console.log(Clipboard);
     // navigator.clipboard.writeText(url).then((txt) => {
     //   console.log("copied : ", txt);
     // });
@@ -78,6 +81,7 @@ const Invite = () => {
           </div>
         </Itemview>
       </ReactModal>
+      <MainButton />
       <ReactModal
         title={"Invite a friend with Telegram Premium"}
         content={"+25,000"}
@@ -107,7 +111,7 @@ const Invite = () => {
 
       <div className="invite-btn-pack">
         {/* <div className="invite-btn-pack-btn"> */}
-        <a className="invite-btn-pack-btn" href={inviteUrl}>
+        <a className="invite-btn-pack-btn" href={contactUrl}>
           <div className="invite-btn-pack-btn-text">Invite a friend</div>
           <div className="invite-btn-pack-btn-img">
             <PiUserCirclePlusBold />

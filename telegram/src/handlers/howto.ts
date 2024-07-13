@@ -4,7 +4,7 @@ const message = `How to earn!!!
 ............................................................................`;
 
 const keyboard = Markup.inlineKeyboard([
-  [Markup.button.webApp("Play game", process.env.MINI_WEB_APP_URL!)],
+  [Markup.button.webApp("Play Game", process.env.MINI_WEB_APP_URL!)],
 ]).reply_markup;
 
 const howto = (ctx: Context) => {
