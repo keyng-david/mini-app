@@ -13,21 +13,33 @@ import "./invite.css";
 import ListComponent from "@/components/components/Listcomponent";
 import ReactModal from "@/components/components/ReactModal";
 import { users } from "../../api/loadaxiosFunc";
-import { MainButton } from "@vkruglikov/react-telegram-web-app";
-// import { useWebAppChat } from "@/components/hooks/telegram";
+
 const Invite = () => {
   const initData = useInitData();
   const [referral, setReferral] = useState([]);
   const user = useMemo(() => {
     return initData && initData.user ? initData.user : "unknown";
   });
+  const hash = useMemo(() =>
+    initData && initData.hash ? initData.hash : "unknown"
+  );
 
   const inviteUrl = `https://t.me/amarna_shell_game_bot?start=r_${user.id}`;
   const contactUrl = `https://web.telegram.org/a/#${user.id}`;
-  // const shotenUrl = "https://bit.ly/3xzKDs8";
+  const testUrl = `http://t.me/share/${
+    user.username
+  }?url=${inviteUrl}&text=${"Please visit this funnest mini app. You will get the big profit and pleasure from here"}`;
+  // const shotenUrl = "https://bit.ly/3xzKDs8";http://t.me/${user.username}/${user.id}
   const copyUrl = async (url) => {
     if (navigator.clipboard) {
-      await navigator.clipboard.writeText(url);
+      const data = [
+        new ClipboardItem({
+          "text/plain": new Blob([url], { type: "text/plain" }),
+          "text/html": new Blob([url], { type: "text/html" }),
+        }),
+      ];
+      navigator.clipboard.write(data);
+      console.log();
     } else {
       document.execCommand("copy", true, url);
     }
@@ -81,7 +93,6 @@ const Invite = () => {
           </div>
         </Itemview>
       </ReactModal>
-      <MainButton />
       <ReactModal
         title={"Invite a friend with Telegram Premium"}
         content={"+25,000"}
@@ -111,7 +122,7 @@ const Invite = () => {
 
       <div className="invite-btn-pack">
         {/* <div className="invite-btn-pack-btn"> */}
-        <a className="invite-btn-pack-btn" href={contactUrl}>
+        <a className="invite-btn-pack-btn" href={testUrl}>
           <div className="invite-btn-pack-btn-text">Invite a friend</div>
           <div className="invite-btn-pack-btn-img">
             <PiUserCirclePlusBold />

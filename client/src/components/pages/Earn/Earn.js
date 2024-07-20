@@ -13,10 +13,12 @@ import ReactModal from "@/components/components/ReactModal.js";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks } from "@/components/redux/slice.js";
+import { saveEarnUrl } from "@/components/api/loadaxiosFunc.js";
 
 const Earn = () => {
   const dispatch = useDispatch();
   const tasklist = useSelector((state) => state.tasks.tasklist);
+
   console.log({ tasklist });
   const imgSelection = (type) => {
     console.log({ type });
@@ -30,57 +32,75 @@ const Earn = () => {
       return;
     }
   };
-  const taskUrlLink = (url) => {
-    window.location.href = url;
+  const taskUrlLink = (url, earn) => {
+    // window.location.href = url;
+    console.log({ url, earn });
+    saveEarnUrl({ url, earn });
+    open(url);
   };
   useEffect(() => {
     dispatch(fetchTasks());
   }, []);
+
   return (
     <BlackPage mainImg={tokenImg} bigDes="Earn more coins" smallDes="">
-      <Itempack title="Tasks list">
-        {tasklist?.map((task) => (
-          <ReactModal
-            title={task.title}
-            content={task.value}
-            okFunc={taskUrlLink}
-            okText="Check"
-          >
-            <Itemview header={imgSelection(task.type)} footer={rightArrow}>
-              <div className="itemview-body-top">{task.title}</div>
-              <div className="itemview-body-down">{task.value}</div>
-            </Itemview>
-          </ReactModal>
-        ))}
+      <Itempack title="Yutube list">
+        {tasklist?.map((task) => {
+          if (task.type == "yutube") {
+            return (
+              <ReactModal
+                title={task.title}
+                content={task.value}
+                okFunc={() => taskUrlLink(task.url, task.earn)}
+                okText="Check"
+              >
+                <Itemview header={imgSelection(task.type)} footer={rightArrow}>
+                  <div className="itemview-body-top">{task.title}</div>
+                  <div className="itemview-body-down">{task.earn}</div>
+                </Itemview>
+              </ReactModal>
+            );
+          }
+        })}
       </Itempack>
-      {/* <Itempack title="Tasks list">
-        <ReactModal
-          title={"200M Hamster Kombat Oyuncusu"}
-          content={"+100.000"}
-          // okFunc={}
-        >
-          <Itemview header={yutube} footer={rightArrow}>
-            <div className="itemview-body-top">
-              200M Hamster Kombat Oyuncusu
-            </div>
-            <div className="itemview-body-down">+100.000</div>
-          </Itemview>
-        </ReactModal>
+      <Itempack title="Telegram list">
+        {tasklist?.map((task) => {
+          if (task.type == "telegram") {
+            return (
+              <ReactModal
+                title={task.title}
+                content={task.value}
+                okFunc={() => taskUrlLink(task.url, task.earn)}
+                okText="Check"
+              >
+                <Itemview header={imgSelection(task.type)} footer={rightArrow}>
+                  <div className="itemview-body-top">{task.title}</div>
+                  <div className="itemview-body-down">{task.earn}</div>
+                </Itemview>
+              </ReactModal>
+            );
+          }
+        })}
       </Itempack>
-      <Itempack title="Tasks list">
-        <ReactModal
-          title={"200M Hamster Kombat Oyuncusu"}
-          content={"+100.000"}
-          // okFunc={}
-        >
-          <Itemview header={calender} footer={rightArrow}>
-            <div className="itemview-body-top">
-              200M Hamster Kombat Oyuncusu
-            </div>
-            <div className="itemview-body-down">+100.000</div>
-          </Itemview>
-        </ReactModal>
-      </Itempack> */}
+      <Itempack title="Tweeter list">
+        {tasklist?.map((task) => {
+          if (task.type == "tweeter") {
+            return (
+              <ReactModal
+                title={task.title}
+                content={task.value}
+                okFunc={() => taskUrlLink(task.url, task.earn)}
+                okText="Check"
+              >
+                <Itemview header={imgSelection(task.type)} footer={rightArrow}>
+                  <div className="itemview-body-top">{task.title}</div>
+                  <div className="itemview-body-down">{task.earn}</div>
+                </Itemview>
+              </ReactModal>
+            );
+          }
+        })}
+      </Itempack>
     </BlackPage>
   );
 };

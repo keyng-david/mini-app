@@ -48,6 +48,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(dirname(fileURLToPath(import.meta.url)), "./src"),
+      // "react-native": "react-native-webView",
     },
   },
 });

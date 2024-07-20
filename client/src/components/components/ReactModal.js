@@ -18,7 +18,10 @@ function MyVerticallyCenteredModal({ modalOk, ...props }) {
   };
   const handle_ok_button = () => {
     modalOk();
-    props.onHide();
+    props.onClose();
+  };
+  const handleClose = () => {
+    props.onClose();
   };
   return (
     <Modal
@@ -29,7 +32,7 @@ function MyVerticallyCenteredModal({ modalOk, ...props }) {
     >
       <Modal.Header
         className="reactmodal-header"
-        onHide={props.onhide}
+        onHide={props.onClose}
         closeButton
       >
         <Modal.Title id="contained-modal-title-vcenter">
@@ -49,7 +52,7 @@ function MyVerticallyCenteredModal({ modalOk, ...props }) {
         ) : (
           <></>
         )}
-        <Button onClick={props.onhide}>Cancel</Button>
+        <Button onClick={handleClose}>Cancel</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -71,7 +74,6 @@ function ReactModal({ children, title, content, okFunc, okText, ...props }) {
 
       <MyVerticallyCenteredModal
         show={modalShow}
-        onHide={() => setModalShow(false)}
         modaltitle={title}
         modalcontent={content}
         modalOk={okFunc}

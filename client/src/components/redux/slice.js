@@ -10,19 +10,20 @@
 //   name: "reducer",
 //   initialState,
 //   reducers: {
-//     taskFetch: async (state) => {
+//     fetchTasks: async (state) => {
 //       try {
 //         const response = await axios.get(`${api}/task`);
-//         // state.tasklist = response.data;
+//         console.log(response.data, "sssssssssssssssss");
+//         state.tasklist = response.data;
 //         console.log(state.tasklist);
+//         return state;
 //         console.log("success!", response);
-//         // return { tasklist: [...response.data] };
 //       } catch (err) {
 //         console.error(err);
 //       }
 //       // state.tasklist = [...]
 //     },
-//     taskCreate: async (state, action) => {
+//     createTask: async (state, action) => {
 //       try {
 //         const response = await axios.post(`${api}/task`, action.payload, {
 //           headers: {
@@ -38,7 +39,7 @@
 //   },
 // });
 
-// export const { taskCreate, taskFetch } = taskSlice.actions;
+// export const { createTask, fetchTasks } = taskSlice.actions;
 // export default taskSlice.reducer;
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";

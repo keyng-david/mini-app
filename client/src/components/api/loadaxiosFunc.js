@@ -62,3 +62,16 @@ export const fetchAddress = async (data) => {
     return res.data;
   }
 };
+
+export const saveEarnUrl = async (data) => {
+  try {
+    const response = await axios.post(`${api}/task/url`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

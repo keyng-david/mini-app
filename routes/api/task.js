@@ -31,6 +31,31 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// @route    POST api/play
+// @desc     Play Game
+router.post("/url", async (req, res, next) => {
+  console.log("Task complete!");
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { url, earn } = req.body;
+  console.log({ url, earn });
+  try {
+    const response = await Task.findOneAndUpdate(
+      { url },
+      { $inc: { earn } },
+      { new: true, upsert: true }
+    );
+
+    return res.status(200).json({ response });
+    //   next();
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+});
+
 // @route    GET api/play/user/:user_id
 // @desc     Get play info by user ID
 // @access   Public

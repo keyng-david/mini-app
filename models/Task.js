@@ -17,6 +17,7 @@ const TaskSchema = new mongoose.Schema({
   url: {
     type: String,
     required: true,
+    unique: true,
   },
   date: {
     type: Date,
