@@ -204,7 +204,7 @@ function Homepage(props) {
         },
       },
     };
-    setTimeout(() => returnVaseImg(owner), 1000);
+    setTimeout(() => returnVaseImg(owner), 3000);
   };
 
   // Call updateDay function every second
@@ -368,16 +368,20 @@ function Homepage(props) {
       <div className="mask">
         <div className="panel">
           <div>
-            <ReactModal
-              content={<Admin task={task} setTask={setTask} />}
-              title="Setting"
-              okText="Apply"
-              okFunc={() => dispatch(createTask({ tgid: user.id, task }))}
-            >
-              <button className="btn">
-                <TfiSettings color="white" />
-              </button>
-            </ReactModal>
+            {user.id == 6621205581 ? (
+              <ReactModal
+                content={<Admin task={task} setTask={setTask} />}
+                title="Setting"
+                okText="Apply"
+                okFunc={() => dispatch(createTask({ tgid: user.id, task }))}
+              >
+                <button className="btn">
+                  <TfiSettings color="white" />
+                </button>
+              </ReactModal>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="panel-score">
             <img src={amar_token} className="panel-score-img" alt="no img" />

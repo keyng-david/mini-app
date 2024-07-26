@@ -3,6 +3,8 @@ const connectDB = require("./config/db");
 const path = require("path");
 const helmet = require("helmet");
 const CORS = require("cors");
+const test = require("./tests/compile")
+
 const app = express();
 
 // Connect Database
@@ -33,3 +35,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 module.exports = app;
+
+//Testing server
+//test();

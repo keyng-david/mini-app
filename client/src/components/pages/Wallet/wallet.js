@@ -78,7 +78,11 @@ const Wallet = () => {
       <Itempack title="Tasks list">
         <ReactModal
           title={"Connect Wallet"}
-          content={text}
+          content={
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <input />
+            </div>
+          }
           okFunc={connetWallet}
           paste={handlepaste}
           okText="Connect"

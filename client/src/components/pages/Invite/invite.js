@@ -26,9 +26,8 @@ const Invite = () => {
 
   const inviteUrl = `https://t.me/amarna_shell_game_bot?start=r_${user.id}`;
   const contactUrl = `https://web.telegram.org/a/#${user.id}`;
-  const testUrl = `http://t.me/share/${
-    user.username
-  }?url=${inviteUrl}&text=${"Please visit this funnest mini app. You will get the big profit and pleasure from here"}`;
+  const testUrl = `https://t.me/share/${user.username}?url=${inviteUrl}&text=dhjg`; //&url=${inviteUrl}&text=${"Please visit this funnest mini app. You will get the big profit and pleasure from here"}`;
+  // const testUrl = `tg://resolve?domain=${user.username}`;
   // const shotenUrl = "https://bit.ly/3xzKDs8";http://t.me/${user.username}/${user.id}
   const copyUrl = async (url) => {
     if (navigator.clipboard) {
@@ -69,54 +68,40 @@ const Invite = () => {
       bigDes="Invite friends!"
       smallDes="You and your friends will be receive bonuses"
     >
-      <ReactModal
-        title={"Invite a friend"}
-        content={"+5,000"}
-        okText="Reward"
-        // okFunc={}
+      <Itemview
+        header={bonus1}
+        //   footer={}
+        backgroundColor="rgb(39, 42, 47)"
       >
-        <Itemview
-          header={bonus1}
-          //   footer={}
-          backgroundColor="rgb(39, 42, 47)"
-        >
-          <div className="invite-itemview">
-            <div>Invite a friend</div>
-            <div className="invite-itemview-bottom">
-              <div></div>
-              <div className="invite-itemview-bottom-coin">
-                <img className="invite-itemview-bottom-coin-img" src={coin} />
-              </div>
-              <div className="invite-itemview-bottom-score">+5,000</div>
-              <div>for you and your friend</div>
+        <div className="invite-itemview">
+          <div>Invite a friend</div>
+          <div className="invite-itemview-bottom">
+            <div></div>
+            <div className="invite-itemview-bottom-coin">
+              <img className="invite-itemview-bottom-coin-img" src={coin} />
             </div>
+            <div className="invite-itemview-bottom-score">+5,000</div>
+            <div>for you and your friend</div>
           </div>
-        </Itemview>
-      </ReactModal>
-      <ReactModal
-        title={"Invite a friend with Telegram Premium"}
-        content={"+25,000"}
-        okText="Reward"
-        // okFunc={}
+        </div>
+      </Itemview>
+      <Itemview
+        header={bonus2}
+        //   footer={}
+        backgroundColor="rgb(39, 42, 47)"
       >
-        <Itemview
-          header={bonus2}
-          //   footer={}
-          backgroundColor="rgb(39, 42, 47)"
-        >
-          <div className="invite-itemview">
-            <div>Invite a friend with Telegram Premium</div>
-            <div className="invite-itemview-bottom">
-              <div></div>
-              <div className="invite-itemview-bottom-coin">
-                <img className="invite-itemview-bottom-coin-img" src={coin} />
-              </div>
-              <div className="invite-itemview-bottom-score">+25,000</div>
-              <div>for you and your friend</div>
+        <div className="invite-itemview">
+          <div>Invite a friend with Telegram Premium</div>
+          <div className="invite-itemview-bottom">
+            <div></div>
+            <div className="invite-itemview-bottom-coin">
+              <img className="invite-itemview-bottom-coin-img" src={coin} />
             </div>
+            <div className="invite-itemview-bottom-score">+25,000</div>
+            <div>for you and your friend</div>
           </div>
-        </Itemview>
-      </ReactModal>
+        </div>
+      </Itemview>
       <div className="invite-bonustext">More bonuses</div>
       <ListComponent refIcon={<TfiReload />} listContent={referral} />
 
